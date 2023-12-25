@@ -29,7 +29,7 @@ class Product {
 
     public void decreaseQuantity(int amount) {
         if (amount > 0 && amount <= quantity) {
-            quantity -= amount;
+            quantity -= amount; // quantity = quantity - amount;
         } else {
             System.out.println("Invalid quantity. Please try again.");
         }
