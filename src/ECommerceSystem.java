@@ -14,6 +14,7 @@ public class ECommerceSystem {
         Scanner userInput = new Scanner(System.in);
 
         while (true) {
+            System.out.println("\nWelcome to the E-Commerce System!");
             System.out.println("1. Login");
             System.out.println("2. Register");
             System.out.println("3. Exit");
@@ -21,31 +22,31 @@ public class ECommerceSystem {
             int choice = userInput.nextInt();
 
             switch (choice) {
-                case 1:
+                case 1: // For User Login
                     login(userInput);
                     break;
-                case 2:
+                case 2: // For User Registration
                     register(userInput);
                     break;
-                case 3:
+                case 3: // For User Exit
                     System.out.println("Exiting the system. Goodbye!");
                     System.exit(0);
-                default:
+                default: // For Invalid Choice
                     System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
-    private static void login(Scanner scanner) {
+    private static void login(Scanner userInput) {
         System.out.print("Enter your username: ");
-        String username = scanner.next();
+        String username = userInput.next();
         System.out.print("Enter your password: ");
-        String password = scanner.next();
+        String password = userInput.next();
 
         for (User user : users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 currentUser = user;
-                showMainMenu(scanner);
+                showMainMenu(userInput);
                 return;
             }
         }
@@ -53,9 +54,9 @@ public class ECommerceSystem {
         System.out.println("Invalid username or password. Please try again.");
     }
 
-    private static void register(Scanner scanner) {
+    private static void register(Scanner userInput) {
         System.out.print("Enter a new username: ");
-        String newUsername = scanner.next();
+        String newUsername = userInput.next();
 
         for (User user : users) {
             if (user.getUsername().equals(newUsername)) {
@@ -65,12 +66,12 @@ public class ECommerceSystem {
         }
 
         System.out.print("Enter a password: ");
-        String newPassword = scanner.next();
+        String newPassword = userInput.next();
         users.add(new User(newUsername, newPassword));
         System.out.println("Registration successful. You can now log in.");
     }
 
-    private static void showMainMenu(Scanner scanner) {
+    private static void showMainMenu(Scanner userInput) {
         while (true) {
             System.out.println("\nMain Menu");
             System.out.println("1. View Products");
@@ -78,19 +79,19 @@ public class ECommerceSystem {
             System.out.println("3. Checkout");
             System.out.println("4. Logout");
             System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
+            int choice = userInput.nextInt();
 
             switch (choice) {
-                case 1:
+                case 1: // For Viewing Products
                     displayProducts();
                     break;
-                case 2:
-                    viewCart(scanner);
+                case 2: // For Viewing Cart
+                    viewCart(userInput);
                     break;
-                case 3:
-                    checkout(scanner);
+                case 3: // For Checkout
+                    checkout(userInput);
                     break;
-                case 4:
+                case 4: // For Logout
                     currentUser = null;
                     System.out.println("Logged out successfully.");
                     return;
@@ -111,7 +112,7 @@ public class ECommerceSystem {
         }
     }
 
-    private static void viewCart(Scanner scanner) {
+    private static void viewCart(Scanner userInput) {
         System.out.println("\nItems in your cart:");
         List<Product> cartItems = currentUser.getShoppingCart().getCartItems();
         for (int i = 0; i < cartItems.size(); i++) {
@@ -125,11 +126,11 @@ public class ECommerceSystem {
         System.out.println("2. Clear cart");
         System.out.println("3. Go back");
         System.out.print("Choose an option: ");
-        int choice = scanner.nextInt();
+        int choice = userInput.nextInt();
 
         switch (choice) {
             case 1:
-                removeItemFromCart(scanner);
+                removeItemFromCart(userInput);
                 break;
             case 2:
                 currentUser.getShoppingCart().clearCart();
@@ -142,10 +143,10 @@ public class ECommerceSystem {
         }
     }
 
-    private static void removeItemFromCart(Scanner scanner) {
+    private static void removeItemFromCart(Scanner userInput) {
         List<Product> cartItems = currentUser.getShoppingCart().getCartItems();
         System.out.print("Enter the number of the item to remove: ");
-        int itemNumber = scanner.nextInt();
+        int itemNumber = userInput.nextInt();
 
         if (itemNumber > 0 && itemNumber <= cartItems.size()) {
             Product removedProduct = cartItems.get(itemNumber - 1);
@@ -161,7 +162,7 @@ public class ECommerceSystem {
         }
     }
 
-    private static void checkout(Scanner scanner) {
+    private static void checkout(Scanner userInput) {
         List<Product> cartItems = currentUser.getShoppingCart().getCartItems();
 
         if (cartItems.isEmpty()) {
@@ -181,7 +182,7 @@ public class ECommerceSystem {
         System.out.println("1. Confirm and place order");
         System.out.println("2. Cancel and go back");
         System.out.print("Choose an option: ");
-        int choice = scanner.nextInt();
+        int choice = userInput.nextInt();
 
         switch (choice) {
             case 1:
