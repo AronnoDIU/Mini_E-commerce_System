@@ -65,6 +65,7 @@
       <updated>1703489576801</updated>
       <workItem from="1703489577807" duration="695000" />
       <workItem from="1703505663327" duration="533000" />
+      <workItem from="1703506457555" duration="130000" />
     </task>
     <task id="LOCAL-00001" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -82,7 +83,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703506171758</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1703506578276</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703506578276</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
