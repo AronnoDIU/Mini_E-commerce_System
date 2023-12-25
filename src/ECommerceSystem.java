@@ -11,21 +11,21 @@ public class ECommerceSystem {
         users.add(new User("user1", "pass1"));
         users.add(new User("user2", "pass2"));
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner userInput = new Scanner(System.in);
 
         while (true) {
             System.out.println("1. Login");
             System.out.println("2. Register");
             System.out.println("3. Exit");
             System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
+            int choice = userInput.nextInt();
 
             switch (choice) {
                 case 1:
-                    login(scanner);
+                    login(userInput);
                     break;
                 case 2:
-                    register(scanner);
+                    register(userInput);
                     break;
                 case 3:
                     System.out.println("Exiting the system. Goodbye!");
