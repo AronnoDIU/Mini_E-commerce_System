@@ -5,6 +5,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class FileManager {
+    private static final Logger logger = Logger.getLogger(FileManager.class.getName());
     private static final String DEFAULT_FILE_NAME = "data.txt";
 
     public static List<String> readFromFile() {
@@ -15,7 +16,7 @@ public class FileManager {
         try {
             return Files.readAllLines(Path.of(fileName));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error reading from file: " + e.getMessage());
             return null;
         }
     }
@@ -28,7 +29,7 @@ public class FileManager {
         try {
             Files.write(Path.of(fileName), lines, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error writing to file: " + e.getMessage());
         }
     }
 }

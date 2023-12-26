@@ -7,8 +7,8 @@ public class ECommerceSystem {
     private static final String USER_FILE = "users.txt";
     private static final String PRODUCT_FILE = "products.txt";
 
-    private List<User> users;
-    private List<Product> products;
+    private final List<User> users;
+    private final List<Product> products;
 
     public ECommerceSystem() {
         this.users = new ArrayList<>();
@@ -17,14 +17,12 @@ public class ECommerceSystem {
         loadProducts();
     }
 
-    // Methods for User Operations
-
-    public void addUser(User user) {
+    void addUser(User user) {
         users.add(user);
         saveUsersToFile();
     }
 
-    public User getUserByUsername(String username) {
+    User getUserByUsername(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 return user;
@@ -35,12 +33,12 @@ public class ECommerceSystem {
 
     // Methods for Product Operations
 
-    public void addProduct(Product product) {
+    void addProduct(Product product) {
         products.add(product);
         saveProductsToFile();
     }
 
-    public List<Product> getAllProducts() {
+    List<Product> getAllProducts() {
         return products;
     }
 
@@ -91,8 +89,6 @@ public class ECommerceSystem {
             System.err.println("Error writing product file: " + e.getMessage());
         }
     }
-
-    // Other methods for business logic can be added as needed
 
     public static void main(String[] args) {
         // Example usage of the ECommerceSystem class

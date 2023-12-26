@@ -3,12 +3,13 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notification {
+class Notification {
+    private static final Logger logger = Logger.getLogger(Notification.class.getName());
     private static final String NOTIFICATION_FILE = "notifications.txt";
 
     public static void sendNotification(String message) {
         String formattedNotification = getFormattedNotification(message);
-        System.out.println(formattedNotification); // For demonstration, you might want to use a proper notification system in a real project
+        System.out.println(formattedNotification);
         saveNotification(formattedNotification);
     }
 
@@ -20,8 +21,7 @@ public class Notification {
         try {
             Files.write(Path.of(NOTIFICATION_FILE), List.of(formattedNotification), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
-            // You might want to handle this more gracefully in a production scenario
+            logger.severe("Error writing notification to file: " + e.getMessage());
         }
     }
 
@@ -29,8 +29,7 @@ public class Notification {
         try {
             return Files.readAllLines(Path.of(NOTIFICATION_FILE));
         } catch (IOException e) {
-            e.printStackTrace();
-            // You might want to handle this more gracefully in a production scenario
+            logger.severe("Error reading notifications from file: " + e.getMessage());
             return new ArrayList<>();
         }
     }

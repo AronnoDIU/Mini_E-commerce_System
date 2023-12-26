@@ -3,12 +3,13 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Payment {
+class Payment {
+    private static final Logger logger = Logger.getLogger(Payment.class.getName());
     private static final String PAYMENTS_FILE = "payments.txt";
 
-    private String customerName;
-    private double amount;
-    private String paymentDate;
+    private final String customerName;
+    private final double amount;
+    private final String paymentDate;
 
     public Payment(String customerName, double amount, String paymentDate) {
         this.customerName = customerName;
@@ -38,8 +39,7 @@ public class Payment {
             lines.add(""); // Add a blank line to separate payments
             Files.write(Path.of(PAYMENTS_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
-            // You might want to handle this more gracefully in a production scenario
+            logger.severe("Error writing payment to file: " + e.getMessage());
         }
     }
 
@@ -71,8 +71,7 @@ public class Payment {
 
             return payments;
         } catch (IOException e) {
-            e.printStackTrace();
-            // You might want to handle this more gracefully in a production scenario
+            logger.severe("Error reading payments from file: " + e.getMessage());
             return new ArrayList<>();
         }
     }

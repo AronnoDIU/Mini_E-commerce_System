@@ -3,12 +3,13 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Category {
+class Category {
+    private static final Logger logger = Logger.getLogger(Category.class.getName());
     private static final String CATEGORY_FILE = "categories.txt";
 
-    private String name;
-    private String description;
-    private List<Product> products;
+    private final String name;
+    private final String description;
+    private final List<Product> products;
 
     public Category(String name, String description) {
         this.name = name;
@@ -49,7 +50,7 @@ public class Category {
             }
             Files.write(Paths.get(getCategoryFileName()), lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error writing category to file: " + e.getMessage());
         }
     }
 
@@ -65,12 +66,11 @@ public class Category {
             category = new Category(categoryName, categoryDescription);
             for (int i = 3; i < lines.size(); i++) {
                 String productName = lines.get(i);
-                // Assuming you have a Product class with a static method to load products
                 Product product = Product.loadProduct(productName);
                 category.addProduct(product);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error reading category from file: " + e.getMessage());
         }
         return category;
     }

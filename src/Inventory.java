@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Inventory {
+class Inventory {
+    private static final Logger logger = Logger.getLogger(Inventory.class.getName());
     private static final String INVENTORY_FILE = "inventory.txt";
-
     private Map<String, Integer> productQuantities;
 
     public Inventory() {
@@ -27,15 +27,18 @@ public class Inventory {
 
     private void loadInventory() {
         try {
-            if (Files.exists(Path.of(INVENTORY_FILE))) {
-                Map<String, Integer> inventory = new HashMap<>();
-                Files.lines(Path.of(INVENTORY_FILE))
-                        .map(line -> line.split(":"))
-                        .forEach(parts -> inventory.put(parts[0], Integer.parseInt(parts[1])));
-                productQuantities = inventory;
+            Path path = Path.of(INVENTORY_FILE);
+            if (Files.exists(path)) {
+                // Use try-with-resources to ensure the stream is closed
+                try (var linesStream = Files.lines(path)) {
+                    Map<String, Integer> inventory = new HashMap<>();
+                    linesStream.map(line -> line.split(":"))
+                            .forEach(parts -> inventory.put(parts[0], Integer.parseInt(parts[1])));
+                    productQuantities = inventory;
+                }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error reading inventory from file: " + e.getMessage());
         }
     }
 
@@ -47,7 +50,7 @@ public class Inventory {
             }
             Files.write(Path.of(INVENTORY_FILE), lines);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error writing inventory to file: " + e.getMessage());
         }
     }
 }

@@ -3,12 +3,13 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer {
+class Customer {
+    private static final Logger logger = Logger.getLogger(Customer.class.getName());
     private static final String CUSTOMER_FILE = "customers.txt";
 
-    private String name;
-    private String email;
-    private List<Order> orders;
+    private final String name;
+    private final String email;
+    private final List<Order> orders;
 
     public Customer(String name, String email) {
         this.name = name;
@@ -44,7 +45,7 @@ public class Customer {
             }
             Files.write(Paths.get(getCustomerFileName()), lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error writing customer to file: " + e.getMessage());
         }
     }
 
@@ -60,12 +61,11 @@ public class Customer {
             customer = new Customer(customerName, customerEmail);
             for (int i = 3; i < lines.size(); i++) {
                 String orderDetails = lines.get(i);
-                // Assuming you have an Order class with a static method to load orders
                 Order order = Order.loadOrder(orderDetails);
                 customer.placeOrder(order);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error reading customer from file: " + e.getMessage());
         }
         return customer;
     }

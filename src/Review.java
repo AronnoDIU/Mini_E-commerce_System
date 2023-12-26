@@ -3,7 +3,8 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Review {
+class Review {
+    private static final Logger logger = Logger.getLogger(Review.class.getName());
     private static final String REVIEW_FILE = "reviews.txt";
 
     private String product;
@@ -17,8 +18,6 @@ public class Review {
         this.rating = rating;
         this.comment = comment;
     }
-
-    // Getters and Setters
 
     public String getProduct() {
         return product;
@@ -52,15 +51,12 @@ public class Review {
         this.comment = comment;
     }
 
-    // Methods for File Operations
-
     public static void writeReview(Review review) {
         try {
             String reviewData = review.getProduct() + "," + review.getReviewer() + "," + review.getRating() + "," + review.getComment() + "\n";
             Files.write(Path.of(REVIEW_FILE), reviewData.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error writing review to file: " + e.getMessage());
         }
     }
 
@@ -76,8 +72,7 @@ public class Review {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error reading reviews from file: " + e.getMessage());
         }
         return reviews;
     }

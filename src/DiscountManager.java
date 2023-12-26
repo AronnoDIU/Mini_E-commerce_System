@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DiscountManager {
+class DiscountManager {
+    private static final Logger logger = Logger.getLogger(DiscountManager.class.getName());
     private static final String DISCOUNT_FILE = "discounts.txt";
 
     private Map<String, Double> productDiscounts;
@@ -26,15 +27,18 @@ public class DiscountManager {
 
     private void loadDiscounts() {
         try {
-            if (Files.exists(Paths.get(DISCOUNT_FILE))) {
-                Map<String, Double> discounts = new HashMap<>();
-                Files.lines(Paths.get(DISCOUNT_FILE))
-                        .map(line -> line.split(":"))
-                        .forEach(parts -> discounts.put(parts[0], Double.parseDouble(parts[1])));
-                productDiscounts = discounts;
+            Path path = Paths.get(DISCOUNT_FILE);
+            if (Files.exists(path)) {
+                // Use try-with-resources to ensure the stream is closed
+                try (var linesStream = Files.lines(path)) {
+                    Map<String, Double> discounts = new HashMap<>();
+                    linesStream.map(line -> line.split(":"))
+                            .forEach(parts -> discounts.put(parts[0], Double.parseDouble(parts[1])));
+                    productDiscounts = discounts;
+                }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error reading discounts from file: " + e.getMessage());
         }
     }
 
@@ -46,7 +50,7 @@ public class DiscountManager {
             }
             Files.write(Paths.get(DISCOUNT_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error writing discounts to file: " + e.getMessage());
         }
     }
 }

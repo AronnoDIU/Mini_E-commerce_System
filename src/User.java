@@ -2,8 +2,10 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-public class User {
+class User {
+    private static final Logger logger = Logger.getLogger(User.class.getName());
     private static final String USER_FILE = "users.txt";
 
     private String username;
@@ -23,8 +25,6 @@ public class User {
         }
         return null;
     }
-
-    // Getters and Setters
 
     public String getUsername() {
         return username;
@@ -50,15 +50,12 @@ public class User {
         this.email = email;
     }
 
-    // Methods for File Operations
-
     public static void writeUser(User user) {
         try {
             String userData = user.getUsername() + "," + user.getPassword() + "," + user.getEmail() + "\n";
             Files.write(Path.of(USER_FILE), userData.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error writing user to file: " + e.getMessage());
         }
     }
 
@@ -74,8 +71,7 @@ public class User {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error reading users from file: " + e.getMessage());
         }
         return users;
     }

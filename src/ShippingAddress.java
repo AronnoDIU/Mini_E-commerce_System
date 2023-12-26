@@ -3,7 +3,8 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShippingAddress {
+class ShippingAddress {
+    private static final Logger logger = Logger.getLogger(ShippingAddress.class.getName());
     private static final String ADDRESS_FILE = "shipping_addresses.txt";
 
     private String name;
@@ -21,8 +22,6 @@ public class ShippingAddress {
         this.zipCode = zipCode;
         this.country = country;
     }
-
-    // Getters and Setters
 
     public String getName() {
         return name;
@@ -72,17 +71,15 @@ public class ShippingAddress {
         this.country = country;
     }
 
-    // Methods for File Operations
-
     public static void writeShippingAddress(ShippingAddress address) {
         try {
             String addressData = address.getName() + "," + address.getStreetAddress() + "," +
                     address.getCity() + "," + address.getState() + "," +
                     address.getZipCode() + "," + address.getCountry() + "\n";
+
             Files.write(Path.of(ADDRESS_FILE), addressData.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error writing shipping address to file: " + e.getMessage());
         }
     }
 
@@ -98,8 +95,7 @@ public class ShippingAddress {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error reading shipping addresses from file: " + e.getMessage());
         }
         return addresses;
     }

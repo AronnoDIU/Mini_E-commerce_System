@@ -3,7 +3,8 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Promotion {
+class Promotion {
+    private static final Logger logger = Logger.getLogger(Promotion.class.getName());
     private static final String PROMOTIONS_FILE = "promotions.txt";
 
     private String promotionName;
@@ -53,8 +54,7 @@ public class Promotion {
             lines.add(""); // Add a blank line to separate promotions
             Files.write(Path.of(PROMOTIONS_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error writing promotion to file: " + e.getMessage());
         }
     }
 
@@ -86,8 +86,7 @@ public class Promotion {
 
             return promotions;
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error reading promotions from file: " + e.getMessage());
             return new ArrayList<>();
         }
     }

@@ -2,7 +2,8 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
-public class ReportGenerator {
+class ReportGenerator {
+    private static final Logger logger = Logger.getLogger(ReportGenerator.class.getName());
     private static final String REPORT_FILE = "report.txt";
 
     public static void generateReport() {
@@ -37,8 +38,7 @@ public class ReportGenerator {
 
             Files.write(Path.of(REPORT_FILE), reportContent.toString().getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error generating report: " + e.getMessage());
         }
     }
 
@@ -46,8 +46,7 @@ public class ReportGenerator {
         try {
             return Files.readString(Path.of(REPORT_FILE));
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error reading report from file: " + e.getMessage());
             return "";
         }
     }

@@ -3,7 +3,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-public class InputValidator {
+class InputValidator {
+    private static final Logger logger = Logger.getLogger(InputValidator.class.getName());
     private static final String RULES_FILE = "validation_rules.txt";
 
     private static List<String> validationRules;
@@ -16,20 +17,22 @@ public class InputValidator {
         try {
             validationRules = Files.readAllLines(Path.of(RULES_FILE));
         } catch (IOException e) {
-            e.printStackTrace();
-            // You might want to handle this more gracefully in a production scenario
+            logger.severe("Error reading validation rules from file: " + e.getMessage());
         }
     }
 
     public static boolean isValidString(String input) {
-        // Add custom validation rules from the loaded file
-        // For simplicity, let's assume the rules are one per line in the file
+        loadValidationRules();
+
+        // Check if the input matches any of the validation rules
         for (String rule : validationRules) {
-            if (!input.matches(rule)) {
-                return false;
+            if (input.matches(rule)) {
+                // Input matches a validation rule
+                return true;
             }
         }
-        return true;
+        // Input does not match any validation rule
+        return false;
     }
 
     public static boolean isValidNumber(String input) {
@@ -49,8 +52,7 @@ public class InputValidator {
         try {
             Files.write(Path.of(RULES_FILE), validationRules);
         } catch (IOException e) {
-            e.printStackTrace();
-            // You might want to handle this more gracefully in a production scenario
+            logger.severe("Error writing validation rules to file: " + e.getMessage());
         }
     }
 }

@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Order {
+class Order {
+    private static final Logger logger = Logger.getLogger(Order.class.getName());
     private static final String ORDERS_FILE = "orders.txt";
 
-    private String customerName;
-    private List<String> items;
+    private final String customerName;
+    private final List<String> items;
 
     public Order(String customerName, List<String> items) {
         this.customerName = customerName;
@@ -41,8 +42,7 @@ public class Order {
             lines.add(""); // Add a blank line to separate orders
             Files.write(Path.of(ORDERS_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
-            // You might want to handle this more gracefully in a production scenario
+            logger.severe("Error writing order to file: " + e.getMessage());
         }
     }
 
@@ -64,9 +64,7 @@ public class Order {
                 } else if (line.startsWith("Items: ")) {
                     String itemsLine = line.substring("Items: ".length());
                     String[] itemsArray = itemsLine.split(", ");
-                    for (String item : itemsArray) {
-                        currentItems.add(item);
-                    }
+                    currentItems.addAll(Arrays.asList(itemsArray));
                 }
             }
 
@@ -76,8 +74,7 @@ public class Order {
 
             return orders;
         } catch (IOException e) {
-            e.printStackTrace();
-            // You might want to handle this more gracefully in a production scenario
+            logger.severe("Error reading orders from file: " + e.getMessage());
             return new ArrayList<>();
         }
     }

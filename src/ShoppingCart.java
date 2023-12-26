@@ -1,47 +1,69 @@
-import java.io.Serial;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-class ShoppingCart implements java.io.Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-    private final Map<Product, Integer> cartItems;
+class ShoppingCart {
+    private static final Logger logger = Logger.getLogger(ShoppingCart.class.getName());
+    private static final String CART_FILE = "shopping_cart.txt";
+
+    private Map<String, Integer> cartItems;
 
     public ShoppingCart() {
-        cartItems = new HashMap<>();
+        this.cartItems = new HashMap<>();
+        loadCart();
     }
 
-    public void addProduct(Product product, int quantity) {
-        if (cartItems.containsKey(product)) {
-            cartItems.put(product, cartItems.get(product) + quantity);
-        } else {
-            cartItems.put(product, quantity);
-        }
+    public void addItem(String product, int quantity) {
+        cartItems.put(product, cartItems.getOrDefault(product, 0) + quantity);
+        saveCart();
     }
 
-    public void removeProduct(Product product, int quantity) {
-        if (cartItems.containsKey(product)) {
-            int currentQuantity = cartItems.get(product);
-            if (quantity >= currentQuantity) {
-                cartItems.remove(product);
-            } else {
-                cartItems.put(product, currentQuantity - quantity);
-            }
-        } else {
-            System.out.println("Product not in the cart!");
-        }
+    public void removeItem(String product) {
+        cartItems.remove(product);
+        saveCart();
     }
 
     public void viewCart() {
-        if (cartItems.isEmpty()) {
-            System.out.println("Your shopping cart is empty.");
-        } else {
-            System.out.println("Shopping Cart:");
-            for (Map.Entry<Product, Integer> entry : cartItems.entrySet()) {
-                Product product = entry.getKey();
-                int quantity = entry.getValue();
-                System.out.println(product.getName() + " - Quantity: " + quantity + " - Total Price: $" + (product.getPrice() * quantity));
+        System.out.println("Shopping Cart:");
+        cartItems.forEach((product, quantity) -> System.out.println(product + ": " + quantity));
+    }
+
+    private void loadCart() {
+        try {
+            Path path = Path.of(CART_FILE);
+            if (Files.exists(path)) {
+                try (var linesStream = Files.lines(path)) {
+                    Map<String, Integer> loadedCart = new HashMap<>();
+                    linesStream.map(line -> line.split(":"))
+                            .forEach(parts -> loadedCart.put(parts[0], Integer.parseInt(parts[1])));
+                    cartItems = loadedCart;
+                }
             }
+        } catch (IOException e) {
+            logger.severe("Error reading cart from file: " + e.getMessage());
+        }
+    }
+
+    private void saveCart() {
+        try {
+            Path path = Paths.get(CART_FILE);
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+
+            // Create a list of strings to write to the file
+            List<String> lines = cartItems.entrySet().stream()
+                    .map(entry -> entry.getKey() + ":" + entry.getValue())
+                    .collect(Collectors.toList());
+
+            Files.write(path, lines, StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            logger.severe("Error writing cart to file: " + e.getMessage());
         }
     }
 }

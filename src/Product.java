@@ -3,7 +3,8 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Product {
+class Product {
+    private static final Logger logger = Logger.getLogger(Product.class.getName());
     private static final String PRODUCTS_FILE = "products.txt";
 
     private String name;
@@ -35,7 +36,7 @@ public class Product {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error reading products from file: " + e.getMessage());
         }
         return null;
     }
@@ -76,8 +77,7 @@ public class Product {
             lines.add(""); // Add a blank line to separate products
             Files.write(Path.of(PRODUCTS_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error writing product to file: " + e.getMessage());
         }
     }
 
@@ -109,8 +109,7 @@ public class Product {
 
             return products;
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle this more gracefully in a production scenario
+            logger.severe("Error reading products from file: " + e.getMessage());
             return new ArrayList<>();
         }
     }
