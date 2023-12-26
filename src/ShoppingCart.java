@@ -10,7 +10,8 @@ class ShoppingCart {
 
     public void addToCart(Product product, int quantity) {
         if (product.getQuantity() >= quantity) {
-            cartItems.add(new Product(product.getName(), product.getCategory(), product.getPrice(), quantity));
+            cartItems.add(new Product(product.getName(),
+                    product.getCategory(), product.getPrice(), quantity));
             product.decreaseQuantity(quantity);
         } else {
             System.out.println("Not enough stock for " + product.getName());

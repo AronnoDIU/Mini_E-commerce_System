@@ -1,13 +1,22 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class ECommerceSystem {
+    private static final Logger logger = Logger.getLogger(ECommerceSystem.class.getName());
     private static final List<Product> products = createSampleProducts();
     private static final List<User> users = new ArrayList<>();
-    private static User currentUser;
+    static ArrayList<ShoppingCart> shoppingCarts = new ArrayList<>();
+    private static User currentUser; // The user that is currently logged in
+    static final String PRODUCTS_FILE = "products.txt";
+    static final String USERS_FILE = "users.txt";
+    static final String ShoppingCart_FILE = "shoppingCarts.txt";
 
     public static void main(String[] args) {
+        loadAll();
+
         users.add(new User("user1", "pass1"));
         users.add(new User("user2", "pass2"));
 
@@ -220,5 +229,113 @@ public class ECommerceSystem {
         products.add(new Product("Jeans", "Clothing", 39.99, 25));
         products.add(new Product("Book", "Books", 9.99, 100));
         return products;
+    }
+
+    private static void addShoppingCart(ShoppingCart shoppingCart) {
+        shoppingCarts.add(shoppingCart);
+    }
+
+    private static void removeShoppingCart(ShoppingCart shoppingCart) {
+        shoppingCarts.remove(shoppingCart);
+    }
+
+    private static void updateShoppingCart(ShoppingCart shoppingCart) {
+        int index = shoppingCarts.indexOf(shoppingCart);
+        shoppingCarts.set(index, shoppingCart);
+    }
+
+    private static void saveShoppingCarts() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("shoppingCarts.bin"))) {
+            oos.writeObject(shoppingCarts);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void loadShoppingCarts() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("shoppingCarts.bin"))) {
+            shoppingCarts = (ArrayList<ShoppingCart>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void saveProducts() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(PRODUCTS_FILE))) {
+            for (Product product : products) {
+                pw.println(product.getName() + "," + product.getCategory() + "," + product.getPrice() + "," + product.getQuantity());
+            }
+        } catch (IOException e) {
+            logger.warning("Error saving products to file.");
+        }
+    }
+
+    private static void loadProducts() {
+        try (Scanner scanner = new Scanner(new File(PRODUCTS_FILE))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                products.add(new Product(parts[0], parts[1], Double.parseDouble(parts[2]), Integer.parseInt(parts[3])));
+            }
+        } catch (FileNotFoundException e) {
+            logger.warning("Error loading products from file.");
+        }
+    }
+
+    private static void saveUsers() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(USERS_FILE))) {
+            for (User user : users) {
+                pw.println(user.getUsername() + "," + user.getPassword());
+            }
+        } catch (IOException e) {
+            logger.warning("Error saving users to file.");
+        }
+    }
+
+    private static void loadUsers() {
+        try (Scanner scanner = new Scanner(new File(USERS_FILE))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                users.add(new User(parts[0], parts[1]));
+            }
+        } catch (FileNotFoundException e) {
+            logger.warning("Error loading users from file.");
+        }
+    }
+
+    private static void saveShoppingCart() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(ShoppingCart_FILE))) {
+            for (ShoppingCart shoppingCart : shoppingCarts) {
+                pw.println(shoppingCart.getCartItems());
+            }
+        } catch (IOException e) {
+            logger.warning("Error saving shoppingCart to file.");
+        }
+    }
+
+    private static void loadShoppingCart() {
+        try (Scanner scanner = new Scanner(new File(ShoppingCart_FILE))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                shoppingCarts.add(new ShoppingCart());
+            }
+        } catch (FileNotFoundException e) {
+            logger.warning("Error loading shoppingCart from file.");
+        }
+    }
+
+    private static void saveAll() {
+        saveProducts();
+        saveUsers();
+        saveShoppingCart();
+    }
+
+    private static void loadAll() {
+        loadProducts();
+        loadUsers();
+        loadShoppingCart();
     }
 }

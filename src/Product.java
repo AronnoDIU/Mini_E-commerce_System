@@ -1,4 +1,9 @@
-class Product {
+import java.io.Serial;
+
+class Product implements Comparable<Product>, java.io.Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
     private final String name;
     private final String category;
     private final double price;
@@ -33,5 +38,46 @@ class Product {
         } else {
             System.out.println("Invalid quantity. Please try again.");
         }
+    }
+
+    public void increaseQuantity(int amount) {
+        if (amount > 0) {
+            quantity += amount; // quantity = quantity + amount;
+        } else {
+            System.out.println("Invalid quantity. Please try again.");
+        }
+    }
+
+    public void setQuantity(int quantity) {
+        if (quantity > 0) {
+            this.quantity = quantity;
+        } else {
+            System.out.println("Invalid quantity. Please try again.");
+        }
+    }
+
+    public String toString() {
+        return name + " (" + category + "): $" + price + " x " + quantity;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof Product other) {
+            return name.equals(other.name) && category.equals(other.category)
+                    && price == other.price && quantity == other.quantity;
+        }
+        return false;
+    }
+
+    public int hashCode() {
+        return name.hashCode() + category.hashCode() + (int) price + quantity;
+    }
+
+    public int compareTo(Product other) {
+        return name.compareTo(other.name);
+
+        // if (name.compareTo(other.name) < 0) {
+        //     return -1;
+        // } else if (name.compareTo(other.name) > 0) {
+        //     return 1;
     }
 }
