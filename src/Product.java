@@ -1,54 +1,121 @@
-import java.io.Serial;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
-class Product implements java.io.Serializable {
+public class Product {
+    private static final String PRODUCTS_FILE = "products.txt";
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-    private final String name;
-    private final String category;
-    private final double price;
-    private int stock;
+    private String name;
+    private double price;
+    private int quantity;
 
-    public Product(String name, String category, double price, int stock) {
+    public Product(String name, double price, int quantity) {
         this.name = name;
-        this.category = category;
         this.price = price;
-        this.stock = stock;
+        this.quantity = quantity;
+        saveProduct();
+    }
+
+    public static Product parseProduct(String line) {
+        String[] parts = line.split(",");
+        String name = parts[0];
+        double price = Double.parseDouble(parts[1]);
+        int quantity = Integer.parseInt(parts[2]);
+        return new Product(name, price, quantity);
+    }
+
+    public static Product loadProduct(String productName) {
+        try {
+            List<String> lines = Files.readAllLines(Path.of(PRODUCTS_FILE));
+            for (String line : lines) {
+                Product product = parseProduct(line);
+                if (product.getName().equals(productName)) {
+                    return product;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
     public double getPrice() {
         return price;
     }
 
-    public int getStock() {
-        return stock;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void decreaseStock(int quantity) {
-        if (quantity > 0 && quantity <= stock) {
-            stock -= quantity;
-        } else {
-            System.out.println("Insufficient stock!");
+    public void setName(String name) {
+        this.name = name;
+        saveProduct();
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+        saveProduct();
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+        saveProduct();
+    }
+
+    private void saveProduct() {
+        try {
+            List<String> lines = new ArrayList<>();
+            lines.add("Name: " + name);
+            lines.add("Price: " + price);
+            lines.add("Quantity: " + quantity);
+            lines.add(""); // Add a blank line to separate products
+            Files.write(Path.of(PRODUCTS_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle this more gracefully in a production scenario
         }
     }
 
-    public void increaseQuantity(int amount) {
-        if (amount > 0) {
-            stock += amount; // quantity = quantity + amount;
-        } else {
-            System.out.println("Invalid quantity. Please try again.");
+    public static List<Product> readProducts() {
+        try {
+            List<Product> products = new ArrayList<>();
+            List<String> lines = Files.readAllLines(Path.of(PRODUCTS_FILE));
+
+            String currentName = null;
+            double currentPrice = 0;
+            int currentQuantity = 0;
+
+            for (String line : lines) {
+                if (line.startsWith("Name: ")) {
+                    if (currentName != null) {
+                        products.add(new Product(currentName, currentPrice, currentQuantity));
+                    }
+                    currentName = line.substring("Name: ".length());
+                } else if (line.startsWith("Price: ")) {
+                    currentPrice = Double.parseDouble(line.substring("Price: ".length()));
+                } else if (line.startsWith("Quantity: ")) {
+                    currentQuantity = Integer.parseInt(line.substring("Quantity: ".length()));
+                }
+            }
+
+            if (currentName != null) {
+                products.add(new Product(currentName, currentPrice, currentQuantity));
+            }
+
+            return products;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle this more gracefully in a production scenario
+            return new ArrayList<>();
         }
     }
 
-    public String toString() {
-        return name + ": $" + price + " (" + stock + ")";
+    public double getInitialQuantity() {
+        return quantity;
     }
 }

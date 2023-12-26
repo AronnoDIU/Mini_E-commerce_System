@@ -1,20 +1,24 @@
-import java.io.Serial;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
-class Promotion implements java.io.Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-    private final String code;
-    private final String description;
+public class Promotion {
+    private static final String PROMOTIONS_FILE = "promotions.txt";
+
+    private String promotionName;
+    private String description;
     private double discount;
 
-    public Promotion(String code, String description, double discount) {
-        this.code = code;
+    public Promotion(String promotionName, String description, double discount) {
+        this.promotionName = promotionName;
         this.description = description;
         this.discount = discount;
+        savePromotion();
     }
 
-    public String getCode() {
-        return code;
+    public String getPromotionName() {
+        return promotionName;
     }
 
     public String getDescription() {
@@ -25,24 +29,66 @@ class Promotion implements java.io.Serializable {
         return discount;
     }
 
+    public void setPromotionName(String promotionName) {
+        this.promotionName = promotionName;
+        savePromotion();
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        savePromotion();
+    }
+
     public void setDiscount(double discount) {
-        if (discount > 0) {
-            this.discount = discount;
-        } else {
-            System.out.println("Invalid discount. Please try again.");
+        this.discount = discount;
+        savePromotion();
+    }
+
+    private void savePromotion() {
+        try {
+            List<String> lines = new ArrayList<>();
+            lines.add("Promotion Name: " + promotionName);
+            lines.add("Description: " + description);
+            lines.add("Discount: " + discount);
+            lines.add(""); // Add a blank line to separate promotions
+            Files.write(Path.of(PROMOTIONS_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle this more gracefully in a production scenario
         }
     }
 
-    public boolean equals(Object obj) {
-        if (obj instanceof Promotion other) {
-            return code.equals(other.code) && description.equals(other.description)
-                    && discount == other.discount;
-        } else {
-            return false;
-        }
-    }
+    public static List<Promotion> readPromotions() {
+        try {
+            List<Promotion> promotions = new ArrayList<>();
+            List<String> lines = Files.readAllLines(Path.of(PROMOTIONS_FILE));
 
-    public String toString() {
-        return code + ": " + description + " (" + discount + "%)";
+            String currentPromotionName = null;
+            String currentDescription = null;
+            double currentDiscount = 0;
+
+            for (String line : lines) {
+                if (line.startsWith("Promotion Name: ")) {
+                    if (currentPromotionName != null) {
+                        promotions.add(new Promotion(currentPromotionName, currentDescription, currentDiscount));
+                    }
+                    currentPromotionName = line.substring("Promotion Name: ".length());
+                } else if (line.startsWith("Description: ")) {
+                    currentDescription = line.substring("Description: ".length());
+                } else if (line.startsWith("Discount: ")) {
+                    currentDiscount = Double.parseDouble(line.substring("Discount: ".length()));
+                }
+            }
+
+            if (currentPromotionName != null) {
+                promotions.add(new Promotion(currentPromotionName, currentDescription, currentDiscount));
+            }
+
+            return promotions;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle this more gracefully in a production scenario
+            return new ArrayList<>();
+        }
     }
 }

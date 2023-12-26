@@ -1,29 +1,73 @@
-class Admin {
-    private String name;
-    private String password;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-    public Admin(String name, String password) {
-        this.name = name;
-        this.password = password;
+public class Admin {
+    private static final String PRODUCT_FILE = "products.txt";
+    private static final String USER_FILE = "users.txt";
+
+    public static void addProduct(Product product, List<Product> productList) {
+        productList.add(product);
+        System.out.println("Product added successfully: " + product.getName());
+        saveProducts(productList);
     }
 
-    public String getName(){
-        return name;
+    public static void removeProduct(Product product, List<Product> productList) {
+        if (productList.contains(product)) {
+            productList.remove(product);
+            System.out.println("Product removed successfully: " + product.getName());
+            saveProducts(productList);
+        } else {
+            System.out.println("Product not found in the inventory: " + product.getName());
+        }
     }
 
-    public String getPassword(){
-        return password;
+    public static void viewInventory(List<Product> productList) {
+        System.out.println("Inventory:");
+        for (Product product : productList) {
+            System.out.println(product);
+        }
     }
 
-    public void setName(String name){
-        this.name = name;
+    public static void generateSalesReport(List<Product> productList) {
+        double totalSales = 0;
+        System.out.println("Sales Report:");
+        for (Product product : productList) {
+            double productSales = product.getPrice() * (product.getInitialQuantity() - product.getQuantity());
+            totalSales += productSales;
+            System.out.println(product.getName() + ": $" + productSales);
+        }
+        System.out.println("Total Sales: $" + totalSales);
     }
 
-    public void setPassword(String password){
-        this.password = password;
+    public static void registerUser(String username, String password) {
+        AuthenticationManager.registerUser(username, password);
+        saveUsers(AuthenticationManager.getUserCredentials());
     }
 
-    public String toString(){
-        return "Name: " + name + "\nPassword: " + password;
+    private static void saveProducts(List<Product> productList) {
+        try {
+            List<String> lines = new ArrayList<>();
+            for (Product product : productList) {
+                lines.add(product.toString());
+            }
+            Files.write(Paths.get(PRODUCT_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void saveUsers(Map<String, String> userCredentials) {
+        try {
+            List<String> lines = new ArrayList<>();
+            for (Map.Entry<String, String> entry : userCredentials.entrySet()) {
+                lines.add(entry.getKey() + "," + entry.getValue());
+            }
+            Files.write(Paths.get(USER_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

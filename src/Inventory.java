@@ -1,41 +1,53 @@
-class Inventory {
-    private final int id;
-    private final String name;
-    private int quantity;
-    private double price;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    public Inventory(int id, String name, int quantity, double price) {
-        this.id = id;
-        this.name = name;
-        this.quantity = quantity;
-        this.price = price;
+public class Inventory {
+    private static final String INVENTORY_FILE = "inventory.txt";
+
+    private Map<String, Integer> productQuantities;
+
+    public Inventory() {
+        this.productQuantities = new HashMap<>();
+        loadInventory();
     }
 
-    public int getId() {
-        return id;
+    public int getQuantity(String productName) {
+        return productQuantities.getOrDefault(productName, 0);
     }
 
-    public String getName() {
-        return name;
+    public void updateQuantity(String productName, int quantity) {
+        productQuantities.put(productName, quantity);
+        saveInventory();
     }
 
-    public int getQuantity() {
-        return quantity;
+    private void loadInventory() {
+        try {
+            if (Files.exists(Path.of(INVENTORY_FILE))) {
+                Map<String, Integer> inventory = new HashMap<>();
+                Files.lines(Path.of(INVENTORY_FILE))
+                        .map(line -> line.split(":"))
+                        .forEach(parts -> inventory.put(parts[0], Integer.parseInt(parts[1])));
+                productQuantities = inventory;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String toString() {
-        return "ID: " + id + "\nName: " + name + "\nQuantity: " + quantity + "\nPrice: " + price;
+    private void saveInventory() {
+        try {
+            List<String> lines = new ArrayList<>();
+            for (Map.Entry<String, Integer> entry : productQuantities.entrySet()) {
+                lines.add(entry.getKey() + ":" + entry.getValue());
+            }
+            Files.write(Path.of(INVENTORY_FILE), lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

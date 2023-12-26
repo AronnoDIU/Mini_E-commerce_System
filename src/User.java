@@ -1,80 +1,82 @@
-import java.io.Serial;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
-class User implements java.io.Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-    private final String username;
-    private final String password;
-    private final ShoppingCart shoppingCart;
+public class User {
+    private static final String USER_FILE = "users.txt";
 
-    public User(String username, String password, ShoppingCart shoppingCart) {
+    private String username;
+    private String password;
+    private String email;
+
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
-        this.shoppingCart = shoppingCart;
+        this.email = email;
     }
 
-    public User(String username) {
-        this.username = username;
-        this.password = "";
-        this.shoppingCart = new ShoppingCart();
+    public static User parseUser(String line) {
+        String[] parts = line.split(",");
+        if (parts.length == 3) {
+            return new User(parts[0], parts[1], parts[2]);
+        }
+        return null;
     }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.shoppingCart = new ShoppingCart();
-    }
+    // Getters and Setters
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String toString() {
-        return username + " (" + password + "): " + shoppingCart;
+    public String getEmail() {
+        return email;
     }
 
-    public boolean equals(Object obj) {
-        if (obj instanceof User other) {
-            return username.equals(other.username) && password.equals(other.password)
-                    && shoppingCart.equals(other.shoppingCart);
-        } else {
-            return false;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    // Methods for File Operations
+
+    public static void writeUser(User user) {
+        try {
+            String userData = user.getUsername() + "," + user.getPassword() + "," + user.getEmail() + "\n";
+            Files.write(Path.of(USER_FILE), userData.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle this more gracefully in a production scenario
         }
     }
 
-    public void addToCart(Product product, int quantity) {
-        shoppingCart.add(product, quantity);
-    }
-
-    public void removeFromCart(Product product, int quantity) {
-        shoppingCart.remove(product, quantity);
-    }
-
-    public void clearCart() {
-        shoppingCart.clear();
-    }
-
-    public void checkout() {
-        shoppingCart.checkout();
-    }
-
-    public void printReceipt() {
-        shoppingCart.printReceipt();
-    }
-
-    public void printCart() {
-        shoppingCart.printCart();
-    }
-
-    public void printProducts() {
-        shoppingCart.printProducts();
+    public static List<User> readUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+            List<String> lines = Files.readAllLines(Path.of(USER_FILE));
+            for (String line : lines) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    User user = new User(parts[0], parts[1], parts[2]);
+                    users.add(user);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle this more gracefully in a production scenario
+        }
+        return users;
     }
 }
