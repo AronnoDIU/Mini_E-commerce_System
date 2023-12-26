@@ -16,6 +16,10 @@ class Product implements Comparable<Product>, java.io.Serializable {
         this.quantity = quantity;
     }
 
+    public static Product[] getProducts() {
+        return new Product[0];
+    }
+
     public String getName() {
         return name;
     }
@@ -79,5 +83,9 @@ class Product implements Comparable<Product>, java.io.Serializable {
         //     return -1;
         // } else if (name.compareTo(other.name) > 0) {
         //     return 1;
+    }
+
+    public void print() {
+        System.out.println(this);
     }
 }
