@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Scanner;
 
 public class User implements IUserActions {
 
@@ -109,15 +108,15 @@ public class User implements IUserActions {
     @Override
     public void updateProfile() {
         System.out.println("Enter new name: ");
-        name = ECommerceSystem.scanner.nextLine();
+        name = ECommerceSystem.userInput.nextLine();
         System.out.println("Enter new username: ");
-        username = ECommerceSystem.scanner.nextLine();
+        username = ECommerceSystem.userInput.nextLine();
         System.out.println("Enter new address: ");
-        address = ECommerceSystem.scanner.nextLine();
+        address = ECommerceSystem.userInput.nextLine();
         System.out.println("Enter new email: ");
-        email = ECommerceSystem.scanner.nextLine();
+        email = ECommerceSystem.userInput.nextLine();
         System.out.println("Enter new password: ");
-        password = ECommerceSystem.scanner.nextLine();
+        password = ECommerceSystem.userInput.nextLine();
         System.out.println("Profile updated successfully!");
     }
 

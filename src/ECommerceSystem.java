@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 public class ECommerceSystem {
 
-    public static Scanner scanner = new Scanner(System.in);
+    public static Scanner userInput = new Scanner(System.in);
     private static final Logger logger = Logger.getLogger(ECommerceSystem.class.getName());
     static ArrayList<Product> products = new ArrayList<>();
     static ArrayList<User> users = new ArrayList<>();
@@ -75,7 +75,7 @@ public class ECommerceSystem {
         authentication.logout();
 
         // Close the scanner
-        scanner.close();
+        userInput.close();
     }
 
     private static void showWelcomeMenu() {
@@ -84,8 +84,8 @@ public class ECommerceSystem {
         System.out.println("2. Register");
         System.out.println("3. Exit");
         System.out.println("Enter your choice: ");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        int choice = userInput.nextInt();
+        userInput.nextLine(); // Consume the newline character
         switch (choice) {
             case 1:
                 showLoginMenu();
@@ -105,15 +105,15 @@ public class ECommerceSystem {
 
     private static void showRegisterMenu() {
         System.out.println("Enter your name: ");
-        String name = scanner.nextLine();
+        String name = userInput.nextLine();
         System.out.println("Enter your username: ");
-        String username = scanner.nextLine();
+        String username = userInput.nextLine();
         System.out.println("Enter your password: ");
-        String password = scanner.nextLine();
+        String password = userInput.nextLine();
         System.out.println("Enter your address: ");
-        String address = scanner.nextLine();
+        String address = userInput.nextLine();
         System.out.println("Enter your email: ");
-        String email = scanner.nextLine();
+        String email = userInput.nextLine();
         Authentication authentication = new Authentication(new FileHandler("user_credentials.txt"));
         User user = authentication.register(username, password);
         if (user != null) {
@@ -132,9 +132,9 @@ public class ECommerceSystem {
 
     private static void showLoginMenu() {
         System.out.println("Enter your username: ");
-        String username = scanner.nextLine();
+        String username = userInput.nextLine();
         System.out.println("Enter your password: ");
-        String password = scanner.nextLine();
+        String password = userInput.nextLine();
         Authentication authentication = new Authentication(new FileHandler("user_credentials.txt"));
         User user = authentication.login(username, password);
         if (user != null) {
@@ -160,8 +160,8 @@ public class ECommerceSystem {
         System.out.println("5. Update profile");
         System.out.println("6. Logout");
         System.out.println("Enter your choice: ");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        int choice = userInput.nextInt();
+        userInput.nextLine(); // Consume the newline character
         switch (choice) {
             case 1:
                 showProductsMenu();
@@ -200,8 +200,8 @@ public class ECommerceSystem {
     private static void showCartMenu() {
         currentUser.viewCart();
         System.out.println("Enter the product ID to remove from cart (0 to go back): ");
-        int productId = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        int productId = userInput.nextInt();
+        userInput.nextLine(); // Consume the newline character
         if (productId == 0) {
             showCustomerMenu();
         } else {
@@ -216,8 +216,8 @@ public class ECommerceSystem {
         ProductCatalog productCatalog = new ProductCatalog();
         productCatalog.viewProducts();
         System.out.println("Enter the product ID to add to cart (0 to go back): ");
-        int productId = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        int productId = userInput.nextInt();
+        userInput.nextLine(); // Consume the newline character
         if (productId == 0) {
             showCustomerMenu();
         } else {
@@ -240,8 +240,8 @@ public class ECommerceSystem {
         System.out.println("3. Manage users");
         System.out.println("4. Logout");
         System.out.println("Enter your choice: ");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        int choice = userInput.nextInt();
+        userInput.nextLine(); // Consume the newline character
         switch (choice) {
             case 1:
                 showAddProductMenu();
@@ -278,19 +278,19 @@ public class ECommerceSystem {
 
     private static void showAddProductMenu() {
         System.out.println("Enter product name:");
-        String name = scanner.nextLine();
+        String name = userInput.nextLine();
 
         System.out.println("Enter product description:");
-        String description = scanner.nextLine();
+        String description = userInput.nextLine();
 
         System.out.println("Enter product price:");
-        double price = scanner.nextDouble();
+        double price = userInput.nextDouble();
 
         System.out.println("Enter product category:");
-        String category = scanner.nextLine();
+        String category = userInput.nextLine();
 
         System.out.println("Enter product stock quantity:");
-        int stockQuantity = scanner.nextInt();
+        int stockQuantity = userInput.nextInt();
 
         Product product = new Product(null, name, description, price,
                 Category.valueOf(category), stockQuantity);
