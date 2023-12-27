@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ public class ECommerceSystem {
     static final String USERS_FILE = "users.txt";
     static final String ORDERS_FILE = "orders.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         loadProducts(); // Load the products from the file
         loadUsers(); // Load the users from the file
         loadOrders(); // Load the orders from the file
@@ -313,7 +314,7 @@ public class ECommerceSystem {
 
     private static void loadUsers() {
         FileHandler fileHandler = new FileHandler(USERS_FILE);
-        users = fileHandler.readUsers();
+        users = fileHandler.readUserCredentials();
 
         // Print the users
         System.out.println("Users:");
@@ -322,7 +323,7 @@ public class ECommerceSystem {
         }
     }
 
-    private static void loadProducts() {
+    private static void loadProducts() throws IOException {
         FileHandler fileHandler = new FileHandler(PRODUCTS_FILE);
         products = (ArrayList<Product>) FileHandler.readProducts(fileHandler.filePath);
 

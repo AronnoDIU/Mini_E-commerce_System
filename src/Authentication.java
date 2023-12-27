@@ -7,13 +7,13 @@ public class Authentication {
     private String loggedInUser;
 
     // Constructor
+    @SuppressWarnings("unchecked")
     public Authentication(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
-        this.userCredentials = fileHandler.readUserCredentials(); // Load existing credentials from file
+        this.userCredentials = (Map<String, String>) fileHandler.readUserCredentials(); // Load existing credentials from file
         this.loggedInUser = null;
     }
 
-    // Register a new user
     // Register a new user
     public User register(String username, String password) {
         if (userCredentials.containsKey(username)) {

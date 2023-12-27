@@ -19,6 +19,15 @@ public class Order {
         this.orderDate = orderDate;
     }
 
+    public Order(Integer orderId, User user, List<Product> orderDetails,
+                 OrderStatus orderStatus, LocalDateTime orderDate) {
+        this.orderId = orderId;
+        this.customerId = user.getUserId();
+        this.orderDetails = orderDetails;
+        this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
+    }
+
     public Order(Integer orderId, Integer customerId, List<Product> orderDetails, OrderStatus orderStatus) {
         this(orderId, customerId, orderDetails, orderStatus, LocalDateTime.now());
     }

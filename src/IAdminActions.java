@@ -3,6 +3,9 @@
  */
 public interface IAdminActions {
 
+    // Remove a product from the catalog
+    void removeProduct(Integer productId);
+
     /**
      * View statistics related to products in the system.
      */

@@ -24,18 +24,6 @@ public class Customer extends User {
         cart.forEach(System.out::println);
     }
 
-    // Method to place an order
-    public void placeOrder() {
-        if (!cart.isEmpty()) {
-            Order newOrder = new Order(cart, this);
-            orderHistory.add(newOrder);
-            cart.clear();
-            System.out.println("Order placed successfully!");
-        } else {
-            System.out.println("Cart is empty. Cannot place an empty order.");
-        }
-    }
-
     // Method to view order history
     public List<Order> viewOrderHistory() {
         return orderHistory;

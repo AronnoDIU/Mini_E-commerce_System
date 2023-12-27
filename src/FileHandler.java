@@ -3,10 +3,18 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FileHandler {
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
     final String filePath;
 
     // Constructor
@@ -34,7 +42,7 @@ public class FileHandler {
         }
     }
 
-    public static List<Product> readProducts(String filePath, String delimiter) throws IOException {
+    public static List<Product> readProducts(String filePath) throws IOException {
         List<Product> products = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -55,7 +63,7 @@ public class FileHandler {
         return products;
     }
 
-    public ArrayList<User> readUsers() {
+    public ArrayList<User> readUserCredentials() {
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -82,12 +90,48 @@ public class FileHandler {
                 Integer orderId = Integer.parseInt(orderDetails[0]);
                 String username = orderDetails[1];
                 String products = orderDetails[2];
-                Order order = new Order(orderId, username, products);
+                Date date = dateFormat.parse(orderDetails[3]);
+                Date time = timeFormat.parse(orderDetails[4]);
+                Date dateTime = combineDateAndTime(date, time);
+                Order order = new Order(orderId, username, parseProducts(products), dateTime);
                 orders.add(order);
             }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             System.out.println("Error reading from the file: " + e.getMessage());
         }
         return orders;
+    }
+
+    // Helper method to parse products
+    private List<Product> parseProducts(String products) {
+        List<Product> productList = new ArrayList<>();
+        String[] productDetails = products.split(";");
+        for (String productDetail : productDetails) {
+            String[] details = productDetail.split(":");
+            Integer productId = Integer.parseInt(details[0]);
+            String name = details[1];
+            String description = details[2];
+            double price = Double.parseDouble(details[3]);
+            Category category = Category.valueOf(details[4]);
+            int stockQuantity = Integer.parseInt(details[5]);
+            Product product = new Product(productId, name, description, price, category, stockQuantity);
+            productList.add(product);
+        }
+        return productList;
+    }
+
+    // Helper method to combine date and time
+    private Date combineDateAndTime(Date date, Date time) {
+        LocalDateTime dateTime = LocalDateTime.of(date.toLocalDate(), time.toLocalTime());
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public void writeUserCredentials(String string) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(string);
+            System.out.println("Write to file successful.");
+        } catch (IOException e) {
+            System.out.println("Error writing to the file: " + e.getMessage());
+        }
     }
 }

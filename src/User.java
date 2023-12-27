@@ -147,7 +147,7 @@ public class User implements IUserActions {
     @Override
     public void placeOrder(List<Product> products) {
         if (shoppingCart != null) {
-            Order newOrder = new Order(products, this);
+            Order newOrder = new Order(products, (Admin) this);
             orderManager.createOrder(newOrder);
             shoppingCart.clearCart();
             System.out.println("Order placed successfully!");
