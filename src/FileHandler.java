@@ -4,9 +4,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileHandler {
-    private final String filePath;
+    final String filePath;
 
     // Constructor
     public FileHandler(String filePath) {
@@ -37,8 +38,8 @@ public class FileHandler {
         }
     }
 
-    public ArrayList<Product> readProducts() {
-        ArrayList<Product> products = new ArrayList<>();
+    public static List<Product> readProducts(String filePath) {
+        List<Product> products = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {

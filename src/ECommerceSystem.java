@@ -324,7 +324,7 @@ public class ECommerceSystem {
 
     private static void loadProducts() {
         FileHandler fileHandler = new FileHandler(PRODUCTS_FILE);
-        products = fileHandler.readProducts();
+        products = (ArrayList<Product>) FileHandler.readProducts(fileHandler.filePath);
 
         // Print the products
         System.out.println("Products:");
