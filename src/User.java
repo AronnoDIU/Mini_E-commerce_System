@@ -1,78 +1,137 @@
-import java.io.IOException;
-import java.nio.file.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Scanner;
 
-class User {
-    private static final Logger logger = Logger.getLogger(User.class.getName());
-    private static final String USER_FILE = "users.txt";
+public class User implements IUserActions {
 
+    String name;
+    private String userId;
     private String username;
     private String password;
+    private String address;
     private String email;
+    private ShoppingCart shoppingCart;
+    private OrderManager orderManager;
 
-    public User(String username, String password, String email) {
+    // Constructor
+    public User(String name, String userId, String username, String password, String address, String email) {
+        this.name = name;
+        this.userId = userId;
         this.username = username;
         this.password = password;
+        this.address = address;
+        this.email = email;
+        this.shoppingCart = new ShoppingCart();
+        this.orderManager = new OrderManager();
+    }
+
+    public User(String username, String password, String name) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+    }
+
+    public User(String userId, String username, String password, String address, String email) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.address = address;
         this.email = email;
     }
 
-    public static User parseUser(String line) {
-        String[] parts = line.split(",");
-        if (parts.length == 3) {
-            return new User(parts[0], parts[1], parts[2]);
-        }
-        return null;
+    // Getters
+    public String getUserId() {
+        return userId;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getAddress() {
+        return address;
     }
 
     public String getEmail() {
         return email;
     }
 
+    // Setters
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public static void writeUser(User user) {
-        try {
-            String userData = user.getUsername() + "," + user.getPassword() + "," + user.getEmail() + "\n";
-            Files.write(Path.of(USER_FILE), userData.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            logger.severe("Error writing user to file: " + e.getMessage());
+    // toString method for easy representation
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    @Override
+    public void viewProfile() {
+        System.out.println("Name: " + name);
+        System.out.println("Username: " + username);
+        System.out.println("Address: " + address);
+        System.out.println("Email: " + email);
+        System.out.println("User ID: " + userId);
+        System.out.println("Password: " + password);
+    }
+
+    @Override
+    public void updateProfile() {
+        System.out.println("Enter new name: ");
+        name = ECommerceSystem.scanner.nextLine();
+        System.out.println("Enter new username: ");
+        username = ECommerceSystem.scanner.nextLine();
+        System.out.println("Enter new address: ");
+        address = ECommerceSystem.scanner.nextLine();
+        System.out.println("Enter new email: ");
+        email = ECommerceSystem.scanner.nextLine();
+        System.out.println("Enter new password: ");
+        password = ECommerceSystem.scanner.nextLine();
+        System.out.println("Profile updated successfully!");
+    }
+
+    @Override
+    public void placeOrder(List<Product> products) {
+        if (shoppingCart != null) {
+               // Create a new order
+//            Order newOrder = new Order(products);
+            // Clear the shopping cart after placing the order
+            shoppingCart.clearCart();
+            System.out.println("Order placed successfully!");
+        } else {
+            System.out.println("Shopping cart is null. Cannot place an order.");
         }
     }
 
-    public static List<User> readUsers() {
-        List<User> users = new ArrayList<>();
-        try {
-            List<String> lines = Files.readAllLines(Path.of(USER_FILE));
-            for (String line : lines) {
-                String[] parts = line.split(",");
-                if (parts.length == 3) {
-                    User user = new User(parts[0], parts[1], parts[2]);
-                    users.add(user);
-                }
-            }
-        } catch (IOException e) {
-            logger.severe("Error reading users from file: " + e.getMessage());
-        }
-        return users;
+    public void addToCart(Product product) {
+        shoppingCart.addItem(product);
+        System.out.println("Product added to the shopping cart.");
     }
 }

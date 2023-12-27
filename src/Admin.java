@@ -1,74 +1,56 @@
-import java.io.IOException;
-import java.nio.file.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-class Admin {
-    private static final Logger logger = Logger.getLogger(Admin.class.getName());
-    private static final String PRODUCT_FILE = "products.txt";
-    private static final String USER_FILE = "users.txt";
+public class Admin extends User implements IAdminActions {
+    private final ProductCatalog productCatalog;
+    private final OrderManager orderManager;
+    private final ShoppingCart shoppingCart;
 
-    static void addProduct(Product product, List<Product> productList) {
-        productList.add(product);
-        System.out.println("Product added successfully: " + product.getName());
-        saveProducts(productList);
+    // Constructor
+    public Admin(String username, String password, String name, ProductCatalog productCatalog, OrderManager orderManager) {
+        super(username, password, name);
+        this.setUsername(username);
+        this.setPassword(password);
+        this.name = name;
+        this.productCatalog = productCatalog;
+        this.orderManager = orderManager;
+        this.shoppingCart = new ShoppingCart();
     }
 
-    static void removeProduct(Product product, List<Product> productList) {
-        if (productList.contains(product)) {
-            productList.remove(product);
-            System.out.println("Product removed successfully: " + product.getName());
-            saveProducts(productList);
-        } else {
-            System.out.println("Product not found in the inventory: " + product.getName());
-        }
+    // Add a product to the catalog
+    public void addProduct(Product product) {
+        productCatalog.addProduct(product);
     }
 
-    public static void viewInventory(List<Product> productList) {
-        System.out.println("Inventory:");
-        for (Product product : productList) {
-            System.out.println(product);
-        }
+    // Remove a product from the catalog
+    public void removeProduct(Integer productId) {
+        productCatalog.removeProduct(productId);
     }
 
-    static void generateSalesReport(List<Product> productList) {
-        double totalSales = 0;
-        System.out.println("Sales Report:");
-        for (Product product : productList) {
-            double productSales = product.getPrice() * (product.getInitialQuantity() - product.getQuantity());
-            totalSales += productSales;
-            System.out.println(product.getName() + ": $" + productSales);
-        }
-        System.out.println("Total Sales: $" + totalSales);
+    // Update an existing product
+    public void updateProduct(Product product) {
+        productCatalog.updateProduct(product);
     }
 
-    public static void registerUser(String username, String password) {
-        AuthenticationManager.registerUser(username, password);
-        saveUsers(AuthenticationManager.getUserCredentials());
+    // View all orders
+    public List<Order> viewOrders() {
+        return orderManager.getAllOrders();
     }
 
-    private static void saveProducts(List<Product> productList) {
-        try {
-            List<String> lines = new ArrayList<>();
-            for (Product product : productList) {
-                lines.add(product.toString());
-            }
-            Files.write(Paths.get(PRODUCT_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
-            logger.severe("Error writing products to file: " + e.getMessage());
-        }
+    @Override
+    public void viewProductStats() {
+        // View product statistics
+        productCatalog.viewProductStatistics();
     }
 
-    private static void saveUsers(Map<String, String> userCredentials) {
-        try {
-            List<String> lines = new ArrayList<>();
-            for (Map.Entry<String, String> entry : userCredentials.entrySet()) {
-                lines.add(entry.getKey() + "," + entry.getValue());
-            }
-            Files.write(Paths.get(USER_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
-            logger.severe("Error writing users to file: " + e.getMessage());
-        }
+    @Override
+    public void manageUsers() {
+        // Manage users
+        System.out.println("Users managed by admin.");
+    }
+
+    @Override
+    public void placeOrder(List<Product> products) {
+        shoppingCart.clearCart();
+        orderManager.createOrder((Order) products);
     }
 }

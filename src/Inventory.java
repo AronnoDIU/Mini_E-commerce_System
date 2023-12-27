@@ -1,56 +1,90 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
-class Inventory {
-    private static final Logger logger = Logger.getLogger(Inventory.class.getName());
-    private static final String INVENTORY_FILE = "inventory.txt";
-    private Map<String, Integer> productQuantities;
+public class Inventory {
+    private Map<Product, Integer> stockLevels;
+    private Map<Product, String> suppliers;
 
+    // Constructors
     public Inventory() {
-        this.productQuantities = new HashMap<>();
-        loadInventory();
+        this.stockLevels = new HashMap<>();
+        this.suppliers = new HashMap<>();
     }
 
-    public int getQuantity(String productName) {
-        return productQuantities.getOrDefault(productName, 0);
+    // Getters and Setters
+    public Map<Product, Integer> getStockLevels() {
+        return stockLevels;
     }
 
-    public void updateQuantity(String productName, int quantity) {
-        productQuantities.put(productName, quantity);
-        saveInventory();
+    public void setStockLevels(Map<Product, Integer> stockLevels) {
+        this.stockLevels = stockLevels;
     }
 
-    private void loadInventory() {
-        try {
-            Path path = Path.of(INVENTORY_FILE);
-            if (Files.exists(path)) {
-                // Use try-with-resources to ensure the stream is closed
-                try (var linesStream = Files.lines(path)) {
-                    Map<String, Integer> inventory = new HashMap<>();
-                    linesStream.map(line -> line.split(":"))
-                            .forEach(parts -> inventory.put(parts[0], Integer.parseInt(parts[1])));
-                    productQuantities = inventory;
-                }
-            }
-        } catch (IOException e) {
-            logger.severe("Error reading inventory from file: " + e.getMessage());
+    public Map<Product, String> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(Map<Product, String> suppliers) {
+        this.suppliers = suppliers;
+    }
+
+    // Other methods for inventory management
+    public void addProductToInventory(Product product, int initialStock, String supplier) {
+        stockLevels.put(product, initialStock);
+        suppliers.put(product, supplier);
+        System.out.println("Product added to inventory. Stock level set to " + initialStock);
+    }
+
+    public void updateStockLevel(Product product, int quantity) {
+        int currentStock = stockLevels.getOrDefault(product, 0);
+        stockLevels.put(product, currentStock + quantity);
+        System.out.println("Stock level updated for " + product.getName() + ". New stock level: " + stockLevels.get(product));
+
+        // Generate alert for low stock
+        if (stockLevels.get(product) <= 5) {
+            System.out.println("Alert: Low stock for product " + product.getName() + ". Current stock: " + stockLevels.get(product));
         }
     }
 
-    private void saveInventory() {
-        try {
-            List<String> lines = new ArrayList<>();
-            for (Map.Entry<String, Integer> entry : productQuantities.entrySet()) {
-                lines.add(entry.getKey() + ":" + entry.getValue());
-            }
-            Files.write(Path.of(INVENTORY_FILE), lines);
-        } catch (IOException e) {
-            logger.severe("Error writing inventory to file: " + e.getMessage());
+    public void displayInventory() {
+        System.out.println("Inventory Contents:");
+        for (Map.Entry<Product, Integer> entry : stockLevels.entrySet()) {
+            Product product = entry.getKey();
+            int stockLevel = entry.getValue();
+            System.out.println("Product: " + product.getName() + ", Stock Level: " + stockLevel);
         }
+    }
+
+    public void displaySuppliers() {
+        System.out.println("Suppliers Information:");
+        for (Map.Entry<Product, String> entry : suppliers.entrySet()) {
+            Product product = entry.getKey();
+            String supplier = entry.getValue();
+            System.out.println("Product: " + product.getName() + ", Supplier: " + supplier);
+        }
+    }
+
+    public static Inventory createInventoryFromConsoleInput(Scanner scanner) {
+        Inventory inventory = new Inventory();
+
+        // Input for adding initial products to the inventory
+        System.out.println("Enter the number of initial products to add to the inventory:");
+        int numProducts = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        for (int i = 0; i < numProducts; i++) {
+            Product product = Product.createProductFromConsoleInput(scanner);
+            System.out.println("Enter the initial stock level for " + product.getName() + ":");
+            int initialStock = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            System.out.println("Enter the supplier for " + product.getName() + ":");
+            String supplier = scanner.nextLine();
+
+            inventory.addProductToInventory(product, initialStock, supplier);
+        }
+
+        return inventory;
     }
 }

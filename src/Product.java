@@ -1,120 +1,104 @@
-import java.io.IOException;
-import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
-class Product {
-    private static final Logger logger = Logger.getLogger(Product.class.getName());
-    private static final String PRODUCTS_FILE = "products.txt";
-
+public class Product {
+    private Integer productId;
     private String name;
+    private String description;
     private double price;
-    private int quantity;
+    private Category category;
+    private int stockQuantity;
 
-    public Product(String name, double price, int quantity) {
+    // Constructor
+    public Product(Integer productId, String name,
+                   String description, double price, Category category, int stockQuantity) {
+        this.productId = productId;
         this.name = name;
+        this.description = description;
         this.price = price;
-        this.quantity = quantity;
-        saveProduct();
+        this.category = category;
+        this.stockQuantity = stockQuantity;
     }
 
-    public static Product parseProduct(String line) {
-        String[] parts = line.split(",");
-        String name = parts[0];
-        double price = Double.parseDouble(parts[1]);
-        int quantity = Integer.parseInt(parts[2]);
-        return new Product(name, price, quantity);
+    public static Product createProductFromConsoleInput(Scanner scanner) {
+        System.out.println("Enter product name:");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter product description:");
+        String description = scanner.nextLine();
+
+        System.out.println("Enter product price:");
+        double price = scanner.nextDouble();
+
+        System.out.println("Enter product category:");
+        String category = scanner.nextLine();
+
+        System.out.println("Enter product stock quantity:");
+        int stockQuantity = scanner.nextInt();
+
+        return new Product(null, name, description, price,
+                Category.valueOf(category), stockQuantity);
     }
 
-    public static Product loadProduct(String productName) {
-        try {
-            List<String> lines = Files.readAllLines(Path.of(PRODUCTS_FILE));
-            for (String line : lines) {
-                Product product = parseProduct(line);
-                if (product.getName().equals(productName)) {
-                    return product;
-                }
-            }
-        } catch (IOException e) {
-            logger.severe("Error reading products from file: " + e.getMessage());
-        }
-        return null;
+    // Getters
+    public Integer getProductId() {
+        return productId;
     }
 
     public String getName() {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public double getPrice() {
         return price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public Category getCategory() {
+        return category;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    // Setters
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public void setName(String name) {
         this.name = name;
-        saveProduct();
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setPrice(double price) {
         this.price = price;
-        saveProduct();
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-        saveProduct();
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    private void saveProduct() {
-        try {
-            List<String> lines = new ArrayList<>();
-            lines.add("Name: " + name);
-            lines.add("Price: " + price);
-            lines.add("Quantity: " + quantity);
-            lines.add(""); // Add a blank line to separate products
-            Files.write(Path.of(PRODUCTS_FILE), lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            logger.severe("Error writing product to file: " + e.getMessage());
-        }
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 
-    public static List<Product> readProducts() {
-        try {
-            List<Product> products = new ArrayList<>();
-            List<String> lines = Files.readAllLines(Path.of(PRODUCTS_FILE));
-
-            String currentName = null;
-            double currentPrice = 0;
-            int currentQuantity = 0;
-
-            for (String line : lines) {
-                if (line.startsWith("Name: ")) {
-                    if (currentName != null) {
-                        products.add(new Product(currentName, currentPrice, currentQuantity));
-                    }
-                    currentName = line.substring("Name: ".length());
-                } else if (line.startsWith("Price: ")) {
-                    currentPrice = Double.parseDouble(line.substring("Price: ".length()));
-                } else if (line.startsWith("Quantity: ")) {
-                    currentQuantity = Integer.parseInt(line.substring("Quantity: ".length()));
-                }
-            }
-
-            if (currentName != null) {
-                products.add(new Product(currentName, currentPrice, currentQuantity));
-            }
-
-            return products;
-        } catch (IOException e) {
-            logger.severe("Error reading products from file: " + e.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public double getInitialQuantity() {
-        return quantity;
+    // toString method for easy representation
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId='" + productId + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", category='" + category + '\'' +
+                ", stockQuantity=" + stockQuantity +
+                '}';
     }
 }

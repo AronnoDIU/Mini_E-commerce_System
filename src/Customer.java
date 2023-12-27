@@ -1,72 +1,57 @@
-import java.io.IOException;
-import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class Customer {
-    private static final Logger logger = Logger.getLogger(Customer.class.getName());
-    private static final String CUSTOMER_FILE = "customers.txt";
+public class Customer extends User {
+    private final List<Product> cart;
+    private final List<Order> orderHistory;
 
-    private final String name;
-    private final String email;
-    private final List<Order> orders;
-
-    public Customer(String name, String email) {
-        this.name = name;
-        this.email = email;
-        this.orders = new ArrayList<>();
+    public Customer(String userId, String username, String password, String address, String email) {
+        super(userId, username, password, address, email);
+        this.cart = new ArrayList<>();
+        this.orderHistory = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
+    // Methods for cart management
+    public void addToCart(Product item) {
+        cart.add(item);
     }
 
-    public String getEmail() {
-        return email;
+    public void removeFromCart(Product item) {
+        cart.remove(item);
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public void viewCart() {
+        cart.forEach(System.out::println);
     }
 
-    public void placeOrder(Order order) {
-        orders.add(order);
-        saveCustomer();
+    // Method to place an order
+//    public void placeOrder() {
+//        // Create a new order
+//        Order newOrder = new Order(cart);
+//
+//        // Add the order to the order manager
+//        OrderManager orderManager = new OrderManager();
+//        orderManager.createOrder(newOrder);
+//
+//        // Add the order to order history
+//        orderHistory.add(newOrder);
+//
+//        // Clear the cart after placing the order
+//        cart.clear();
+//    }
+
+    // Method to view order history
+    public List<Order> viewOrderHistory() {
+        return orderHistory;
     }
 
-    private void saveCustomer() {
-        try {
-            List<String> lines = new ArrayList<>();
-            lines.add("Name:" + name);
-            lines.add("Email:" + email);
-            lines.add("Orders:");
-            for (Order order : orders) {
-                lines.add(order.getOrderDetails());
-            }
-            Files.write(Paths.get(getCustomerFileName()), lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
-            logger.severe("Error writing customer to file: " + e.getMessage());
-        }
-    }
-
-    private String getCustomerFileName() {
-        return name.toLowerCase() + ".txt";
-    }
-
-    public static Customer loadCustomer(String customerName) {
-        Customer customer = null;
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(customerName.toLowerCase() + ".txt"));
-            String customerEmail = lines.get(1).substring("Email:".length());
-            customer = new Customer(customerName, customerEmail);
-            for (int i = 3; i < lines.size(); i++) {
-                String orderDetails = lines.get(i);
-                Order order = Order.loadOrder(orderDetails);
-                customer.placeOrder(order);
-            }
-        } catch (IOException e) {
-            logger.severe("Error reading customer from file: " + e.getMessage());
-        }
-        return customer;
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "userId='" + getUserId() + '\'' +
+                ", username='" + getUsername() + '\'' +
+                ", cart=" + cart +
+                ", orderHistory=" + orderHistory +
+                '}';
     }
 }

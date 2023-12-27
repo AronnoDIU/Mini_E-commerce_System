@@ -1,120 +1,65 @@
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ECommerceSystem {
 
-    private static final String USER_FILE = "users.txt";
-    private static final String PRODUCT_FILE = "products.txt";
-
-    private final List<User> users;
-    private final List<Product> products;
-
-    public ECommerceSystem() {
-        this.users = new ArrayList<>();
-        this.products = new ArrayList<>();
-        loadUsers();
-        loadProducts();
-    }
-
-    void addUser(User user) {
-        users.add(user);
-        saveUsersToFile();
-    }
-
-    User getUserByUsername(String username) {
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }
-
-    // Methods for Product Operations
-
-    void addProduct(Product product) {
-        products.add(product);
-        saveProductsToFile();
-    }
-
-    List<Product> getAllProducts() {
-        return products;
-    }
-
-    // Methods for File Operations
-
-    private void loadUsers() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(USER_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                User user = User.parseUser(line);
-                users.add(user);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading user file: " + e.getMessage());
-        }
-    }
-
-    private void loadProducts() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(PRODUCT_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Product product = Product.parseProduct(line);
-                products.add(product);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading product file: " + e.getMessage());
-        }
-    }
-
-    private void saveUsersToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE))) {
-            for (User user : users) {
-                writer.write(user.toString());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("Error writing user file: " + e.getMessage());
-        }
-    }
-
-    private void saveProductsToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(PRODUCT_FILE))) {
-            for (Product product : products) {
-                writer.write(product.toString());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("Error writing product file: " + e.getMessage());
-        }
-    }
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Example usage of the ECommerceSystem class
-        ECommerceSystem ecommerceSystem = new ECommerceSystem();
+        // Create instances of required components
+        FileHandler fileHandler = new FileHandler("user_credentials.txt");
+        Authentication authentication = new Authentication(fileHandler);
+        ProductCatalog productCatalog = new ProductCatalog();
+        OrderManager orderManager = new OrderManager();
+        Inventory inventory = new Inventory();
+        ShoppingCart shoppingCart = new ShoppingCart();
 
-        // Creating a new user
-        User newUser = new User("john_doe", "password123", "john@example.com");
-        ecommerceSystem.addUser(newUser);
+        // Create some initial products and add them to the inventory
+        Product product1 = new Product(1, "Laptop", "Powerful laptop", 999.99, Category.ELECTRONICS, 20);
+        Product product2 = new Product(2, "T-Shirt", "Comfortable cotton t-shirt", 19.99, Category.CLOTHING, 50);
+        inventory.addProductToInventory(product1, 10, "Electronics Supplier");
+        inventory.addProductToInventory(product2, 30, "Fashion Supplier");
 
-        // Retrieving a user by username
-        User retrievedUser = ecommerceSystem.getUserByUsername("john_doe");
-        if (retrievedUser != null) {
-            System.out.println("Retrieved User: " + retrievedUser.getUsername());
-        } else {
-            System.out.println("User not found.");
+        // Create an Admin user
+        Admin admin = new Admin("admin", "admin123", "Admin User", productCatalog, orderManager);
+
+        // Create a Customer user
+        Customer customer = new Customer("123456", "customer1", "password123", "123 Main St", "customer@example.com");
+
+        // Register a new user (Customer)
+        authentication.register("customer2", "password456");
+
+        // Login as the admin
+        authentication.login("admin", "admin123");
+
+        // Admin actions
+        admin.addProduct(new Product(3, "Smartphone", "High-end smartphone", 699.99, Category.ELECTRONICS, 15));
+        admin.viewProductStats();
+        admin.manageUsers();
+
+        // Logout from an admin account
+        authentication.logout();
+
+        // Login as a customer
+        authentication.login("customer1", "password123");
+
+        // Customer actions
+        customer.addToCart(product1);
+        customer.addToCart(product2);
+        customer.viewCart();
+        customer.placeOrder(shoppingCart.displayCart());
+
+        // View order history
+        List<Order> orderHistory = customer.viewOrderHistory();
+        System.out.println("Order History:");
+        for (Order order : orderHistory) {
+            System.out.println(order);
         }
 
-        // Adding a product
-        Product newProduct = new Product("Laptop", 999.99, 10);
-        ecommerceSystem.addProduct(newProduct);
+        // Logout from a customer account
+        authentication.logout();
 
-        // Retrieving all products
-        List<Product> allProducts = ecommerceSystem.getAllProducts();
-        System.out.println("All Products:");
-        for (Product product : allProducts) {
-            System.out.println(product.getName() + " - $" + product.getPrice());
-        }
+        // Close the scanner
+        scanner.close();
     }
 }
