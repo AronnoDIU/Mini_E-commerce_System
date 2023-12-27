@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderManager {
     private final List<Order> orders;
@@ -16,7 +17,7 @@ public class OrderManager {
     }
 
     // Cancel an existing order
-    public void cancelOrder(int orderId) {
+    public void cancelOrder(String orderId) {
         Order order = findOrder(orderId);
         if (order != null) {
             orders.remove(order);
@@ -27,7 +28,7 @@ public class OrderManager {
     }
 
     // Update the status of an existing order
-    public void updateOrderStatus(int orderId, OrderStatus newStatus) {
+    public void updateOrderStatus(String orderId, OrderStatus newStatus) {
         Order order = findOrder(orderId);
         if (order != null) {
             order.setOrderStatus(newStatus);
@@ -38,9 +39,9 @@ public class OrderManager {
     }
 
     // Find an order by its ID
-    private Order findOrder(int orderId) {
+    private Order findOrder(String orderId) {
         for (Order order : orders) {
-            if (order.getOrderId() == orderId) {
+            if (Objects.equals(order.getOrderId(), orderId)) {
                 return order;
             }
         }

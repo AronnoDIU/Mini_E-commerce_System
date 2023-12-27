@@ -3,15 +3,15 @@ import java.util.Date;
 import java.util.List;
 
 public class Order {
-    private Integer orderId;
-    private Integer customerId;
+    private String orderId;
+    private String customerId;
     private List<Product> orderDetails;
     private OrderStatus orderStatus;
     private LocalDateTime orderDate;
 
     // Constructors
-    public Order(Integer orderId, Integer customerId, List<Product> orderDetails,
-                 OrderStatus orderStatus, LocalDateTime orderDate) {
+    public Order(String orderId, String customerId, List<Product> orderDetails, OrderStatus orderStatus,
+                 LocalDateTime orderDate) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.orderDetails = orderDetails;
@@ -19,10 +19,14 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Order(Integer orderId, User user, List<Product> orderDetails,
+    public Order(String orderId, String customerId, List<Product> orderDetails, OrderStatus orderStatus) {
+        this(orderId, customerId, orderDetails, orderStatus, LocalDateTime.now());
+    }
+
+    public Order(Integer orderId, Integer customerId, List<Product> orderDetails,
                  OrderStatus orderStatus, LocalDateTime orderDate) {
-        this.orderId = orderId;
-        this.customerId = user.getUserId();
+        this.orderId = orderId.toString();
+        this.customerId = customerId.toString();
         this.orderDetails = orderDetails;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
@@ -36,19 +40,27 @@ public class Order {
         this(null, admin.getUserId(), products, OrderStatus.PENDING);
     }
 
-    public Integer getOrderId() {
+    public Order(String orderId, String username, List<Product> products, Date dateTime) {
+        this.orderId = orderId;
+        this.customerId = username;
+        this.orderDetails = products;
+        this.orderStatus = OrderStatus.PENDING;
+        this.orderDate = LocalDateTime.ofInstant(dateTime.toInstant(), FileHandler.DEFAULT_ZONE_ID);
+    }
+
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
-    public Integer getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
@@ -82,8 +94,8 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "orderId=" + orderId +
-                ", customerId=" + customerId +
+                "orderId='" + orderId + '\'' +
+                ", customerId='" + customerId + '\'' +
                 ", orderDetails=" + orderDetails +
                 ", orderStatus=" + orderStatus +
                 ", orderDate=" + orderDate +

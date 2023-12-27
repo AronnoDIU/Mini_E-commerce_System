@@ -75,6 +75,7 @@ public class User implements IUserActions {
     public void setName(String name) {
         this.name = name;
     }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }

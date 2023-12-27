@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -12,10 +8,12 @@ import java.util.Date;
 import java.util.List;
 
 public class FileHandler {
+    public static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
     final String filePath;
+    static final String delimiter = ",";  // Add delimiter declaration
 
     // Constructor
     public FileHandler(String filePath) {
@@ -58,7 +56,8 @@ public class FileHandler {
                 products.add(product);
             }
         } catch (IOException e) {
-            System.out.println("Error reading from the file: " + e.getMessage());
+            // Log or propagate the exception
+            throw new IOException("Error reading from the file: " + e.getMessage(), e);
         }
         return products;
     }
@@ -87,7 +86,7 @@ public class FileHandler {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] orderDetails = line.split(",");
-                Integer orderId = Integer.parseInt(orderDetails[0]);
+                String orderId = orderDetails[0];
                 String username = orderDetails[1];
                 String products = orderDetails[2];
                 Date date = dateFormat.parse(orderDetails[3]);
@@ -122,8 +121,22 @@ public class FileHandler {
 
     // Helper method to combine date and time
     private Date combineDateAndTime(Date date, Date time) {
-        LocalDateTime dateTime = LocalDateTime.of(date.toLocalDate(), time.toLocalTime());
-        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        // Convert Date to LocalDateTime
+        LocalDateTime dateToLocalDateTime =
+                date.toInstant().atZone(DEFAULT_ZONE_ID).toLocalDateTime();
+
+        // Convert Date to LocalDateTime
+        LocalDateTime timeToLocalDateTime =
+                time.toInstant().atZone(DEFAULT_ZONE_ID).toLocalDateTime();
+
+        // Combine date and time
+        LocalDateTime combinedDateTime = LocalDateTime.of(
+                dateToLocalDateTime.toLocalDate(),
+                timeToLocalDateTime.toLocalTime()
+        );
+
+        // Convert LocalDateTime to Date
+        return Date.from(combinedDateTime.atZone(DEFAULT_ZONE_ID).toInstant());
     }
 
     public void writeUserCredentials(String string) {
