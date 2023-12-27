@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 public class FileHandler {
     public static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
@@ -37,29 +38,24 @@ public class FileHandler {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(content);
             System.out.println("Write to file successful.");
+        } catch (IOException e) {
+            System.out.println("Error writing to the file: " + e.getMessage());
         }
     }
 
-    public static List<Product> readProducts(String filePath) throws IOException {
-        List<Product> products = new ArrayList<>();
+    // Read entities from a file using a generic method
+    private <T> List<T> readEntities(Function<BufferedReader, T> entityReader) throws IOException {
+        List<T> entities = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] productDetails = line.split(delimiter);
-                Integer productId = Integer.parseInt(productDetails[0]);
-                String name = productDetails[1];
-                String description = productDetails[2];
-                double price = Double.parseDouble(productDetails[3]);
-                Category category = Category.valueOf(productDetails[4]);
-                int stockQuantity = Integer.parseInt(productDetails[5]);
-                Product product = new Product(productId, name, description, price, category, stockQuantity);
-                products.add(product);
+                entities.add(entityReader.apply(new BufferedReader(new StringReader(line))));
             }
         } catch (IOException e) {
-            // Log or propagate the exception
-            throw new IOException("Error reading from the file: " + e.getMessage(), e);
+            System.out.println("Error reading from the file: " + e.getMessage());
+            throw e;
         }
-        return products;
+        return entities;
     }
 
     public ArrayList<User> readUserCredentials() {
