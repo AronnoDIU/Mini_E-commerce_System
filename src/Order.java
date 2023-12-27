@@ -24,6 +24,12 @@ public class Order {
         this.orderDetails = products;
     }
 
+    public Order(List<Product> products, Admin admin) {
+        this.orderDetails = products.toString();
+        this.orderStatus = OrderStatus.PLACED;
+        this.orderDate = new Date();
+    }
+
     public Integer getOrderId() {
         return orderId;
     }

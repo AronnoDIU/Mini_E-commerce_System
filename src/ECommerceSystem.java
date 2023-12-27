@@ -271,7 +271,7 @@ public class ECommerceSystem {
     }
 
     private static void showProductStatsMenu() {
-        Admin admin = new Admin("admin", "admin123", "Admin User", new ProductCatalog(), new OrderManager());
+        Admin admin = (Admin) currentUser;
         admin.viewProductStats();
         showAdminMenu();
     }

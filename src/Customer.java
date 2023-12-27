@@ -24,22 +24,6 @@ public class Customer extends User {
         cart.forEach(System.out::println);
     }
 
-    // Method to place an order
-//    public void placeOrder() {
-//        // Create a new order
-//        Order newOrder = new Order(cart);
-//
-//        // Add the order to the order manager
-//        OrderManager orderManager = new OrderManager();
-//        orderManager.createOrder(newOrder);
-//
-//        // Add the order to order history
-//        orderHistory.add(newOrder);
-//
-//        // Clear the cart after placing the order
-//        cart.clear();
-//    }
-
     // Method to view order history
     public List<Order> viewOrderHistory() {
         return orderHistory;

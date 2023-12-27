@@ -52,10 +52,4 @@ public class ProductManager {
         }
         return null;
     }
-
-    // Getters and setters (if needed)
-    // ...
-
-    // Other methods for product management
-    // ...
 }
