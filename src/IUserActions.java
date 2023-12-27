@@ -8,4 +8,8 @@ public interface IUserActions {
     void updateProfile();
 
     void placeOrder(List<Product> products);
+
+    void viewCart();
+
+    List<Order> viewOrderHistory();
 }

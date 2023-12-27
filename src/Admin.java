@@ -53,4 +53,17 @@ public class Admin extends User implements IAdminActions {
         shoppingCart.clearCart();
         orderManager.createOrder((Order) products);
     }
+
+    @Override
+    public void viewCart() {
+        // View cart
+        System.out.println("Cart viewed by admin.");
+    }
+
+    @Override
+    public List<Order> viewOrderHistory() {
+        // View order history
+        System.out.println("Order history viewed by admin.");
+        return null;
+    }
 }

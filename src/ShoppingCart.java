@@ -53,4 +53,28 @@ public class ShoppingCart {
             System.out.println("Invalid discount percentage. Please provide a percentage between 0 and 100.");
         }
     }
+
+    public void addToCart(Product product) {
+        items.add(product);
+        totalPrice += product.getPrice();
+    }
+
+    public void viewCart() {
+        System.out.println("Shopping Cart:");
+        for (Product product : items) {
+            System.out.println(product.getName() + " - $" + product.getPrice());
+        }
+        System.out.println("Total Price: $" + totalPrice);
+    }
+
+    public void removeFromCart(int productId) {
+        for (Product product : items) {
+            if (product.getProductId() == productId) {
+                items.remove(product);
+                totalPrice -= product.getPrice();
+                System.out.println(product.getName() + " removed from the cart.");
+                break;
+            }
+        }
+    }
 }

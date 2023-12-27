@@ -38,6 +38,10 @@ public class User implements IUserActions {
         this.email = email;
     }
 
+    public User(String loggedInUser) {
+        this.username = loggedInUser;
+    }
+
     // Getters
     public String getUserId() {
         return userId;
@@ -128,6 +132,20 @@ public class User implements IUserActions {
         } else {
             System.out.println("Shopping cart is null. Cannot place an order.");
         }
+    }
+
+    @Override
+    public void viewCart() {
+        if (shoppingCart != null) {
+            shoppingCart.viewCart();
+        } else {
+            System.out.println("Shopping cart is null. Cannot view cart.");
+        }
+    }
+
+    @Override
+    public List<Order> viewOrderHistory() {
+        return orderManager.getAllOrders();
     }
 
     public void addToCart(Product product) {

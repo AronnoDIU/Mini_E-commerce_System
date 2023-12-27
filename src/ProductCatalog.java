@@ -37,4 +37,13 @@ public class ProductCatalog {
         // View product statistics
         System.out.println("Product statistics viewed by admin.");
     }
+
+    public void viewProducts() {
+        // View all products
+        System.out.println("Products viewed by admin.");
+    }
+
+    public Product getProductById(int productId) {
+        return products.get(productId);
+    }
 }

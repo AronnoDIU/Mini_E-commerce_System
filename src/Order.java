@@ -3,19 +3,25 @@ import java.util.List;
 
 public class Order {
     private Integer orderId;
-    private String customerId;
-    private List<Product> orderDetails;
+    private Integer customerId;
+    private String orderDetails;
     private OrderStatus orderStatus; // enum type
     private Date orderDate;
 
     // Constructor
-    public Order(Integer orderId, String customerId, List<Product> orderDetails,
+    public Order(Integer orderId, Integer customerId, List<Product> orderDetails,
                  OrderStatus orderStatus, Date orderDate) {
         this.orderId = orderId;
         this.customerId = customerId;
-        this.orderDetails = orderDetails;
+        this.orderDetails = orderDetails.toString();
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
+    }
+
+    public Order(Integer orderId, String username, String products) {
+        this.orderId = orderId;
+        this.customerId = Integer.valueOf(username);
+        this.orderDetails = products;
     }
 
     public Integer getOrderId() {
@@ -26,20 +32,20 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public String getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
-    public List<Product> getOrderDetails() {
+    public String getOrderDetails() {
         return orderDetails;
     }
 
     public void setOrderDetails(List<Product> orderDetails) {
-        this.orderDetails = orderDetails;
+        this.orderDetails = orderDetails.toString();
     }
 
     public OrderStatus getOrderStatus() {

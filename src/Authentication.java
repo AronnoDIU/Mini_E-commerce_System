@@ -14,7 +14,7 @@ public class Authentication {
     }
 
     // Register a new user
-    public void register(String username, String password) {
+    public User register(String username, String password) {
         if (userCredentials.containsKey(username)) {
             System.out.println("Username already exists. Please choose another username.");
         } else {
@@ -22,10 +22,11 @@ public class Authentication {
             fileHandler.writeFile(userCredentials.toString());
             System.out.println("Registration successful. Welcome, " + username + "!");
         }
+        return new User(username, password, username);
     }
 
     // Login
-    public void login(String username, String password) {
+    public User login(String username, String password) {
         if (userCredentials.containsKey(username)) {
             if (userCredentials.get(username).equals(password)) {
                 loggedInUser = username;
@@ -36,6 +37,7 @@ public class Authentication {
         } else {
             System.out.println("Username not found. Please try again.");
         }
+        return loggedInUser != null ? new User(loggedInUser) : null;
     }
 
     // Logout

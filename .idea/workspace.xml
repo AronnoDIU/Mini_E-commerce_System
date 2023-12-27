@@ -5,42 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Mini E-commerce System">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/products.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Authentication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CustomException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/IAdminActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/IUserActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/OrderManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/OrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PaymentProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ProductCatalog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ProductManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_credentials.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Java-Fundamental-Exercise" beforeDir="false" afterPath="$PROJECT_DIR$/../Java-Fundamental-Exercise" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AuthenticationManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DiscountManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Authentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ECommerceSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECommerceSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputValidator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Notification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IUserActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IUserActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Payment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Promotion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReportGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Review.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ShippingAddress.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductCatalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductCatalog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ShoppingCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ShoppingCart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
     </list>
@@ -111,7 +84,7 @@
       <workItem from="1703505663327" duration="533000" />
       <workItem from="1703506457555" duration="130000" />
       <workItem from="1703527507232" duration="1277000" />
-      <workItem from="1703581940091" duration="29173000" />
+      <workItem from="1703581940091" duration="30617000" />
     </task>
     <task id="LOCAL-00001" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -257,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703618715221</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1703641436487</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1703641436487</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
