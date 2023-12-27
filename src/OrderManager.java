@@ -16,37 +16,38 @@ public class OrderManager {
     }
 
     // Cancel an existing order
-    public void cancelOrder(int orderID) {
-        Order order = findOrder(orderID);
+    public void cancelOrder(int orderId) {
+        Order order = findOrder(orderId);
         if (order != null) {
             orders.remove(order);
-            System.out.println("Order canceled successfully. Order ID: " + orderID);
+            System.out.println("Order canceled successfully. Order ID: " + orderId);
         } else {
             System.out.println("Order not found. Unable to cancel.");
         }
     }
 
     // Update the status of an existing order
-    public void updateOrderStatus(int orderID, String newStatus) {
-        Order order = findOrder(orderID);
+    public void updateOrderStatus(int orderId, OrderStatus newStatus) {
+        Order order = findOrder(orderId);
         if (order != null) {
-            order.setOrderStatus(OrderStatus.valueOf(newStatus));
-            System.out.println("Order status updated successfully. Order ID: " + orderID);
+            order.setOrderStatus(newStatus);
+            System.out.println("Order status updated successfully. Order ID: " + orderId);
         } else {
             System.out.println("Order not found. Unable to update status.");
         }
     }
 
     // Find an order by its ID
-    private Order findOrder(int orderID) {
+    private Order findOrder(int orderId) {
         for (Order order : orders) {
-            if (order.getOrderId() == orderID) {
+            if (order.getOrderId() == orderId) {
                 return order;
             }
         }
         return null;
     }
 
+    // Get a copy of all orders
     public List<Order> getAllOrders() {
         return new ArrayList<>(orders);
     }

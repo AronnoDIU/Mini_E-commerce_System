@@ -1,33 +1,30 @@
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 public class Order {
     private Integer orderId;
     private Integer customerId;
-    private String orderDetails;
-    private OrderStatus orderStatus; // enum type
-    private Date orderDate;
+    private List<Product> orderDetails;
+    private OrderStatus orderStatus;
+    private LocalDateTime orderDate;
 
-    // Constructor
+    // Constructors
     public Order(Integer orderId, Integer customerId, List<Product> orderDetails,
-                 OrderStatus orderStatus, Date orderDate) {
+                 OrderStatus orderStatus, LocalDateTime orderDate) {
         this.orderId = orderId;
         this.customerId = customerId;
-        this.orderDetails = orderDetails.toString();
+        this.orderDetails = orderDetails;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
     }
 
-    public Order(Integer orderId, String username, String products) {
-        this.orderId = orderId;
-        this.customerId = Integer.valueOf(username);
-        this.orderDetails = products;
+    public Order(Integer orderId, Integer customerId, List<Product> orderDetails, OrderStatus orderStatus) {
+        this(orderId, customerId, orderDetails, orderStatus, LocalDateTime.now());
     }
 
     public Order(List<Product> products, Admin admin) {
-        this.orderDetails = products.toString();
-        this.orderStatus = OrderStatus.PLACED;
-        this.orderDate = new Date();
+        this(null, admin.getUserId(), products, OrderStatus.PENDING);
     }
 
     public Integer getOrderId() {
@@ -46,12 +43,12 @@ public class Order {
         this.customerId = customerId;
     }
 
-    public String getOrderDetails() {
+    public List<Product> getOrderDetails() {
         return orderDetails;
     }
 
     public void setOrderDetails(List<Product> orderDetails) {
-        this.orderDetails = orderDetails.toString();
+        this.orderDetails = orderDetails;
     }
 
     public OrderStatus getOrderStatus() {
@@ -62,12 +59,14 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setOrderDate(LocalDateTime orderDate) {
+        if (orderDate != null) {
+            this.orderDate = orderDate;
+        }
     }
 
     // toString method for easy display
@@ -75,7 +74,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", customerId='" + customerId + '\'' +
+                ", customerId=" + customerId +
                 ", orderDetails=" + orderDetails +
                 ", orderStatus=" + orderStatus +
                 ", orderDate=" + orderDate +

@@ -28,9 +28,10 @@ public class Product {
 
         System.out.println("Enter product price:");
         double price = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter product category:");
-        String category = scanner.nextLine();
+        String category = scanner.nextLine().toUpperCase(); // Convert to uppercase
 
         System.out.println("Enter product stock quantity:");
         int stockQuantity = scanner.nextInt();

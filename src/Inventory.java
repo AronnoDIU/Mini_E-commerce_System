@@ -2,6 +2,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * The Inventory class represents a system for managing product stock levels and suppliers.
+ */
 public class Inventory {
     private Map<Product, Integer> stockLevels;
     private Map<Product, String> suppliers;
@@ -29,21 +32,33 @@ public class Inventory {
         this.suppliers = suppliers;
     }
 
-    // Other methods for inventory management
+    /**
+     * Adds a product to the inventory with the specified initial stock level and supplier.
+     *
+     * @param product      The product to add.
+     * @param initialStock The initial stock level.
+     * @param supplier     The supplier of the product.
+     */
     public void addProductToInventory(Product product, int initialStock, String supplier) {
         stockLevels.put(product, initialStock);
         suppliers.put(product, supplier);
-        System.out.println("Product added to inventory. Stock level set to " + initialStock);
+        System.out.println("Product '" + product.getName() + "' added to inventory. Initial stock level set to " + initialStock);
     }
 
+    /**
+     * Updates the stock level for a product.
+     *
+     * @param product  The product to update.
+     * @param quantity The quantity to add or subtract from the stock level.
+     */
     public void updateStockLevel(Product product, int quantity) {
         int currentStock = stockLevels.getOrDefault(product, 0);
         stockLevels.put(product, currentStock + quantity);
-        System.out.println("Stock level updated for " + product.getName() + ". New stock level: " + stockLevels.get(product));
+        System.out.println("Stock level updated for '" + product.getName() + "'. New stock level: " + stockLevels.get(product));
 
         // Generate alert for low stock
         if (stockLevels.get(product) <= 5) {
-            System.out.println("Alert: Low stock for product " + product.getName() + ". Current stock: " + stockLevels.get(product));
+            System.out.println("Alert: Low stock for product '" + product.getName() + "'. Current stock: " + stockLevels.get(product));
         }
     }
 
@@ -65,6 +80,12 @@ public class Inventory {
         }
     }
 
+    /**
+     * Creates an inventory by taking user inputs from the console.
+     *
+     * @param scanner The Scanner object for user input.
+     * @return The created Inventory.
+     */
     public static Inventory createInventoryFromConsoleInput(Scanner scanner) {
         Inventory inventory = new Inventory();
 

@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ProductManager {
     private final List<Product> products;
@@ -32,11 +30,11 @@ public class ProductManager {
 
     // Update the details of an existing product
     public void updateProduct(Product updatedProduct) {
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
-            if (product.getProductId() == updatedProduct.getProductId()) {
-                products.set(i, updatedProduct);
-                System.out.println("Product updated successfully. Product ID: " + updatedProduct.getProductId());
+        for (Product product : products) {
+            if (Objects.equals(product.getProductId(), updatedProduct.getProductId())) {
+                Collections.replaceAll(products, product, updatedProduct);
+                System.out.println("Product updated successfully. Product ID: " +
+                        updatedProduct.getProductId());
                 return;
             }
         }
@@ -51,5 +49,10 @@ public class ProductManager {
             }
         }
         return null;
+    }
+
+    // Get all products
+    public List<Product> getAllProducts() {
+        return Collections.unmodifiableList(products);
     }
 }

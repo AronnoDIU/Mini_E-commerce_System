@@ -1,7 +1,15 @@
+/**
+ * The IAdminActions interface defines actions that can be performed by an admin user.
+ */
 public interface IAdminActions {
-    // Method to view product statistics
+
+    /**
+     * View statistics related to products in the system.
+     */
     void viewProductStats();
 
-    // Method to manage users
+    /**
+     * Manage users, including tasks such as creating, updating, or deleting user accounts.
+     */
     void manageUsers();
 }

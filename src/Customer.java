@@ -12,20 +12,42 @@ public class Customer extends User {
     }
 
     // Methods for cart management
-    public void addToCart(Product item) {
-        cart.add(item);
+    public void addToCart(Product product) {
+        cart.add(product);
     }
 
-    public void removeFromCart(Product item) {
-        cart.remove(item);
+    public void removeFromCart(Product product) {
+        cart.remove(product);
     }
 
     public void viewCart() {
         cart.forEach(System.out::println);
     }
 
+    // Method to place an order
+    public void placeOrder() {
+        if (!cart.isEmpty()) {
+            Order newOrder = new Order(cart, this);
+            orderHistory.add(newOrder);
+            cart.clear();
+            System.out.println("Order placed successfully!");
+        } else {
+            System.out.println("Cart is empty. Cannot place an empty order.");
+        }
+    }
+
     // Method to view order history
     public List<Order> viewOrderHistory() {
+        return orderHistory;
+    }
+
+    // Getter for cart
+    public List<Product> getCart() {
+        return cart;
+    }
+
+    // Getter for order history
+    public List<Order> getOrderHistory() {
         return orderHistory;
     }
 

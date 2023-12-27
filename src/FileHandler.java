@@ -15,35 +15,31 @@ public class FileHandler {
     }
 
     // Read content from a file
-    public String readFile() {
+    public String readFile() throws IOException {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 content.append(line).append("\n");
             }
-        } catch (IOException e) {
-            System.out.println("Error reading from the file: " + e.getMessage());
         }
         return content.toString();
     }
 
     // Write content to a file
-    public void writeFile(String content) {
+    public void writeFile(String content) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(content);
             System.out.println("Write to file successful.");
-        } catch (IOException e) {
-            System.out.println("Error writing to the file: " + e.getMessage());
         }
     }
 
-    public static List<Product> readProducts(String filePath) {
+    public static List<Product> readProducts(String filePath, String delimiter) throws IOException {
         List<Product> products = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] productDetails = line.split(",");
+                String[] productDetails = line.split(delimiter);
                 Integer productId = Integer.parseInt(productDetails[0]);
                 String name = productDetails[1];
                 String description = productDetails[2];
