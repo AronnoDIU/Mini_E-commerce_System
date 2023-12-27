@@ -24,7 +24,7 @@ public class Admin extends User implements IAdminActions {
     // Add a product to the catalog
     public void addProduct(Product product) {
         productCatalog.addProduct(product);
-        System.out.println("Product added successfully!");
+        logSuccess("Product added");
     }
 
     // Remove a product from the catalog
@@ -35,14 +35,17 @@ public class Admin extends User implements IAdminActions {
             System.out.println("Product removed successfully!");
         } catch (ProductNotFoundException e) {
             System.out.println("Product with ID " + productId + " not found.");
-            // Log or handle the exception based on your application's needs
         }
     }
 
     // Update an existing product
     public void updateProduct(Product product) {
         productCatalog.updateProduct(product);
-        System.out.println("Product updated successfully!");
+        logSuccess("Product updated");
+    }
+
+    private void logSuccess(String action) {
+        System.out.println(action + " successfully!");
     }
 
     @Override
