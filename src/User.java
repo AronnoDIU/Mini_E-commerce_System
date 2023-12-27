@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class User implements IUserActions {
 
-    private String name;
+    String name;
     private String userId;
     private String username;
     private String password;
@@ -13,8 +13,6 @@ public class User implements IUserActions {
     private OrderManager orderManager;
 
     // Constructors
-
-    // Full constructor
     public User(String name, String userId, String username, String password, String address, String email) {
         this.name = name;
         this.userId = userId;
@@ -26,12 +24,24 @@ public class User implements IUserActions {
         this.orderManager = new OrderManager();
     }
 
-    // Minimal constructor
-    public User(String userId, String username, String password, String address, String email) {
-        this(null, userId, username, password, address, email);
+    public User(String username, String password, String name) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.shoppingCart = new ShoppingCart();
+        this.orderManager = new OrderManager();
     }
 
-    // For login purposes
+    public User(String userId, String username, String password, String address, String email) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.email = email;
+        this.shoppingCart = new ShoppingCart();
+        this.orderManager = new OrderManager();
+    }
+
     public User(String loggedInUser) {
         this.username = loggedInUser;
     }
@@ -137,10 +147,7 @@ public class User implements IUserActions {
     @Override
     public void placeOrder(List<Product> products) {
         if (shoppingCart != null) {
-            // Assuming an Admin instance is needed to create an order
-            Admin admin = new Admin(this.name, this.userId,
-                    this.username, this.password, this.address, this.email);
-            Order newOrder = new Order(products, admin);
+            Order newOrder = new Order(products, this);
             orderManager.createOrder(newOrder);
             shoppingCart.clearCart();
             System.out.println("Order placed successfully!");
@@ -152,7 +159,7 @@ public class User implements IUserActions {
     @Override
     public void viewCart() {
         if (shoppingCart != null) {
-            shoppingCart.viewCart();
+            shoppingCart.displayCart();
         } else {
             System.out.println("Shopping cart is null. Cannot view cart.");
         }
@@ -165,55 +172,24 @@ public class User implements IUserActions {
 
     public void addToCart(Product product) {
         if (shoppingCart != null) {
-            shoppingCart.addItem(product);
+            shoppingCart.addToCart(product);
             System.out.println("Product added to the shopping cart.");
         } else {
             System.out.println("Shopping cart is null. Cannot add to cart.");
         }
     }
-}
 
-//    // toString method for easy representation
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "userId='" + userId + '\'' +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", address='" + address + '\'' +
-//                ", email='" + email + '\'' +
-//                '}';
-//    }
-//
-//
-//    @Override
-//    public void placeOrder(List<Product> products) {
-//        if (shoppingCart != null) {
-//            Order newOrder = new Order(products, (Admin) this);
-//            orderManager.createOrder(newOrder);
-//            shoppingCart.clearCart();
-//            System.out.println("Order placed successfully!");
-//        } else {
-//            System.out.println("Shopping cart is null. Cannot place an order.");
-//        }
-//    }
-//
-//    @Override
-//    public void viewCart() {
-//        if (shoppingCart != null) {
-//            shoppingCart.viewCart();
-//        } else {
-//            System.out.println("Shopping cart is null. Cannot view cart.");
-//        }
-//    }
-//
-//    @Override
-//    public List<Order> viewOrderHistory() {
-//        return orderManager.getAllOrders();
-//    }
-//
-//    public void addToCart(Product product) {
-//        shoppingCart.addItem(product);
-//        System.out.println("Product added to the shopping cart.");
-//    }
-//}
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", shoppingCart=" + shoppingCart +
+                ", orderManager=" + orderManager +
+                '}';
+    }
+}

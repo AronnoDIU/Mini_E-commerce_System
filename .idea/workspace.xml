@@ -7,22 +7,6 @@
     <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Mini E-commerce System">
       <change beforePath="$PROJECT_DIR$/../Java-Fundamental-Exercise" beforeDir="false" afterPath="$PROJECT_DIR$/../Java-Fundamental-Exercise" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Authentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IAdminActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IAdminActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IUserActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IUserActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OrderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OrderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OrderStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductCatalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductCatalog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ShoppingCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ShoppingCart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +78,7 @@
       <workItem from="1703527507232" duration="1277000" />
       <workItem from="1703581940091" duration="31086000" />
       <workItem from="1703667326013" duration="4111000" />
-      <workItem from="1703684960525" duration="4976000" />
+      <workItem from="1703684960525" duration="6656000" />
     </task>
     <task id="LOCAL-00001" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -280,7 +264,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703672349333</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1703708863737</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1703708863737</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
