@@ -9,7 +9,6 @@ public class Order {
     private OrderStatus orderStatus;
     private LocalDateTime orderDate;
 
-    // Constructors
     public Order(String orderId, String customerId, List<Product> orderDetails, OrderStatus orderStatus,
                  LocalDateTime orderDate) {
         this.orderId = orderId;
