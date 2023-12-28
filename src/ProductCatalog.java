@@ -13,7 +13,6 @@ public class ProductCatalog {
         products.put(product.getProductId(), product);
     }
 
-    // Remove a product
     public void removeProduct(Integer productId) throws ProductNotFoundException {
         if (!products.containsKey(productId)) {
             throw new ProductNotFoundException("Product with ID " + productId + " not found.");
@@ -22,6 +21,9 @@ public class ProductCatalog {
     }
 
     public void updateProduct(Product product) {
+        if (!products.containsKey(product.getProductId())) {
+            throw new IllegalArgumentException("Product with ID " + product.getProductId() + " not found.");
+        }
         products.put(product.getProductId(), product);
     }
 
@@ -44,6 +46,7 @@ public class ProductCatalog {
         }
     }
 
+    // This method could be package-private or private to provide encapsulation
     public Product getProductById(int productId) {
         return products.get(productId);
     }
