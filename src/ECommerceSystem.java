@@ -91,10 +91,17 @@ public class ECommerceSystem {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 12: // For Logout
+                    case 12: // For Manage Users (Admin only)
+                        if (currentUser instanceof Admin) {
+                            userManager.manageUsers();
+                        } else {
+                            System.out.println("You do not have permission to access this feature.");
+                        }
+                        break;
+                    case 13: // For Logout
                         logout();
                         break;
-                    case 13: // For Exit
+                    case 14: // For Exit
                         exit();
                         break;
                     default:
