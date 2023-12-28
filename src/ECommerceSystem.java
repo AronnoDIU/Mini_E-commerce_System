@@ -14,6 +14,11 @@ public class ECommerceSystem {
         loadInitialProducts();
     }
 
+    public static void main(String[] args) throws IOException {
+        ECommerceSystem ecommerceSystem = new ECommerceSystem();
+        ecommerceSystem.run();
+    }
+
     public void run() {
         displayWelcomeMessage();
 
@@ -78,11 +83,6 @@ public class ECommerceSystem {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        ECommerceSystem ecommerceSystem = new ECommerceSystem();
-        ecommerceSystem.run();
-    }
-
     private void loadInitialProducts() {
         // Example: Adding some initial products to the catalog
         Product product1 = new Product(1, "Laptop", "Powerful laptop", 1200.0, Category.ELECTRONICS, 10);
@@ -107,9 +107,11 @@ public class ECommerceSystem {
         productCatalog.addProduct(product9);
         productCatalog.addProduct(product10);
     }
+
     private void displayWelcomeMessage() {
         System.out.println("Welcome to the E-Commerce System!");
     }
+
     private void displayAuthenticationMenu() {
         System.out.println("Welcome to the E-Commerce System!");
         System.out.println("1. Log In");
@@ -132,6 +134,7 @@ public class ECommerceSystem {
             System.out.println("Authentication failed. Please check your credentials.");
         }
     }
+
     private void displayMainMenu() {
         // Example: Displaying the main menu
         System.out.println("ECommerce System Main Menu");
