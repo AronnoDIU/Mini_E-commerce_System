@@ -1,18 +1,35 @@
 import java.util.List;
 
+/**
+ * The {@code IUserActions} interface defines actions that can be performed by a user in the system.
+ */
 public interface IUserActions {
-    // Method to view user profile
+    /**
+     * View the user's profile.
+     */
     void viewProfile();
 
-    // Method to update user profile
+    /**
+     * Update the user's profile.
+     */
     void updateProfile();
 
-    // Method to place an order with a list of products
+    /**
+     * Place an order with a list of products.
+     *
+     * @param products The list of products to include in the order.
+     */
     void placeOrder(List<Product> products);
 
-    // Method to view the user's shopping cart
+    /**
+     * View the user's shopping cart.
+     */
     void viewCart();
 
-    // Method to view the user's order history
+    /**
+     * View the user's order history.
+     *
+     * @return The list of orders in the user's history.
+     */
     List<Order> viewOrderHistory();
 }
