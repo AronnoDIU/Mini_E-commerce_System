@@ -49,23 +49,18 @@ public class ShoppingCart {
         for (Product product : items) {
             System.out.println(product.getName() + " - $" + product.getPrice());
         }
-        System.out.println("Total Price: $" + totalPrice);
+        System.out.println("Total Price: $" + calculateTotal());
         return new ArrayList<>(items);
     }
 
     // Apply a discount to the cart
     public void applyDiscount(double discountPercentage) {
         if (discountPercentage >= 0 && discountPercentage <= 100) {
-            double discountAmount = (discountPercentage / 100) * totalPrice;
+            double discountAmount = (discountPercentage / 100) * calculateTotal();
             totalPrice -= discountAmount;
-            System.out.println("Discount of $" + discountAmount + " applied. New total: $" + totalPrice);
+            System.out.println("Discount of $" + discountAmount + " applied. New total: $" + calculateTotal());
         } else {
             System.out.println("Invalid discount percentage. Please provide a percentage between 0 and 100.");
         }
-    }
-
-    // Get the total price
-    public double getTotalPrice() {
-        return totalPrice;
     }
 }

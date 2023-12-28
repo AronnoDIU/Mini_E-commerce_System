@@ -8,7 +8,7 @@ public class User implements IUserActions {
     private String password;
     private String address;
     private String email;
-    private ShoppingCart shoppingCart;
+    ShoppingCart shoppingCart;
     private OrderManager orderManager;
 
     // Constructors

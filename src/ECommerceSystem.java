@@ -20,6 +20,26 @@ public class ECommerceSystem {
         ecommerceSystem.run();
     }
 
+    private void displayMainMenu() {
+        System.out.println("ECommerce System Main Menu");
+        System.out.println("1. View Products");
+        System.out.println("2. Add to Cart");
+        System.out.println("3. View Cart");
+        System.out.println("4. Remove from Cart");
+        System.out.println("5. Place Order");
+        System.out.println("6. View Order History");
+        System.out.println("7. View Profile");
+        System.out.println("8. Update Profile");
+        System.out.println("9. Apply Discount");
+        System.out.println("10. View Product Catalog");
+        System.out.println("11. Manage Products (Admin)");
+        System.out.println("12. View Product Statistics (Admin)");
+        System.out.println("13. Manage Users (Admin)");
+        System.out.println("14. Logout");
+        System.out.println("15. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
     public void run() {
         displayWelcomeMessage();
 
@@ -59,49 +79,56 @@ public class ECommerceSystem {
                     case 3: // For View Cart
                         viewCart();
                         break;
-                    case 4: // For Place Order
+                    case 4: // For Remove from Cart (customer only)
+                        if (currentUser instanceof Customer) {
+                            removeFromCart();
+                        } else {
+                            System.out.println("Invalid choice. Please try again.");
+                        }
+                        break;
+                    case 5: // For Place Order
                         placeOrder();
                         break;
-                    case 5: // For View Order History
+                    case 6: // For View Order History
                         viewOrderHistory();
                         break;
-                    case 6: // For View Profile
+                    case 7: // For View Profile
                         viewProfile();
                         break;
-                    case 7: // For Update Profile
+                    case 8: // For Update Profile
                         updateProfile();
                         break;
-                    case 8: // For Apply Discount
+                    case 9: // For Apply Discount
                         applyDiscount();
                         break;
-                    case 9: // For View Product Catalog
+                    case 10: // For View Product Catalog
                         viewProductCatalog();
                         break;
-                    case 10: // For Manage Products (Admin)
+                    case 11: // For Manage Products (Admin)
                         if (currentUser instanceof Admin) {
                             manageProducts();
                         } else {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 11: // For View Product Statistics (Admin)
+                    case 12: // For View Product Statistics (Admin)
                         if (currentUser instanceof Admin) {
                             productCatalog.viewProductStatistics();
                         } else {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 12: // For Manage Users (Admin only)
+                    case 13: // For Manage Users (Admin only)
                         if (currentUser instanceof Admin) {
                             userManager.manageUsers();
                         } else {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 13: // For Logout
+                    case 14: // For Logout
                         logout();
                         break;
-                    case 14: // For Exit
+                    case 15: // For Exit
                         exit();
                         break;
                     default:
@@ -260,24 +287,6 @@ public class ECommerceSystem {
         }
     }
 
-    private void displayMainMenu() {
-        System.out.println("ECommerce System Main Menu");
-        System.out.println("1. View Products");
-        System.out.println("2. Add to Cart");
-        System.out.println("3. View Cart");
-        System.out.println("4. Place Order");
-        System.out.println("5. View Order History");
-        System.out.println("6. View Profile");
-        System.out.println("7. Update Profile");
-        System.out.println("8. Apply Discount");
-        System.out.println("9. View Product Catalog");
-        System.out.println("10. Manage Products (Admin)");
-        System.out.println("11. View Product Statistics (Admin)");
-        System.out.println("12. Logout");
-        System.out.println("13. Exit");
-        System.out.print("Enter your choice: ");
-    }
-
     private void viewProducts() {
         productCatalog.viewProducts();
     }
@@ -301,6 +310,18 @@ public class ECommerceSystem {
         // Viewing the user's shopping cart
         currentUser.viewCart();
     }
+
+    private void removeFromCart() {
+        if (currentUser instanceof Customer) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter the product ID to remove from the cart: ");
+            int productId = scanner.nextInt();
+            ((Customer) currentUser).getShoppingCart().removeFromCart(productId);
+        } else {
+            System.out.println("Invalid user type for this operation.");
+        }
+    }
+
 
     private void placeOrder() {
         // Example: Placing an order

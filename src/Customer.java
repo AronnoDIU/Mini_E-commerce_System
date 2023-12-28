@@ -31,9 +31,13 @@ public class Customer extends User {
     }
 
     // Getter for cart
-    public List<Product> getCart() {
-        return cart;
+    public ShoppingCart getShoppingCart() {
+        if (this.shoppingCart == null) {
+            this.shoppingCart = new ShoppingCart();
+        }
+        return this.shoppingCart;
     }
+
 
     // Getter for order history
     public List<Order> getOrderHistory() {
