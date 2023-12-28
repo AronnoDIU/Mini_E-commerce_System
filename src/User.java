@@ -194,4 +194,13 @@ public class User implements IUserActions {
                 ", orderManager=" + orderManager +
                 '}';
     }
+
+    public void applyDiscount(double discountPercentage) {
+        if (shoppingCart != null) {
+            shoppingCart.applyDiscount(discountPercentage);
+            System.out.println("Discount applied successfully!");
+        } else {
+            System.out.println("Shopping cart is null. Cannot apply discount.");
+        }
+    }
 }

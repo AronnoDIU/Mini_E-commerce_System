@@ -7,6 +7,8 @@
     <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Mini E-commerce System">
       <change beforePath="$PROJECT_DIR$/../Java-Fundamental-Exercise" beforeDir="false" afterPath="$PROJECT_DIR$/../Java-Fundamental-Exercise" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ECommerceSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECommerceSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductCatalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductCatalog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +80,7 @@
       <workItem from="1703581940091" duration="31086000" />
       <workItem from="1703667326013" duration="4111000" />
       <workItem from="1703684960525" duration="18034000" />
-      <workItem from="1703784590859" duration="776000" />
+      <workItem from="1703784590859" duration="1601000" />
     </task>
     <task id="LOCAL-00001" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -384,7 +386,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703794959913</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1703795016584</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1703795016584</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

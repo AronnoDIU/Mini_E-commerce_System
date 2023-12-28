@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ECommerceSystem {
@@ -14,12 +15,12 @@ public class ECommerceSystem {
         loadInitialProducts();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws ProductNotFoundException {
         ECommerceSystem ecommerceSystem = new ECommerceSystem();
         ecommerceSystem.run();
     }
 
-    public void run() {
+    public void run() throws ProductNotFoundException {
         displayWelcomeMessage();
 
         while (true) {
@@ -49,38 +50,105 @@ public class ECommerceSystem {
                 scanner.nextLine(); // Consume the newline character
 
                 switch (mainMenuChoice) {
-                    case 1: // For View Products
+                    case 1:
                         viewProducts();
                         break;
-                    case 2: // For Add to Cart
+                    case 2:
                         addToCart();
                         break;
-                    case 3: // For View Cart
+                    case 3:
                         viewCart();
                         break;
-                    case 4: // For Place Order
+                    case 4:
                         placeOrder();
                         break;
-                    case 5: // For View Order History
+                    case 5:
                         viewOrderHistory();
                         break;
-                    case 6: // For View Profile
+                    case 6:
                         viewProfile();
                         break;
-                    case 7: // For Update Profile
+                    case 7:
                         updateProfile();
                         break;
-                    case 8: // For Exit
+                    case 8:
+                        applyDiscount();
+                        break;
+                    case 9:
+                        viewProductCatalog();
+                        break;
+                    case 10:
+                        if (currentUser instanceof Admin) {
+                            manageProducts();
+                        } else {
+                            System.out.println("You do not have permission to access this feature.");
+                        }
+                        break;
+                    case 11:
+                        if (currentUser instanceof Admin) {
+                            productCatalog.viewProductStatistics();
+                        } else {
+                            System.out.println("You do not have permission to access this feature.");
+                        }
+                        break;
+                    case 12:
                         logout();
                         break;
-                    case 9: // For Exit
+                    case 13:
                         exit();
-                        return;
+                        break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
             }
         }
+    }
+
+    private void manageProducts() throws ProductNotFoundException {
+        // Example: Managing products
+        while (true) {
+            System.out.println("Manage Products Menu");
+            System.out.println("1. Add Product");
+            System.out.println("2. Remove Product");
+            System.out.println("3. Update Product");
+            System.out.println("4. View Products");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1: // For Add Product
+                    productCatalog.addProduct(Product.createProductFromConsoleInput(scanner));
+                    break;
+                case 2: // For Remove Product
+                    productCatalog.removeProduct(Objects.requireNonNull(Product.createProductFromConsoleInput(scanner)).getProductId());
+                    break;
+                case 3: // For Update Product
+                    productCatalog.updateProduct(Objects.requireNonNull(Product.createProductFromConsoleInput(scanner)));
+                    break;
+                case 4: // For View Products
+                    viewProducts();
+                    break;
+                case 5: // For Exit
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private void viewProductCatalog() {
+        productCatalog.viewProductCatalog();
+    }
+
+    private void applyDiscount() {
+        System.out.println("Enter discount percentage:");
+        double discountPercentage = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character
+
+        currentUser.applyDiscount(discountPercentage);
     }
 
     private void loadInitialProducts() {
@@ -136,7 +204,6 @@ public class ECommerceSystem {
     }
 
     private void displayMainMenu() {
-        // Example: Displaying the main menu
         System.out.println("ECommerce System Main Menu");
         System.out.println("1. View Products");
         System.out.println("2. Add to Cart");
@@ -145,7 +212,12 @@ public class ECommerceSystem {
         System.out.println("5. View Order History");
         System.out.println("6. View Profile");
         System.out.println("7. Update Profile");
-        System.out.println("8. Exit");
+        System.out.println("8. Apply Discount");
+        System.out.println("9. View Product Catalog");
+        System.out.println("10. Manage Products (Admin)");
+        System.out.println("11. View Product Statistics (Admin)");
+        System.out.println("12. Logout");
+        System.out.println("13. Exit");
         System.out.print("Enter your choice: ");
     }
 

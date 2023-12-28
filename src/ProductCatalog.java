@@ -50,4 +50,11 @@ public class ProductCatalog {
     public Product getProductById(int productId) {
         return products.get(productId);
     }
+
+    public void viewProductCatalog() {
+        System.out.println("Product catalog viewed by customer:");
+        for (Product product : products.values()) {
+            System.out.println(product);
+        }
+    }
 }
