@@ -50,51 +50,51 @@ public class ECommerceSystem {
                 scanner.nextLine(); // Consume the newline character
 
                 switch (mainMenuChoice) {
-                    case 1:
+                    case 1: // For View Products
                         viewProducts();
                         break;
-                    case 2:
+                    case 2: // For Add to Cart
                         addToCart();
                         break;
-                    case 3:
+                    case 3: // For View Cart
                         viewCart();
                         break;
-                    case 4:
+                    case 4: // For Place Order
                         placeOrder();
                         break;
-                    case 5:
+                    case 5: // For View Order History
                         viewOrderHistory();
                         break;
-                    case 6:
+                    case 6: // For View Profile
                         viewProfile();
                         break;
-                    case 7:
+                    case 7: // For Update Profile
                         updateProfile();
                         break;
-                    case 8:
+                    case 8: // For Apply Discount
                         applyDiscount();
                         break;
-                    case 9:
+                    case 9: // For View Product Catalog
                         viewProductCatalog();
                         break;
-                    case 10:
+                    case 10: // For Manage Products (Admin)
                         if (currentUser instanceof Admin) {
                             manageProducts();
                         } else {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 11:
+                    case 11: // For View Product Statistics (Admin)
                         if (currentUser instanceof Admin) {
                             productCatalog.viewProductStatistics();
                         } else {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 12:
+                    case 12: // For Logout
                         logout();
                         break;
-                    case 13:
+                    case 13: // For Exit
                         exit();
                         break;
                     default:
@@ -107,12 +107,12 @@ public class ECommerceSystem {
     private void manageProducts() throws ProductNotFoundException {
         // Example: Managing products
         while (true) {
-            System.out.println("Manage Products Menu");
+            System.out.println("Product Management Menu");
             System.out.println("1. Add Product");
             System.out.println("2. Remove Product");
             System.out.println("3. Update Product");
             System.out.println("4. View Products");
-            System.out.println("5. Exit");
+            System.out.println("5. Back to the Main Menu");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -120,21 +120,33 @@ public class ECommerceSystem {
 
             switch (choice) {
                 case 1: // For Add Product
-                    productCatalog.addProduct(Product.createProductFromConsoleInput(scanner));
+                    try {
+                        productCatalog.addProduct(Product.createProductFromConsoleInput(scanner));
+                        System.out.println("Product added successfully. Product ID: " +
+                                Objects.requireNonNull
+                                        (productCatalog.getAllProducts().get
+                                                (productCatalog.getAllProducts()
+                                                        .size() - 1)).getProductId() + ".");
+                    } catch (NullPointerException e) {
+                        System.out.println("Invalid input. Please enter valid product details.");
+                    }
                     break;
                 case 2: // For Remove Product
-                    productCatalog.removeProduct(Objects.requireNonNull(Product.createProductFromConsoleInput(scanner)).getProductId());
+                    productCatalog.removeProduct(Objects.requireNonNull
+                            (Product.createProductFromConsoleInput(scanner)).getProductId());
                     break;
                 case 3: // For Update Product
-                    productCatalog.updateProduct(Objects.requireNonNull(Product.createProductFromConsoleInput(scanner)));
+                    productCatalog.updateProduct(Objects.requireNonNull
+                            (Product.createProductFromConsoleInput(scanner)));
                     break;
                 case 4: // For View Products
                     viewProducts();
                     break;
-                case 5: // For Exit
+                case 5: // For Back to the Main Menu
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    manageProducts();
             }
         }
     }
