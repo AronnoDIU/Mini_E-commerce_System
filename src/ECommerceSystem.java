@@ -1,26 +1,26 @@
-import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class ECommerceSystem {
+    private final UserManager userManager;
     private final ProductCatalog productCatalog;
     private static User currentUser;
     private final Scanner scanner;
 
     public ECommerceSystem() {
+        this.userManager = new UserManager();
         this.productCatalog = new ProductCatalog();
         currentUser = null; // No user is logged in initially
         this.scanner = new Scanner(System.in);
         loadInitialProducts();
     }
 
-    public static void main(String[] args) throws ProductNotFoundException {
+    public static void main(String[] args) {
         ECommerceSystem ecommerceSystem = new ECommerceSystem();
         ecommerceSystem.run();
     }
 
-    public void run() throws ProductNotFoundException {
+    public void run() {
         displayWelcomeMessage();
 
         while (true) {
@@ -104,7 +104,7 @@ public class ECommerceSystem {
         }
     }
 
-    private void manageProducts() throws ProductNotFoundException {
+    private void manageProducts() {
         // Example: Managing products
         while (true) {
             System.out.println("Product Management Menu");
@@ -139,6 +139,7 @@ public class ECommerceSystem {
             }
         }
     }
+
     private void addProduct() {
         System.out.println("Adding a New Product");
 
@@ -151,6 +152,7 @@ public class ECommerceSystem {
         assert newProduct != null;
         System.out.println("Product added successfully. Product ID: " + newProduct.getProductId());
     }
+
     private void removeProduct() {
         System.out.println("Removing a Product");
         System.out.print("Enter the product ID to remove: ");
@@ -165,6 +167,7 @@ public class ECommerceSystem {
             System.out.println("Product not found. Unable to remove.");
         }
     }
+
     private void updateProduct() {
         System.out.println("Updating a Product");
         System.out.print("Enter the product ID to update: ");
@@ -230,10 +233,9 @@ public class ECommerceSystem {
     }
 
     private void displayAuthenticationMenu() {
-        System.out.println("Welcome to the E-Commerce System!");
-        System.out.println("1. Log In");
-        System.out.println("2. Create Account");
-        System.out.println("3. Exit");
+        System.out.println("1. Log in to your account");
+        System.out.println("2. Create Account (New User)");
+        System.out.println("3. Exit the system");
         System.out.print("Enter your choice: ");
     }
 
@@ -243,10 +245,9 @@ public class ECommerceSystem {
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
-        if (authenticate(username, password)) {
-            assert currentUser != null;
-            System.out.println("Authentication successful. Welcome, " +
-                    currentUser.getName() + "!");
+        if (userManager.authenticateUser(username, password)) {
+            currentUser = userManager.getUserByUsername(username);
+            System.out.println("Authentication successful. Welcome, " + currentUser.getName() + "!");
         } else {
             System.out.println("Authentication failed. Please check your credentials.");
         }
@@ -323,20 +324,6 @@ public class ECommerceSystem {
         System.out.println("Exiting the ECommerce System. Goodbye!");
         scanner.close();
         System.exit(0);
-    }
-
-    private User getUserByUsername(String username) {
-        return new User("John Doe", "john.doe", "password",
-                "123 Main St", "john.doe@example.com");
-    }
-
-    private boolean authenticate(String username, String password) {
-        User user = getUserByUsername(username);
-        if (user.getPassword().equals(password)) {
-            currentUser = user;
-            return true;
-        }
-        return false;
     }
 
     private void createUserAccount() {

@@ -203,4 +203,8 @@ public class User implements IUserActions {
             System.out.println("Shopping cart is null. Cannot apply discount.");
         }
     }
+
+    public boolean authenticate(String password) {
+        return this.password.equals(password);
+    }
 }
