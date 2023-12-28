@@ -2,12 +2,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ECommerceSystem {
+    private final ProductManager productManager;
     private final UserManager userManager;
     private final ProductCatalog productCatalog;
     static User currentUser;
     private final Scanner scanner;
 
     public ECommerceSystem() {
+        this.productManager = new ProductManager();
         this.userManager = new UserManager();
         this.productCatalog = new ProductCatalog();
         currentUser = null; // No user is logged in initially
@@ -104,7 +106,7 @@ public class ECommerceSystem {
                     case 10: // For View Product Catalog
                         viewProductCatalog();
                         break;
-                    case 11: // For Manage Products (Admin)
+                    case 11: // For Manage Products (Admin only)
                         if (currentUser instanceof Admin) {
                             manageProducts();
                         } else {
@@ -145,8 +147,9 @@ public class ECommerceSystem {
             System.out.println("1. Add Product");
             System.out.println("2. Remove Product");
             System.out.println("3. Update Product");
-            System.out.println("4. View Products");
-            System.out.println("5. Back to the Main Menu");
+            System.out.println("4. Search Product");
+            System.out.println("5. View All Products");
+            System.out.println("6. Back to the Main Menu");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -162,10 +165,13 @@ public class ECommerceSystem {
                 case 3: // For Update Product
                     updateProduct();
                     break;
-                case 4: // For View Products
-                    viewProductCatalog();
+                case 4: // For Search Product
+                    searchProduct();
                     break;
-                case 5: // For Back to the Main Menu
+                case 5: // For View All Products
+                    viewAllProducts();
+                    break;
+                case 6: // For Back to the Main Menu
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -175,53 +181,122 @@ public class ECommerceSystem {
     }
 
     private void addProduct() {
-        System.out.println("Adding a New Product");
+        System.out.println("Enter Product details to add:");
 
-        // Collect product details from the admin
-        Product newProduct = Product.createProductFromConsoleInput(scanner);
+        System.out.println("Enter product ID: ");
+        int productId = scanner.nextInt();
 
-        // Add the new product to the catalog
-        productCatalog.addProduct(newProduct);
+        System.out.print("Enter product name: ");
+        String name = scanner.nextLine();
 
-        assert newProduct != null;
-        System.out.println("Product added successfully. Product ID: " + newProduct.getProductId());
+        System.out.print("Enter product description: ");
+        String description = scanner.nextLine();
+
+        System.out.print("Enter product price: ");
+        double price = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character
+
+        System.out.print("Enter product category: ");
+        String category = scanner.nextLine().toUpperCase();
+
+        System.out.print("Enter product stock quantity: ");
+        int stockQuantity = scanner.nextInt();
+
+        Product newProduct = new Product(productId, name,
+                description, price, Category.valueOf(category), stockQuantity);
+        productManager.addProduct(newProduct);
+
+        System.out.println("Product added successfully.");
     }
 
+
     private void removeProduct() {
-        System.out.println("Removing a Product");
-        System.out.print("Enter the product ID to remove: ");
+        System.out.println("Enter Product details to remove:");
+
+        System.out.print("Enter the Product ID to remove: ");
         int productId = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
 
-        try {
-            // Remove the product from the catalog
-            productCatalog.removeProduct(productId);
-            System.out.println("Product removed successfully. Product ID: " + productId);
-        } catch (ProductNotFoundException e) {
-            System.out.println("Product not found. Unable to remove.");
-        }
+        productManager.removeProduct(productId);
     }
 
     private void updateProduct() {
-        System.out.println("Updating a Product");
-        System.out.print("Enter the product ID to update: ");
+        System.out.println("Enter Product details to update:");
+
+        System.out.print("Enter the Product ID to update: ");
         int productId = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
 
-        Product existingProduct = productCatalog.getProduct(productId);
+        Product existingProduct = productManager.searchProduct(productId);
 
         if (existingProduct != null) {
-            // Collect updated product details from the admin
-            Product updatedProduct = Product.createProductFromConsoleInput(scanner);
-            assert updatedProduct != null;
-            updatedProduct.setProductId(productId);
+            System.out.print("Enter updated product name (press Enter to keep current name): ");
+            String newName = scanner.nextLine();
+            if (!newName.isEmpty()) {
+                existingProduct.setName(newName);
+            }
 
-            // Update the product in the catalog
-            productCatalog.updateProduct(updatedProduct);
+            System.out.print("Enter updated product description (press Enter to keep current description): ");
+            String newDescription = scanner.nextLine();
+            if (!newDescription.isEmpty()) {
+                existingProduct.setDescription(newDescription);
+            }
 
-            System.out.println("Product updated successfully. Product ID: " + productId);
+            System.out.print("Enter updated product price (press Enter to keep current price): ");
+            String newPriceString = scanner.nextLine();
+            if (!newPriceString.isEmpty()) {
+                double newPrice = Double.parseDouble(newPriceString);
+                existingProduct.setPrice(newPrice);
+            }
+
+            System.out.print("Enter updated product category (press Enter to keep current category): ");
+            String newCategoryString = scanner.nextLine();
+            if (!newCategoryString.isEmpty()) {
+                existingProduct.setCategory(Category.valueOf(newCategoryString.toUpperCase()));
+            }
+
+            System.out.print("Enter updated product stock quantity (press Enter to keep current stock quantity): ");
+            String newStockQuantityString = scanner.nextLine();
+            if (!newStockQuantityString.isEmpty()) {
+                int newStockQuantity = Integer.parseInt(newStockQuantityString);
+                existingProduct.setStockQuantity(newStockQuantity);
+            }
+
+            productManager.updateProduct(existingProduct);
+            System.out.println("Product updated successfully.");
         } else {
-            System.out.println("Product not found. Unable to update.");
+            System.out.println("Product not found.");
+        }
+    }
+
+    private void searchProduct() {
+        System.out.println("Enter Product details to search:");
+
+        System.out.print("Enter the Product ID to search: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product foundProduct = productManager.searchProduct(productId);
+
+        if (foundProduct != null) {
+            System.out.println("Product found: " + foundProduct);
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    private void viewAllProducts() {
+        System.out.println("Viewing all products:");
+
+        List<Product> allProducts = productManager.getAllProducts();
+
+        if (allProducts.isEmpty()) {
+            System.out.println("No products available.");
+        } else {
+            System.out.println("All Products:");
+            for (Product product : allProducts) {
+                System.out.println(product);
+            }
         }
     }
 
