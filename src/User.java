@@ -2,8 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class User implements IUserActions {
-
-    String name;
+    private String name;
     private String userId;
     private String username;
     private String password;
@@ -100,14 +99,12 @@ public class User implements IUserActions {
 
     @Override
     public void viewProfile() {
-        System.out.println("User Profile:");
-        System.out.println("Name: " + name);
-        System.out.println("Username: " + username);
-        System.out.println("Address: " + address);
-        System.out.println("Email: " + email);
-        System.out.println("User ID: " + userId);
-        System.out.println("Password: " + password);
-        // Do not print password for security reasons
+        System.out.println("Name: " + getName());
+        System.out.println("Username: " + getUsername());
+        System.out.println("Password: " + getPassword());
+        System.out.println("Address: " + getAddress());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Profile viewed successfully!");
     }
 
     @Override
@@ -117,31 +114,37 @@ public class User implements IUserActions {
         System.out.println("Enter new name (press Enter to keep current name): ");
         String newName = userInput.nextLine();
         if (!newName.isEmpty()) {
-            this.name = newName;
+            this.setName(newName);
+        }
+
+        System.out.println("Enter new userId (press Enter to keep current userId): ");
+        String newUserId = userInput.nextLine();
+        if (!newUserId.isEmpty()) {
+            this.setUserId(newUserId);
         }
 
         System.out.println("Enter new username (press Enter to keep current username): ");
         String newUsername = userInput.nextLine();
         if (!newUsername.isEmpty()) {
-            this.username = newUsername;
+            this.setUsername(newUsername);
         }
 
         System.out.println("Enter new address (press Enter to keep current address): ");
         String newAddress = userInput.nextLine();
         if (!newAddress.isEmpty()) {
-            this.address = newAddress;
+            this.setAddress(newAddress);
         }
 
         System.out.println("Enter new email (press Enter to keep current email): ");
         String newEmail = userInput.nextLine();
         if (!newEmail.isEmpty()) {
-            this.email = newEmail;
+            this.setEmail(newEmail);
         }
 
         System.out.println("Enter new password (press Enter to keep current password): ");
         String newPassword = userInput.nextLine();
         if (!newPassword.isEmpty()) {
-            this.password = newPassword;
+            this.setPassword(newPassword);
         }
 
         System.out.println("Profile updated successfully!");
