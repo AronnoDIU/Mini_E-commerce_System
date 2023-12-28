@@ -1,3 +1,7 @@
+/**
+ * The {@code Item} class represents an item with a unique identifier, name, price, and description.
+ * Instances of this class are immutable.
+ */
 public final class Item {
     private final String itemId;
     private final String name;
