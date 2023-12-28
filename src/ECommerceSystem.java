@@ -120,44 +120,13 @@ public class ECommerceSystem {
 
             switch (choice) {
                 case 1: // For Add Product
-                    try {
-                        productCatalog.addProduct(Product.createProductFromConsoleInput(scanner));
-                        System.out.println("Product added successfully. Product ID: " +
-                                Objects.requireNonNull
-                                        (productCatalog.getAllProducts().get
-                                                (productCatalog.getAllProducts()
-                                                        .size() - 1)).getProductId() + ".");
-                    } catch (NullPointerException e) {
-                        System.out.println("Invalid input. Please enter valid product details.");
-                    }
+                    addProduct();
                     break;
                 case 2: // For Remove Product
-                    try {
-                        productCatalog.removeProduct(Objects.requireNonNull
-                                (Product.createProductFromConsoleInput(scanner)).getProductId());
-                        System.out.println("Product removed successfully. Product ID: " +
-                                Objects.requireNonNull
-                                        (productCatalog.getAllProducts().get
-                                                (productCatalog.getAllProducts()
-                                                        .size() - 1)).getProductId() + ".");
-                    } catch (NullPointerException e) {
-                        System.out.println("Invalid input. Please enter valid product details.");
-                    }
+                    removeProduct();
                     break;
                 case 3: // For Update Product
-                    try {
-                        productCatalog.updateProduct(Objects.requireNonNull
-                                (Product.createProductFromConsoleInput(scanner)));
-                        System.out.println("Product updated successfully. Product ID: " +   // Line 1
-                                Objects.requireNonNull
-                                        (productCatalog.getAllProducts().get
-                                                (productCatalog.getAllProducts()
-                                                        .size() - 1)).getProductId() + "."); // Line 2
-                        System.out.println("Product details: " + productCatalog.getAllProducts().get
-                                (productCatalog.getAllProducts().size() - 1)); // Line 3
-                    } catch (NullPointerException e) {
-                        System.out.println("Invalid input. Please enter valid product details.");
-                    }
+                    updateProduct();
                     break;
                 case 4: // For View Products
                     viewProductCatalog();
@@ -168,6 +137,54 @@ public class ECommerceSystem {
                     System.out.println("Invalid choice. Please try again.");
                     manageProducts();
             }
+        }
+    }
+    private void addProduct() {
+        System.out.println("Adding a New Product");
+
+        // Collect product details from the admin
+        Product newProduct = Product.createProductFromConsoleInput(scanner);
+
+        // Add the new product to the catalog
+        productCatalog.addProduct(newProduct);
+
+        assert newProduct != null;
+        System.out.println("Product added successfully. Product ID: " + newProduct.getProductId());
+    }
+    private void removeProduct() {
+        System.out.println("Removing a Product");
+        System.out.print("Enter the product ID to remove: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        try {
+            // Remove the product from the catalog
+            productCatalog.removeProduct(productId);
+            System.out.println("Product removed successfully. Product ID: " + productId);
+        } catch (ProductNotFoundException e) {
+            System.out.println("Product not found. Unable to remove.");
+        }
+    }
+    private void updateProduct() {
+        System.out.println("Updating a Product");
+        System.out.print("Enter the product ID to update: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product existingProduct = productCatalog.getProduct(productId);
+
+        if (existingProduct != null) {
+            // Collect updated product details from the admin
+            Product updatedProduct = Product.createProductFromConsoleInput(scanner);
+            assert updatedProduct != null;
+            updatedProduct.setProductId(productId);
+
+            // Update the product in the catalog
+            productCatalog.updateProduct(updatedProduct);
+
+            System.out.println("Product updated successfully. Product ID: " + productId);
+        } else {
+            System.out.println("Product not found. Unable to update.");
         }
     }
 
