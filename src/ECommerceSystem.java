@@ -132,15 +132,35 @@ public class ECommerceSystem {
                     }
                     break;
                 case 2: // For Remove Product
-                    productCatalog.removeProduct(Objects.requireNonNull
-                            (Product.createProductFromConsoleInput(scanner)).getProductId());
+                    try {
+                        productCatalog.removeProduct(Objects.requireNonNull
+                                (Product.createProductFromConsoleInput(scanner)).getProductId());
+                        System.out.println("Product removed successfully. Product ID: " +
+                                Objects.requireNonNull
+                                        (productCatalog.getAllProducts().get
+                                                (productCatalog.getAllProducts()
+                                                        .size() - 1)).getProductId() + ".");
+                    } catch (NullPointerException e) {
+                        System.out.println("Invalid input. Please enter valid product details.");
+                    }
                     break;
                 case 3: // For Update Product
-                    productCatalog.updateProduct(Objects.requireNonNull
-                            (Product.createProductFromConsoleInput(scanner)));
+                    try {
+                        productCatalog.updateProduct(Objects.requireNonNull
+                                (Product.createProductFromConsoleInput(scanner)));
+                        System.out.println("Product updated successfully. Product ID: " +   // Line 1
+                                Objects.requireNonNull
+                                        (productCatalog.getAllProducts().get
+                                                (productCatalog.getAllProducts()
+                                                        .size() - 1)).getProductId() + "."); // Line 2
+                        System.out.println("Product details: " + productCatalog.getAllProducts().get
+                                (productCatalog.getAllProducts().size() - 1)); // Line 3
+                    } catch (NullPointerException e) {
+                        System.out.println("Invalid input. Please enter valid product details.");
+                    }
                     break;
                 case 4: // For View Products
-                    viewProducts();
+                    viewProductCatalog();
                     break;
                 case 5: // For Back to the Main Menu
                     return;
