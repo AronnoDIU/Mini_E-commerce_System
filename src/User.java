@@ -13,7 +13,8 @@ public class User implements IUserActions {
     private OrderManager orderManager;
 
     // Constructors
-    public User(String name, String userId, String username, String password, String address, String email) {
+    public User(String name, String userId, String username,
+                String password, String address, String email) {
         this.name = name;
         this.userId = userId;
         this.username = username;
@@ -32,7 +33,8 @@ public class User implements IUserActions {
         this.orderManager = new OrderManager();
     }
 
-    public User(String userId, String username, String password, String address, String email) {
+    public User(String userId, String username,
+                String password, String address, String email) {
         this.userId = userId;
         this.username = username;
         this.password = password;

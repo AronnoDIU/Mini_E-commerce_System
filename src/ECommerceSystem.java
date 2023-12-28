@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class ECommerceSystem {
     private final UserManager userManager;
     private final ProductCatalog productCatalog;
-    private static User currentUser;
+    static User currentUser;
     private final Scanner scanner;
 
     public ECommerceSystem() {
