@@ -1,4 +1,3 @@
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,10 +30,6 @@ public class ProductCatalog {
         return products.get(productId);
     }
 
-    public Map<Integer, Product> getAllProducts() {
-        return Collections.unmodifiableMap(products);
-    }
-
     public void viewProductStatistics() {
         System.out.println("Product statistics viewed by admin.");
     }
@@ -44,11 +39,6 @@ public class ProductCatalog {
         for (Product product : products.values()) {
             System.out.println(product);
         }
-    }
-
-    // This method could be package-private or private to provide encapsulation
-    public Product getProductById(int productId) {
-        return products.get(productId);
     }
 
     public void viewProductCatalog() {

@@ -422,13 +422,6 @@ public class ECommerceSystem {
         currentUser.updateProfile();
     }
 
-    private void exit() {
-        // Example: Exiting the system
-        System.out.println("Exiting the ECommerce System. Goodbye!");
-        scanner.close();
-        System.exit(0);
-    }
-
     private void createUserAccount() {
         // Example: Creating a new user account
         System.out.print("Enter your name: ");
@@ -451,5 +444,12 @@ public class ECommerceSystem {
     private void logout() {
         System.out.println("Logging out. Goodbye, " + currentUser.getName() + "!");
         currentUser = null;
+    }
+
+    private void exit() {
+        // Example: Exiting the system
+        System.out.println("Exiting the ECommerce System. Goodbye!");
+        scanner.close();
+        System.exit(0);
     }
 }

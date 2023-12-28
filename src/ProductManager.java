@@ -30,9 +30,10 @@ public class ProductManager {
 
     // Update the details of an existing product
     public void updateProduct(Product updatedProduct) {
-        for (Product product : products) {
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
             if (Objects.equals(product.getProductId(), updatedProduct.getProductId())) {
-                Collections.replaceAll(products, product, updatedProduct);
+                products.set(i, updatedProduct);
                 System.out.println("Product updated successfully. Product ID: " +
                         updatedProduct.getProductId());
                 return;
