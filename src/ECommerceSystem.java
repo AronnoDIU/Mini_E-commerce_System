@@ -4,333 +4,274 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+//import static jdk.internal.misc.OSEnvironment.initialize;
+
 public class ECommerceSystem {
+    private final ProductCatalog productCatalog;
+    private static User currentUser;
+    private final Scanner scanner;
 
-    public static Scanner userInput = new Scanner(System.in);
-    private static final Logger logger = Logger.getLogger(ECommerceSystem.class.getName());
-    static ArrayList<Product> products = new ArrayList<>();
-    static ArrayList<User> users = new ArrayList<>();
-    static ArrayList<Order> orders = new ArrayList<>();
-    static User currentUser; // The user that is currently logged in
-    static final String PRODUCTS_FILE = "products.txt";
-    static final String USERS_FILE = "users.txt";
-    static final String ORDERS_FILE = "orders.txt";
+    public ECommerceSystem() {
+        this.productCatalog = new ProductCatalog();
+        currentUser = null; // Initialize as needed
+        this.scanner = new Scanner(System.in);
+    }
+    private void displayAuthenticationMenu() {
+        System.out.println("Authentication Menu:");
+        System.out.println("1. Log In");
+        System.out.println("2. Create Account");
+        System.out.println("3. Exit");
+        System.out.print("Enter your choice: ");
+    }
+    private void authenticateUser() {
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter your password: ");
+        String password = scanner.nextLine();
 
-    public static void main(String[] args) throws IOException {
-        loadProducts(); // Load the products from the file
-        loadUsers(); // Load the users from the file
-        loadOrders(); // Load the orders from the file
-        showWelcomeMenu(); // Show the welcome menu
+        // Example: Simple authentication (replace with your authentication logic)
+        if (authenticate(username, password)) {
+            assert currentUser != null;
+            System.out.println("Authentication successful. Welcome, " +
+                    currentUser.getName() + "!");
+        } else {
+            System.out.println("Authentication failed. Please check your credentials.");
+        }
+    }
+    private User getUserByUsername(String username) {
+        // Example: Retrieve user from your data store (replace with your logic)
+        // This is where you would query your database or other storage mechanism
+        // to get the user based on the provided username.
+        // For simplicity, we assume a default user for this example.
+        return new User("John Doe", "john.doe", "password", "123 Main St", "john.doe@example.com");
+    }
 
-        // Create instances of required components
-        FileHandler fileHandler = new FileHandler("user_credentials.txt");
-        Authentication authentication = new Authentication(fileHandler);
-        ProductCatalog productCatalog = new ProductCatalog();
-        OrderManager orderManager = new OrderManager();
-        Inventory inventory = new Inventory();
-        ShoppingCart shoppingCart = new ShoppingCart();
+    private boolean authenticate(String username, String password) {
+        // Example: Simple authentication logic (replace with your authentication logic)
+        // Here, we assume the existence of a method getUserByUsername in your system
+        User user = getUserByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            currentUser = user;
+            return true;
+        }
+        return false;
+    }
+    private void createUserAccount() {
+        // Example: Creating a new user account
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter a username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter a password: ");
+        String password = scanner.nextLine();
+        System.out.print("Enter your address: ");
+        String address = scanner.nextLine();
+        System.out.print("Enter your email: ");
+        String email = scanner.nextLine();
 
-        // Create some initial products and add them to the inventory
-        Product product1 = new Product(1, "Laptop", "Powerful laptop", 999.99, Category.ELECTRONICS, 20);
-        Product product2 = new Product(2, "T-Shirt", "Comfortable cotton t-shirt", 19.99, Category.CLOTHING, 50);
-        inventory.addProductToInventory(product1, 10, "Electronics Supplier");
-        inventory.addProductToInventory(product2, 30, "Fashion Supplier");
+        // Example: Create a new user account (replace with your logic)
+        // Here, you might want to check if the username is unique and
+        // perform other validation checks before creating the account.
+        currentUser = new User(name, username, password, address, email);
+        System.out.println("Account created successfully. Welcome, " + currentUser.getName() + "!");
+    }
+    private void logout() {
+        System.out.println("Logging out. Goodbye, " + currentUser.getName() + "!");
+        currentUser = null;
+    }
 
-        // Create an Admin user
-        Admin admin = new Admin("admin", "admin123", "Admin User", productCatalog, orderManager);
 
-        // Create a Customer user
-        Customer customer = new Customer("123456", "customer1", "password123", "123 Main St", "customer@example.com");
+    public void run() {
+        // Initialize the system, load products, authenticate users, etc.
 
-        // Register a new user (Customer)
-        authentication.register("customer2", "password456");
+        // Example: Loading initial products
+        loadInitialProducts();
 
-        // Login as the admin
-        authentication.login("admin", "admin123");
+        // Example: Simulate user interaction
+        simulateUserInteraction();
 
-        // Admin actions
-        admin.addProduct(new Product(3, "Smartphone", "High-end smartphone", 699.99, Category.ELECTRONICS, 15));
-        admin.viewProductStats();
-        admin.manageUsers();
+        System.out.println("Welcome to the ECommerce System!");
 
-        // Logout from an admin account
-        authentication.logout();
+        while (true) {
+            displayAuthenticationMenu();
 
-        // Login as a customer
-        authentication.login("customer1", "password123");
+            int authChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
 
-        // Customer actions
-        customer.addToCart(product1);
-        customer.addToCart(product2);
-        customer.viewCart();
-        customer.placeOrder(shoppingCart.displayCart());
+            switch (authChoice) {
+                case 1:
+                    authenticateUser();
+                    break;
+                case 2:
+                    createUserAccount();
+                    break;
+                case 3:
+                    exit();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
 
-        // View order history
-        List<Order> orderHistory = customer.viewOrderHistory();
-        System.out.println("Order History:");
+            if (currentUser != null) {
+                // If user successfully authenticated or created, proceed to the main menu
+                displayMainMenu();
+                int mainMenuChoice = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+
+                switch (mainMenuChoice) {
+                    case 1:
+                        viewProducts();
+                        break;
+                    case 2:
+                        addToCart();
+                        break;
+                    case 3:
+                        viewCart();
+                        break;
+                    case 4:
+                        placeOrder();
+                        break;
+                    case 5:
+                        viewOrderHistory();
+                        break;
+                    case 6:
+                        viewProfile();
+                        break;
+                    case 7:
+                        updateProfile();
+                        break;
+                    case 8:
+                        logout();
+                        break;
+                    case 9:
+                        exit();
+                        return;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            }
+        }
+    }
+
+    private void loadInitialProducts() {
+        // Example: Adding some initial products to the catalog
+        Product product1 = new Product(1, "Laptop", "Powerful laptop", 1200.0, Category.ELECTRONICS, 10);
+        Product product2 = new Product(2, "Book", "Bestseller book", 20.0, Category.BOOKS, 50);
+
+        productCatalog.addProduct(product1);
+        productCatalog.addProduct(product2);
+    }
+
+    private void simulateUserInteraction() {
+        // Example: Simulating user interaction
+        while (true) {
+            displayMainMenu();
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    viewProducts();
+                    break;
+                case 2:
+                    addToCart();
+                    break;
+                case 3:
+                    viewCart();
+                    break;
+                case 4:
+                    placeOrder();
+                    break;
+                case 5:
+                    viewOrderHistory();
+                    break;
+                case 6:
+                    viewProfile();
+                    break;
+                case 7:
+                    updateProfile();
+                    break;
+                case 8:
+                    exit();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private void displayMainMenu() {
+        // Example: Displaying the main menu
+        System.out.println("Main Menu:");
+        System.out.println("1. View Products");
+        System.out.println("2. Add to Cart");
+        System.out.println("3. View Cart");
+        System.out.println("4. Place Order");
+        System.out.println("5. View Order History");
+        System.out.println("6. View Profile");
+        System.out.println("7. Update Profile");
+        System.out.println("8. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    private void viewProducts() {
+        // Example: Displaying products from the catalog
+        productCatalog.viewProducts();
+    }
+
+    private void addToCart() {
+        // Example: Adding a product to the cart
+        System.out.println("Enter the product ID to add to the cart: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = productCatalog.getProduct(productId);
+        if (product != null) {
+            currentUser.addToCart(product);
+            System.out.println(product.getName() + " added to the cart.");
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    private void viewCart() {
+        // Example: Viewing the user's shopping cart
+        currentUser.viewCart();
+    }
+
+    private void placeOrder() {
+        // Example: Placing an order
+        List<Product> cartItems = currentUser.viewCart();
+        currentUser.placeOrder(cartItems);
+    }
+
+    private void viewOrderHistory() {
+        // Example: Viewing the user's order history
+        List<Order> orderHistory = currentUser.viewOrderHistory();
         for (Order order : orderHistory) {
             System.out.println(order);
         }
-
-        // Logout from a customer account
-        authentication.logout();
-
-        // Close the scanner
-        userInput.close();
     }
 
-    private static void showWelcomeMenu() {
-        System.out.println("Welcome to the E-Commerce System!");
-        System.out.println("1. Login");
-        System.out.println("2. Register");
-        System.out.println("3. Exit");
-        System.out.println("Enter your choice: ");
-        int choice = userInput.nextInt();
-        userInput.nextLine(); // Consume the newline character
-        switch (choice) {
-            case 1:
-                showLoginMenu();
-                break;
-            case 2:
-                showRegisterMenu();
-                break;
-            case 3:
-                System.out.println("Exiting the system...");
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                showWelcomeMenu();
-        }
+    private void viewProfile() {
+        // Example: Viewing user profile
+        currentUser.viewProfile();
     }
 
-    private static void showRegisterMenu() {
-        System.out.println("Enter your name: ");
-        String name = userInput.nextLine();
-        System.out.println("Enter your username: ");
-        String username = userInput.nextLine();
-        System.out.println("Enter your password: ");
-        String password = userInput.nextLine();
-        System.out.println("Enter your address: ");
-        String address = userInput.nextLine();
-        System.out.println("Enter your email: ");
-        String email = userInput.nextLine();
-        Authentication authentication = new Authentication(new FileHandler("user_credentials.txt"));
-        User user = authentication.register(username, password);
-        if (user != null) {
-            System.out.println("Registration successful!");
-            System.out.println("Welcome, " + user.getUsername() + "!");
-            if (user instanceof Admin) {
-                showAdminMenu();
-            } else if (user instanceof Customer) {
-                showCustomerMenu();
-            }
-        } else {
-            System.out.println("Registration failed. Please try again.");
-            showRegisterMenu();
-        }
+    private void updateProfile() {
+        // Example: Updating user profile
+        currentUser.updateProfile();
     }
 
-    private static void showLoginMenu() {
-        System.out.println("Enter your username: ");
-        String username = userInput.nextLine();
-        System.out.println("Enter your password: ");
-        String password = userInput.nextLine();
-        Authentication authentication = new Authentication(new FileHandler("user_credentials.txt"));
-        User user = authentication.login(username, password);
-        if (user != null) {
-            currentUser = user;
-            System.out.println("Login successful!");
-            System.out.println("Welcome, " + user.getUsername() + "!");
-            if (user instanceof Admin) {
-                showAdminMenu();
-            } else if (user instanceof Customer) {
-                showCustomerMenu();
-            }
-        } else {
-            System.out.println("Invalid username or password. Please try again.");
-            showLoginMenu();
-        }
+    private void exit() {
+        // Example: Exiting the system
+        System.out.println("Exiting the ECommerce System. Goodbye!");
+        scanner.close();
+        System.exit(0);
     }
-
-    private static void showCustomerMenu() {
-        System.out.println("1. View products");
-        System.out.println("2. View cart");
-        System.out.println("3. View order history");
-        System.out.println("4. View profile");
-        System.out.println("5. Update profile");
-        System.out.println("6. Logout");
-        System.out.println("Enter your choice: ");
-        int choice = userInput.nextInt();
-        userInput.nextLine(); // Consume the newline character
-        switch (choice) {
-            case 1:
-                showProductsMenu();
-                break;
-            case 2:
-                showCartMenu();
-                break;
-            case 3:
-                showOrderHistoryMenu();
-                break;
-            case 4:
-                currentUser.viewProfile();
-                showCustomerMenu();
-                break;
-            case 5:
-                currentUser.updateProfile();
-                showCustomerMenu();
-                break;
-            case 6:
-                System.out.println("Logging out...");
-                Authentication authentication = new Authentication(new FileHandler("user_credentials.txt"));
-                authentication.logout();
-                showWelcomeMenu();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                showCustomerMenu();
-        }
-    }
-
-    private static void showOrderHistoryMenu() {
-        currentUser.viewOrderHistory();
-        showCustomerMenu();
-    }
-
-    private static void showCartMenu() {
-        currentUser.viewCart();
-        System.out.println("Enter the product ID to remove from cart (0 to go back): ");
-        int productId = userInput.nextInt();
-        userInput.nextLine(); // Consume the newline character
-        if (productId == 0) {
-            showCustomerMenu();
-        } else {
-            ShoppingCart shoppingCart = new ShoppingCart();
-            shoppingCart.removeFromCart(productId);
-            System.out.println("Product removed from cart successfully!");
-            showCustomerMenu();
-        }
-    }
-
-    private static void showProductsMenu() {
-        ProductCatalog productCatalog = new ProductCatalog();
-        productCatalog.viewProducts();
-        System.out.println("Enter the product ID to add to cart (0 to go back): ");
-        int productId = userInput.nextInt();
-        userInput.nextLine(); // Consume the newline character
-        if (productId == 0) {
-            showCustomerMenu();
-        } else {
-            Product product = productCatalog.getProductById(productId);
-            if (product != null) {
-                ShoppingCart shoppingCart = new ShoppingCart();
-                shoppingCart.addToCart(product);
-                System.out.println("Product added to cart successfully!");
-                showCustomerMenu();
-            } else {
-                System.out.println("Invalid product ID. Please try again.");
-                showProductsMenu();
-            }
-        }
-    }
-
-    private static void showAdminMenu() {
-        System.out.println("1. Add product");
-        System.out.println("2. View product stats");
-        System.out.println("3. Manage users");
-        System.out.println("4. Logout");
-        System.out.println("Enter your choice: ");
-        int choice = userInput.nextInt();
-        userInput.nextLine(); // Consume the newline character
-        switch (choice) {
-            case 1:
-                showAddProductMenu();
-                break;
-            case 2:
-                showProductStatsMenu();
-                break;
-            case 3:
-                showManageUsersMenu();
-                break;
-            case 4:
-                System.out.println("Logging out...");
-                Authentication authentication = new Authentication(new FileHandler("user_credentials.txt"));
-                authentication.logout();
-                showWelcomeMenu();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                showAdminMenu();
-        }
-    }
-
-    private static void showManageUsersMenu() {
-        Admin admin = new Admin("admin", "admin123", "Admin User", new ProductCatalog(), new OrderManager());
-        admin.manageUsers();
-        showAdminMenu();
-    }
-
-    private static void showProductStatsMenu() {
-        Admin admin = (Admin) currentUser;
-        admin.viewProductStats();
-        showAdminMenu();
-    }
-
-    private static void showAddProductMenu() {
-        System.out.println("Enter product name:");
-        String name = userInput.nextLine();
-
-        System.out.println("Enter product description:");
-        String description = userInput.nextLine();
-
-        System.out.println("Enter product price:");
-        double price = userInput.nextDouble();
-
-        System.out.println("Enter product category:");
-        String category = userInput.nextLine();
-
-        System.out.println("Enter product stock quantity:");
-        int stockQuantity = userInput.nextInt();
-
-        Product product = new Product(null, name, description, price,
-                Category.valueOf(category), stockQuantity);
-        Admin admin = new Admin("admin", "admin123", "Admin User", new ProductCatalog(), new OrderManager());
-        admin.addProduct(product);
-        System.out.println("Product added successfully!");
-        showAdminMenu();
-    }
-
-    private static void loadOrders() {
-        FileHandler fileHandler = new FileHandler(ORDERS_FILE);
-        orders = fileHandler.readOrders();
-
-        // Print the orders
-        System.out.println("Orders:");
-        for (Order order : orders) {
-            System.out.println(order);
-        }
-    }
-
-    private static void loadUsers() {
-        FileHandler fileHandler = new FileHandler(USERS_FILE);
-        users = fileHandler.readUserCredentials();
-
-        // Print the users
-        System.out.println("Users:");
-        for (User user : users) {
-            System.out.println(user);
-        }
-    }
-
-    private static void loadProducts() throws IOException {
-        FileHandler fileHandler = new FileHandler(PRODUCTS_FILE);
-        products = (ArrayList<Product>) FileHandler.readProducts(fileHandler.filePath);
-
-        // Print the products
-        System.out.println("Products:");
-        for (Product product : products) {
-            System.out.println(product);
-        }
+    public static void main(String[] args) throws IOException {
+        ECommerceSystem ecommerceSystem = new ECommerceSystem();
+        ecommerceSystem.run();
     }
 }

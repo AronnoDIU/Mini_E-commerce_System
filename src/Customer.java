@@ -20,8 +20,9 @@ public class Customer extends User {
         cart.remove(product);
     }
 
-    public void viewCart() {
+    public List<Product> viewCart() {
         cart.forEach(System.out::println);
+        return null;
     }
 
     // Method to view order history

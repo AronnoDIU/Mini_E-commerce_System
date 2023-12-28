@@ -158,12 +158,13 @@ public class User implements IUserActions {
     }
 
     @Override
-    public void viewCart() {
+    public List<Product> viewCart() {
         if (shoppingCart != null) {
             shoppingCart.displayCart();
         } else {
             System.out.println("Shopping cart is null. Cannot view cart.");
         }
+        return shoppingCart.displayCart();
     }
 
     @Override

@@ -23,8 +23,9 @@ public interface IUserActions {
 
     /**
      * View the user's shopping cart.
+     *
      */
-    void viewCart();
+    List<Product> viewCart();
 
     /**
      * View the user's order history.
