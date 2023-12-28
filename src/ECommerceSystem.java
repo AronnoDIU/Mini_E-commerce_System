@@ -11,75 +11,11 @@ public class ECommerceSystem {
         this.productCatalog = new ProductCatalog();
         currentUser = null; // No user is logged in initially
         this.scanner = new Scanner(System.in);
+        loadInitialProducts();
     }
-
-    private void displayAuthenticationMenu() {
-        System.out.println("Welcome to the E-Commerce System!");
-        System.out.println("1. Log In");
-        System.out.println("2. Create Account");
-        System.out.println("3. Exit");
-        System.out.print("Enter your choice: ");
-    }
-
-    private void authenticateUser() {
-        System.out.print("Enter your username: ");
-        String username = scanner.nextLine();
-        System.out.print("Enter your password: ");
-        String password = scanner.nextLine();
-
-        if (authenticate(username, password)) {
-            assert currentUser != null;
-            System.out.println("Authentication successful. Welcome, " +
-                    currentUser.getName() + "!");
-        } else {
-            System.out.println("Authentication failed. Please check your credentials.");
-        }
-    }
-
-    private User getUserByUsername(String username) {
-        return new User("John Doe", "john.doe", "password",
-                "123 Main St", "john.doe@example.com");
-    }
-
-    private boolean authenticate(String username, String password) {
-        User user = getUserByUsername(username);
-        if (user.getPassword().equals(password)) {
-            currentUser = user;
-            return true;
-        }
-        return false;
-    }
-
-    private void createUserAccount() {
-        // Example: Creating a new user account
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter a username: ");
-        String username = scanner.nextLine();
-        System.out.print("Enter a password: ");
-        String password = scanner.nextLine();
-        System.out.print("Enter your address: ");
-        String address = scanner.nextLine();
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
-
-        // Create a new user account
-        currentUser = new User(name, username, password, address, email);
-        System.out.println("Account created successfully. Welcome, " +
-                currentUser.getName() + "!");
-    }
-
-    private void logout() {
-        System.out.println("Logging out. Goodbye, " + currentUser.getName() + "!");
-        currentUser = null;
-    }
-
 
     public void run() {
-        // Example: Loading initial products
-        loadInitialProducts();
-
-        System.out.println("Welcome to the ECommerce System!");
+        displayWelcomeMessage();
 
         while (true) {
             displayAuthenticationMenu(); // Display the authentication menu
@@ -142,6 +78,11 @@ public class ECommerceSystem {
         }
     }
 
+    public static void main(String[] args) throws IOException {
+        ECommerceSystem ecommerceSystem = new ECommerceSystem();
+        ecommerceSystem.run();
+    }
+
     private void loadInitialProducts() {
         // Example: Adding some initial products to the catalog
         Product product1 = new Product(1, "Laptop", "Powerful laptop", 1200.0, Category.ELECTRONICS, 10);
@@ -166,7 +107,31 @@ public class ECommerceSystem {
         productCatalog.addProduct(product9);
         productCatalog.addProduct(product10);
     }
+    private void displayWelcomeMessage() {
+        System.out.println("Welcome to the E-Commerce System!");
+    }
+    private void displayAuthenticationMenu() {
+        System.out.println("Welcome to the E-Commerce System!");
+        System.out.println("1. Log In");
+        System.out.println("2. Create Account");
+        System.out.println("3. Exit");
+        System.out.print("Enter your choice: ");
+    }
 
+    private void authenticateUser() {
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter your password: ");
+        String password = scanner.nextLine();
+
+        if (authenticate(username, password)) {
+            assert currentUser != null;
+            System.out.println("Authentication successful. Welcome, " +
+                    currentUser.getName() + "!");
+        } else {
+            System.out.println("Authentication failed. Please check your credentials.");
+        }
+    }
     private void displayMainMenu() {
         // Example: Displaying the main menu
         System.out.println("ECommerce System Main Menu");
@@ -236,8 +201,41 @@ public class ECommerceSystem {
         System.exit(0);
     }
 
-    public static void main(String[] args) throws IOException {
-        ECommerceSystem ecommerceSystem = new ECommerceSystem();
-        ecommerceSystem.run();
+    private User getUserByUsername(String username) {
+        return new User("John Doe", "john.doe", "password",
+                "123 Main St", "john.doe@example.com");
+    }
+
+    private boolean authenticate(String username, String password) {
+        User user = getUserByUsername(username);
+        if (user.getPassword().equals(password)) {
+            currentUser = user;
+            return true;
+        }
+        return false;
+    }
+
+    private void createUserAccount() {
+        // Example: Creating a new user account
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter a username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter a password: ");
+        String password = scanner.nextLine();
+        System.out.print("Enter your address: ");
+        String address = scanner.nextLine();
+        System.out.print("Enter your email: ");
+        String email = scanner.nextLine();
+
+        // Create a new user account
+        currentUser = new User(name, username, password, address, email);
+        System.out.println("Account created successfully. Welcome, " +
+                currentUser.getName() + "!");
+    }
+
+    private void logout() {
+        System.out.println("Logging out. Goodbye, " + currentUser.getName() + "!");
+        currentUser = null;
     }
 }
