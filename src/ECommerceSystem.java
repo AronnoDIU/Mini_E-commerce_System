@@ -401,7 +401,22 @@ public class ECommerceSystem {
     private void placeOrder() {
         // Example: Placing an order
         List<Product> cartItems = currentUser.viewCart();
-        currentUser.placeOrder(cartItems);
+        double totalAmount = currentUser.calculateTotal();
+
+        // Display order summary
+        System.out.println("Order Summary:");
+        currentUser.viewCart();
+        System.out.println("Total Amount: $" + totalAmount);
+
+        // Process payment
+        boolean paymentSuccess = PaymentProcessor.processPayment(totalAmount, scanner);
+
+        if (paymentSuccess) {
+            // If payment is successful, proceed with order placement
+            currentUser.placeOrder(cartItems);
+        } else {
+            System.out.println("Order placement failed due to payment issues.");
+        }
     }
 
     private void viewOrderHistory() {

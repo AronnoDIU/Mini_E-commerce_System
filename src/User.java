@@ -212,4 +212,14 @@ public class User implements IUserActions {
     public boolean authenticate(String password) {
         return this.password.equals(password);
     }
+
+    public double calculateTotal() {
+        double total = 0.0;
+
+        for (Product product : shoppingCart.displayCart()) {
+            total += product.getPrice();
+        }
+
+        return total;
+    }
 }

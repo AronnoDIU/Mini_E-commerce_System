@@ -7,8 +7,6 @@
     <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Mini E-commerce System">
       <change beforePath="$PROJECT_DIR$/../Java-Fundamental-Exercise" beforeDir="false" afterPath="$PROJECT_DIR$/../Java-Fundamental-Exercise" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ECommerceSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECommerceSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductCatalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductCatalog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,14 +79,7 @@
       <workItem from="1703667326013" duration="4111000" />
       <workItem from="1703684960525" duration="18034000" />
       <workItem from="1703784590859" duration="11413000" />
-    </task>
-    <task id="LOCAL-00001" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703490251615</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1703490251615</updated>
+      <workItem from="1703805649215" duration="358000" />
     </task>
     <task id="LOCAL-00002" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -474,7 +465,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703805160391</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1703805681173</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1703805681173</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
