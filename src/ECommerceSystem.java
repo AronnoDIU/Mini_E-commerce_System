@@ -1,10 +1,6 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
-
-//import static jdk.internal.misc.OSEnvironment.initialize;
 
 public class ECommerceSystem {
     private final ProductCatalog productCatalog;
@@ -13,23 +9,24 @@ public class ECommerceSystem {
 
     public ECommerceSystem() {
         this.productCatalog = new ProductCatalog();
-        currentUser = null; // Initialize as needed
+        currentUser = null; // No user is logged in initially
         this.scanner = new Scanner(System.in);
     }
+
     private void displayAuthenticationMenu() {
-        System.out.println("Authentication Menu:");
+        System.out.println("Welcome to the E-Commerce System!");
         System.out.println("1. Log In");
         System.out.println("2. Create Account");
         System.out.println("3. Exit");
         System.out.print("Enter your choice: ");
     }
+
     private void authenticateUser() {
         System.out.print("Enter your username: ");
         String username = scanner.nextLine();
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
-        // Example: Simple authentication (replace with your authentication logic)
         if (authenticate(username, password)) {
             assert currentUser != null;
             System.out.println("Authentication successful. Welcome, " +
@@ -38,24 +35,21 @@ public class ECommerceSystem {
             System.out.println("Authentication failed. Please check your credentials.");
         }
     }
+
     private User getUserByUsername(String username) {
-        // Example: Retrieve user from your data store (replace with your logic)
-        // This is where you would query your database or other storage mechanism
-        // to get the user based on the provided username.
-        // For simplicity, we assume a default user for this example.
-        return new User("John Doe", "john.doe", "password", "123 Main St", "john.doe@example.com");
+        return new User("John Doe", "john.doe", "password",
+                "123 Main St", "john.doe@example.com");
     }
 
     private boolean authenticate(String username, String password) {
-        // Example: Simple authentication logic (replace with your authentication logic)
-        // Here, we assume the existence of a method getUserByUsername in your system
         User user = getUserByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
+        if (user.getPassword().equals(password)) {
             currentUser = user;
             return true;
         }
         return false;
     }
+
     private void createUserAccount() {
         // Example: Creating a new user account
         System.out.print("Enter your name: ");
@@ -69,12 +63,12 @@ public class ECommerceSystem {
         System.out.print("Enter your email: ");
         String email = scanner.nextLine();
 
-        // Example: Create a new user account (replace with your logic)
-        // Here, you might want to check if the username is unique and
-        // perform other validation checks before creating the account.
+        // Create a new user account
         currentUser = new User(name, username, password, address, email);
-        System.out.println("Account created successfully. Welcome, " + currentUser.getName() + "!");
+        System.out.println("Account created successfully. Welcome, " +
+                currentUser.getName() + "!");
     }
+
     private void logout() {
         System.out.println("Logging out. Goodbye, " + currentUser.getName() + "!");
         currentUser = null;
@@ -82,30 +76,25 @@ public class ECommerceSystem {
 
 
     public void run() {
-        // Initialize the system, load products, authenticate users, etc.
-
         // Example: Loading initial products
         loadInitialProducts();
-
-        // Example: Simulate user interaction
-        simulateUserInteraction();
 
         System.out.println("Welcome to the ECommerce System!");
 
         while (true) {
-            displayAuthenticationMenu();
+            displayAuthenticationMenu(); // Display the authentication menu
 
             int authChoice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
 
             switch (authChoice) {
-                case 1:
+                case 1: // For Log in
                     authenticateUser();
                     break;
-                case 2:
+                case 2: // For Create Account
                     createUserAccount();
                     break;
-                case 3:
+                case 3: // For Exit
                     exit();
                     return;
                 default:
@@ -119,31 +108,31 @@ public class ECommerceSystem {
                 scanner.nextLine(); // Consume the newline character
 
                 switch (mainMenuChoice) {
-                    case 1:
+                    case 1: // For View Products
                         viewProducts();
                         break;
-                    case 2:
+                    case 2: // For Add to Cart
                         addToCart();
                         break;
-                    case 3:
+                    case 3: // For View Cart
                         viewCart();
                         break;
-                    case 4:
+                    case 4: // For Place Order
                         placeOrder();
                         break;
-                    case 5:
+                    case 5: // For View Order History
                         viewOrderHistory();
                         break;
-                    case 6:
+                    case 6: // For View Profile
                         viewProfile();
                         break;
-                    case 7:
+                    case 7: // For Update Profile
                         updateProfile();
                         break;
-                    case 8:
+                    case 8: // For Exit
                         logout();
                         break;
-                    case 9:
+                    case 9: // For Exit
                         exit();
                         return;
                     default:
@@ -157,53 +146,30 @@ public class ECommerceSystem {
         // Example: Adding some initial products to the catalog
         Product product1 = new Product(1, "Laptop", "Powerful laptop", 1200.0, Category.ELECTRONICS, 10);
         Product product2 = new Product(2, "Book", "Bestseller book", 20.0, Category.BOOKS, 50);
+        Product product3 = new Product(3, "Phone", "Latest smartphone", 800.0, Category.ELECTRONICS, 15);
+        Product product4 = new Product(4, "Tablet", "High resolution tablet", 400.0, Category.ELECTRONICS, 20);
+        Product product5 = new Product(5, "Headphones", "Noise cancelling headphones", 150.0, Category.ELECTRONICS, 30);
+        Product product6 = new Product(6, "Keyboard", "Wireless keyboard", 60.0, Category.ELECTRONICS, 25);
+        Product product7 = new Product(7, "Mouse", "Wireless mouse", 40.0, Category.ELECTRONICS, 25);
+        Product product8 = new Product(8, "Monitor", "4k monitor", 300.0, Category.ELECTRONICS, 10);
+        Product product9 = new Product(9, "Speakers", "Bluetooth speakers", 100.0, Category.ELECTRONICS, 20);
+        Product product10 = new Product(10, "Smart Watch", "Fitness smart watch", 200.0, Category.ELECTRONICS, 15);
 
         productCatalog.addProduct(product1);
         productCatalog.addProduct(product2);
-    }
-
-    private void simulateUserInteraction() {
-        // Example: Simulating user interaction
-        while (true) {
-            displayMainMenu();
-
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
-            switch (choice) {
-                case 1:
-                    viewProducts();
-                    break;
-                case 2:
-                    addToCart();
-                    break;
-                case 3:
-                    viewCart();
-                    break;
-                case 4:
-                    placeOrder();
-                    break;
-                case 5:
-                    viewOrderHistory();
-                    break;
-                case 6:
-                    viewProfile();
-                    break;
-                case 7:
-                    updateProfile();
-                    break;
-                case 8:
-                    exit();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
+        productCatalog.addProduct(product3);
+        productCatalog.addProduct(product4);
+        productCatalog.addProduct(product5);
+        productCatalog.addProduct(product6);
+        productCatalog.addProduct(product7);
+        productCatalog.addProduct(product8);
+        productCatalog.addProduct(product9);
+        productCatalog.addProduct(product10);
     }
 
     private void displayMainMenu() {
         // Example: Displaying the main menu
-        System.out.println("Main Menu:");
+        System.out.println("ECommerce System Main Menu");
         System.out.println("1. View Products");
         System.out.println("2. Add to Cart");
         System.out.println("3. View Cart");
@@ -216,7 +182,6 @@ public class ECommerceSystem {
     }
 
     private void viewProducts() {
-        // Example: Displaying products from the catalog
         productCatalog.viewProducts();
     }
 
@@ -236,7 +201,7 @@ public class ECommerceSystem {
     }
 
     private void viewCart() {
-        // Example: Viewing the user's shopping cart
+        // Viewing the user's shopping cart
         currentUser.viewCart();
     }
 
@@ -270,6 +235,7 @@ public class ECommerceSystem {
         scanner.close();
         System.exit(0);
     }
+
     public static void main(String[] args) throws IOException {
         ECommerceSystem ecommerceSystem = new ECommerceSystem();
         ecommerceSystem.run();
