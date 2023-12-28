@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ECommerceSystem {
+    private final OrderManager orderManager;
     private final ProductManager productManager;
     private final UserManager userManager;
     private final ProductCatalog productCatalog;
@@ -9,6 +10,7 @@ public class ECommerceSystem {
     private final Scanner scanner;
 
     public ECommerceSystem() {
+        this.orderManager = new OrderManager();
         this.productManager = new ProductManager();
         this.userManager = new UserManager();
         this.productCatalog = new ProductCatalog();
@@ -29,16 +31,18 @@ public class ECommerceSystem {
         System.out.println("3. View Cart");
         System.out.println("4. Remove from Cart");
         System.out.println("5. Place Order");
-        System.out.println("6. View Order History");
-        System.out.println("7. View Profile");
-        System.out.println("8. Update Profile");
-        System.out.println("9. Apply Discount");
-        System.out.println("10. View Product Catalog");
-        System.out.println("11. Manage Products (Admin)");
-        System.out.println("12. View Product Statistics (Admin)");
-        System.out.println("13. Manage Users (Admin)");
-        System.out.println("14. Logout");
-        System.out.println("15. Exit");
+        System.out.println("6. Cancel Order");
+        System.out.println("7. View Order History");
+        System.out.println("8. View Profile");
+        System.out.println("9. Update Profile");
+        System.out.println("10. Apply Discount");
+        System.out.println("11. View Product Catalog");
+        System.out.println("12. Manage Products");
+        System.out.println("13. View Product Statistics");
+        System.out.println("14. Manage Users (Admin only)");
+        System.out.println("15. Update Order Status (Admin only)");
+        System.out.println("16. Logout");
+        System.out.println("17. Exit the system");
         System.out.print("Enter your choice: ");
     }
 
@@ -91,46 +95,52 @@ public class ECommerceSystem {
                     case 5: // For Place Order
                         placeOrder();
                         break;
-                    case 6: // For View Order History
+                    case 6: // For Cancel Order
+                        cancelOrder();
+                        break;
+                    case 7: // For View Order History
                         viewOrderHistory();
                         break;
-                    case 7: // For View Profile
+                    case 8: // For View Profile
                         viewProfile();
                         break;
-                    case 8: // For Update Profile
+                    case 9: // For Update Profile
                         updateProfile();
                         break;
-                    case 9: // For Apply Discount
+                    case 10: // For Apply Discount
                         applyDiscount();
                         break;
-                    case 10: // For View Product Catalog
+                    case 11: // For View Product Catalog
                         viewProductCatalog();
                         break;
-                    case 11: // For Manage Products (Admin only)
+                    case 12: // For Manage Products (Admin only)
                         if (currentUser instanceof Admin) {
                             manageProducts();
                         } else {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 12: // For View Product Statistics (Admin)
+                    case 13: // For View Product Statistics (Admin)
                         if (currentUser instanceof Admin) {
                             productCatalog.viewProductStatistics();
                         } else {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 13: // For Manage Users (Admin only)
+                    case 14: // For Manage Users (Admin only)
                         if (currentUser instanceof Admin) {
                             userManager.manageUsers();
                         } else {
                             System.out.println("You do not have permission to access this feature.");
                         }
                         break;
-                    case 14: // For Logout
+                    case 15: // For Update Order Status (Admin only)
+                        updateOrderStatus();
+                        break;
+                    case 16: // For Logout
                         logout();
                         break;
-                    case 15: // For Exit
+                    case 17: // For Exit
                         exit();
                         break;
                     default:
@@ -418,6 +428,48 @@ public class ECommerceSystem {
             System.out.println("Order placement failed due to payment issues.");
         }
     }
+
+    private void cancelOrder() {
+        System.out.print("Enter the Order ID to cancel: ");
+        String orderId = scanner.nextLine();
+
+        orderManager.cancelOrder(orderId);
+    }
+
+    private void updateOrderStatus() {
+        System.out.print("Enter the Order ID to update status: ");
+        String orderId = scanner.nextLine();
+
+        // Assuming you have an instance of OrderManager called orderManager
+        OrderStatus newStatus = promptForOrderStatus(); // Implement this method to get the new status
+
+        orderManager.updateOrderStatus(orderId, newStatus);
+    }
+
+    private OrderStatus promptForOrderStatus() {
+        System.out.println("Select the new order status:");
+        System.out.println("1. PENDING");
+        System.out.println("2. PROCESSING");
+        System.out.println("3. SHIPPED");
+        System.out.println("4. DELIVERED");
+        System.out.print("Enter your choice: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        return switch (choice) {
+            case 1 -> OrderStatus.PENDING;
+            case 2 -> OrderStatus.PROCESSING;
+            case 3 -> OrderStatus.SHIPPED;
+            case 4 -> OrderStatus.DELIVERED;
+            case 5 -> OrderStatus.CANCELED;
+            default -> {
+                System.out.println("Invalid choice. Setting order status to PENDING.");
+                yield OrderStatus.PENDING;
+            }
+        };
+    }
+
 
     private void viewOrderHistory() {
         // Example: Viewing the user's order history
