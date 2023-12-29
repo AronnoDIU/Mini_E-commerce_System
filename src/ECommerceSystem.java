@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ECommerceSystem {
+    private final Inventory inventory;
     private final OrderManager orderManager;
     private final ProductManager productManager;
     private final UserManager userManager;
@@ -10,6 +11,7 @@ public class ECommerceSystem {
     private final Scanner scanner;
 
     public ECommerceSystem() {
+        this.inventory = new Inventory();
         this.orderManager = new OrderManager();
         this.productManager = new ProductManager();
         this.userManager = new UserManager();
@@ -41,8 +43,9 @@ public class ECommerceSystem {
         System.out.println("13. View Product Statistics");
         System.out.println("14. Manage Users (Admin only)");
         System.out.println("15. Update Order Status (Admin only)");
-        System.out.println("16. Logout");
-        System.out.println("17. Exit the system");
+        System.out.println("16. Manage Inventory (Admin only)");
+        System.out.println("17. Logout");
+        System.out.println("18. Exit the system");
         System.out.print("Enter your choice: ");
     }
 
@@ -80,7 +83,7 @@ public class ECommerceSystem {
                         viewProducts();
                         break;
                     case 2: // For Add to Cart
-                        addToCart();
+                        addItemToCart();
                         break;
                     case 3: // For View Cart
                         viewCart();
@@ -137,10 +140,13 @@ public class ECommerceSystem {
                     case 15: // For Update Order Status (Admin only)
                         updateOrderStatus();
                         break;
-                    case 16: // For Logout
+                    case 16: // For Manage Inventory (Admin only)
+                        manageInventory();
+                        break;
+                    case 17: // For Logout
                         logout();
                         break;
-                    case 17: // For Exit
+                    case 18: // For Exit
                         exit();
                         break;
                     default:
@@ -347,6 +353,79 @@ public class ECommerceSystem {
         productCatalog.addProduct(product10);
     }
 
+    private void manageInventory() {
+        while (true) {
+            System.out.println("Inventory Management Menu");
+            System.out.println("1. Add Product to Inventory");
+            System.out.println("2. Remove Product from Inventory");
+            System.out.println("3. Update Stock Level");
+            System.out.println("4. Display Inventory");
+            System.out.println("5. Display Suppliers");
+            System.out.println("6. Exit Inventory Management");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1: // For Add Product to Inventory
+                    addProductToInventory();
+                    break;
+                case 2: // For Remove Product from Inventory
+                    removeProductFromInventory();
+                    break;
+                case 3: // For Update Stock Level
+                    updateStockLevel();
+                    break;
+                case 4: // For Display Inventory
+                    inventory.displayInventory();
+                    break;
+                case 5: // For Display Suppliers
+                    inventory.displaySuppliers();
+                    break;
+                case 6: // For Exit Inventory Management
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    manageInventory();
+            }
+        }
+    }
+    private void addProductToInventory() {
+        // You can add validation and error handling here
+        Product product = Product.createProductFromConsoleInput(scanner);
+        assert product != null;
+        System.out.print("Enter the initial stock level for " + product.getName() + ": ");
+        int initialStock = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        System.out.print("Enter the supplier for " + product.getName() + ": ");
+        String supplier = scanner.nextLine();
+
+        inventory.addProductToInventory(product, initialStock, supplier);
+    }
+    private void updateStockLevel() {
+        // You can add validation and error handling here
+        System.out.print("Enter the Product ID to update stock level: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = getProductById(productId);
+        if (product != null) {
+            System.out.print("Enter the quantity to add or subtract from the stock level: ");
+            int quantity = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            inventory.updateStockLevel(product, quantity);
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+    private Product getProductById(int productId) {
+        return productCatalog.getProduct(productId);
+    }
+
+
     private void displayWelcomeMessage() {
         System.out.println("Welcome to the E-Commerce System!");
     }
@@ -376,19 +455,24 @@ public class ECommerceSystem {
         productCatalog.viewProducts();
     }
 
-    private void addToCart() {
-        // Example: Adding a product to the cart
-        System.out.println("Enter the product ID to add to the cart: ");
-        int productId = scanner.nextInt();
+    private void addItemToCart() {
+        System.out.print("Enter Item ID: ");
+        String itemId = scanner.nextLine();
+
+        System.out.print("Enter Item Name: ");
+        String itemName = scanner.nextLine();
+
+        System.out.print("Enter Item Price: ");
+        double itemPrice = scanner.nextDouble();
         scanner.nextLine(); // Consume the newline character
 
-        Product product = productCatalog.getProduct(productId);
-        if (product != null) {
-            currentUser.addToCart(product);
-            System.out.println(product.getName() + " added to the cart.");
-        } else {
-            System.out.println("Product not found.");
-        }
+        System.out.print("Enter Item Description: ");
+        String itemDescription = scanner.nextLine();
+
+        // Creating an instance of the Item class
+        Item newItem = new Item(itemId, itemName, itemPrice, itemDescription);
+
+        System.out.println("Item added to cart: " + newItem);
     }
 
     private void viewCart() {

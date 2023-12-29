@@ -12,7 +12,7 @@ public class ProductCatalog {
         products.put(product.getProductId(), product);
     }
 
-    public void removeProduct(Integer productId) throws ProductNotFoundException {
+    public void removeProduct(int productId) throws ProductNotFoundException {
         if (!products.containsKey(productId)) {
             throw new ProductNotFoundException("Product with ID " + productId + " not found.");
         }
@@ -26,7 +26,7 @@ public class ProductCatalog {
         products.put(product.getProductId(), product);
     }
 
-    public Product getProduct(Integer productId) {
+    public Product getProduct(int productId) {
         return products.get(productId);
     }
 
