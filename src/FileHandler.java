@@ -3,9 +3,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 
 public class FileHandler {
@@ -58,22 +56,24 @@ public class FileHandler {
         return entities;
     }
 
-    public ArrayList<User> readUserCredentials() {
-        ArrayList<User> users = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] userDetails = line.split(",");
-                String username = userDetails[0];
-                String password = userDetails[1];
-                String role = userDetails[2];
-                User user = new User(username, password, role);
-                users.add(user);
+    @SuppressWarnings("unchecked")
+    public Map<String, String> readUserCredentials() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userCredentials.dat"))) {
+            // Read the object from the file
+            Object obj = ois.readObject();
+
+            if (obj instanceof Map) {
+                return (Map<String, String>) obj;
+            } else {
+                System.out.println("Invalid format of user credentials file.");
             }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
+            // Handle exceptions
             System.out.println("Error reading from the file: " + e.getMessage());
         }
-        return users;
+
+        // Return an empty map if something goes wrong
+        return new HashMap<>();
     }
 
     public ArrayList<Order> readOrders() {

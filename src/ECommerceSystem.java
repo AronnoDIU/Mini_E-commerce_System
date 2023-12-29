@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ECommerceSystem {
+    private final Authentication authentication;
     private final Inventory inventory;
     private final OrderManager orderManager;
     private final ProductManager productManager;
@@ -11,6 +12,7 @@ public class ECommerceSystem {
     private final Scanner scanner;
 
     public ECommerceSystem() {
+        this.authentication = new Authentication(new FileHandler("users.txt"));
         this.inventory = new Inventory();
         this.orderManager = new OrderManager();
         this.productManager = new ProductManager();
@@ -460,8 +462,10 @@ public class ECommerceSystem {
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
-        if (userManager.authenticateUser(username, password)) {
-            currentUser = userManager.getUserByUsername(username);
+        User user = authentication.login(username, password);
+
+        if (user != null) {
+            currentUser = user;
             System.out.println("Authentication successful. Welcome, " + currentUser.getName() + "!");
         } else {
             System.out.println("Authentication failed. Please check your credentials.");
@@ -592,25 +596,21 @@ public class ECommerceSystem {
 
     private void createUserAccount() {
         // Example: Creating a new user account
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter a username: ");
+        System.out.print("Enter your username: ");
         String username = scanner.nextLine();
-        System.out.print("Enter a password: ");
+        System.out.print("Enter your password: ");
         String password = scanner.nextLine();
-        System.out.print("Enter your address: ");
-        String address = scanner.nextLine();
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
 
-        // Create a new user account
-        currentUser = new User(name, username, password, address, email);
-        System.out.println("Account created successfully. Welcome, " +
-                currentUser.getName() + "!");
+        User newUser = authentication.register(username, password);
+
+        if (newUser != null) {
+            currentUser = newUser;
+            System.out.println("Account created successfully. Welcome, " + currentUser.getName() + "!");
+        }
     }
 
     private void logout() {
-        System.out.println("Logging out. Goodbye, " + currentUser.getName() + "!");
+        authentication.logout();
         currentUser = null;
     }
 
