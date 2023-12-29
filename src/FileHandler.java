@@ -58,7 +58,8 @@ public class FileHandler {
 
     @SuppressWarnings("unchecked")
     public Map<String, String> readUserCredentials() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userCredentials.dat"))) {
+        try (ObjectInputStream ois = new ObjectInputStream
+                (new FileInputStream("user_credentials.txt"))) {
             // Read the object from the file
             Object obj = ois.readObject();
 

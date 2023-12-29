@@ -1,31 +1,39 @@
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ECommerceSystem {
+    private final FileHandler fileHandler;
     private final Authentication authentication;
     private final Inventory inventory;
     private final OrderManager orderManager;
     private final ProductManager productManager;
     private final UserManager userManager;
     private final ProductCatalog productCatalog;
+    private static ArrayList<Order> ordersList;
     static User currentUser;
     private final Scanner scanner;
 
     public ECommerceSystem() {
+        this.fileHandler = new FileHandler("users.txt");
         this.authentication = new Authentication(new FileHandler("users.txt"));
         this.inventory = new Inventory();
         this.orderManager = new OrderManager();
         this.productManager = new ProductManager();
         this.userManager = new UserManager();
         this.productCatalog = new ProductCatalog();
+        ordersList = new ArrayList<>(); // Initialize the list of orders
         currentUser = null; // No user is logged in initially
         this.scanner = new Scanner(System.in);
         loadInitialProducts();
+        loadOrders();
     }
 
     public static void main(String[] args) {
         ECommerceSystem ecommerceSystem = new ECommerceSystem();
         ecommerceSystem.run();
+        ecommerceSystem.saveOrders(ordersList); // Provide the actual list of orders to save
     }
 
     private void displayMainMenu() {
@@ -619,5 +627,26 @@ public class ECommerceSystem {
         System.out.println("Exiting the ECommerce System. Goodbye!");
         scanner.close();
         System.exit(0);
+    }
+
+    private void loadOrders() {
+        ordersList = fileHandler.readOrders();
+        // Do something with the orders, such as updating your system's order records
+    }
+
+    // Example: Writing orders to file
+    private void saveOrders() {
+        StringBuilder content = new StringBuilder();
+        for (Order order : ordersList) {
+            // Assuming you have a method in the Order class to convert it to a String
+            String orderString = order.toFileString(); // You need to implement this method
+            content.append(orderString).append("\n");
+        }
+
+        try {
+            fileHandler.writeFile(content.toString());
+        } catch (IOException e) {
+            System.out.println("Error writing orders to the file: " + e.getMessage());
+        }
     }
 }
