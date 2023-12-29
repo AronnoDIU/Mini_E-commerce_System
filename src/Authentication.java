@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Map;
 
 public class Authentication {
@@ -7,10 +6,11 @@ public class Authentication {
     private String loggedInUser;
 
     // Constructor
-    @SuppressWarnings("unchecked")
     public Authentication(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
-        this.userCredentials = (Map<String, String>) fileHandler.readUserCredentials(); // Load existing credentials from file
+
+        // Load existing credentials from file into memory
+        this.userCredentials = fileHandler.readUserCredentials();
         this.loggedInUser = null;
     }
 
