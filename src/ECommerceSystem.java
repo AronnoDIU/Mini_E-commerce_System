@@ -391,6 +391,21 @@ public class ECommerceSystem {
             }
         }
     }
+
+    private void removeProductFromInventory() {
+        // You can add validation and error handling here
+        System.out.print("Enter the Product ID to remove from inventory: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = getProductById(productId);
+        if (product != null) {
+            inventory.removeProductFromInventory(product);
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
     private void addProductToInventory() {
         // You can add validation and error handling here
         Product product = Product.createProductFromConsoleInput(scanner);
@@ -404,6 +419,7 @@ public class ECommerceSystem {
 
         inventory.addProductToInventory(product, initialStock, supplier);
     }
+
     private void updateStockLevel() {
         // You can add validation and error handling here
         System.out.print("Enter the Product ID to update stock level: ");
@@ -421,6 +437,7 @@ public class ECommerceSystem {
             System.out.println("Product not found.");
         }
     }
+
     private Product getProductById(int productId) {
         return productCatalog.getProduct(productId);
     }

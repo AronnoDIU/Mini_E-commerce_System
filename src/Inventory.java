@@ -96,6 +96,7 @@ public class Inventory {
 
         for (int i = 0; i < numProducts; i++) {
             Product product = Product.createProductFromConsoleInput(scanner);
+            assert product != null;
             System.out.println("Enter the initial stock level for " + product.getName() + ":");
             int initialStock = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
@@ -107,5 +108,11 @@ public class Inventory {
         }
 
         return inventory;
+    }
+
+    public void removeProductFromInventory(Product product) {
+        stockLevels.remove(product);
+        suppliers.remove(product);
+        System.out.println("Product '" + product.getName() + "' removed from inventory.");
     }
 }
