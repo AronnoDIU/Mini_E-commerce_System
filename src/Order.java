@@ -3,11 +3,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Order {
-    private String orderId;
-    private String customerId;
-    private List<Product> orderDetails;
+    private final String orderId;
+    private final String customerId;
+    private final List<Product> orderDetails;
     private OrderStatus orderStatus;
-    private LocalDateTime orderDate;
+    private final LocalDateTime orderDate;
 
     public Order(String orderId, String customerId, List<Product> orderDetails, OrderStatus orderStatus,
                  LocalDateTime orderDate) {
@@ -51,42 +51,8 @@ public class Order {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public List<Product> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<Product> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
-    }
-
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        if (orderDate != null) {
-            this.orderDate = orderDate;
-        }
     }
 
     // toString method for easy display

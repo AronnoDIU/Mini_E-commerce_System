@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Product {
-    private Integer productId;
+    private final Integer productId;
     private String name;
     private String description;
     private double price;
@@ -60,25 +60,8 @@ public class Product {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
-
-    // Setters
-    public void setProductId(Integer productId) {
-        this.productId = productId;
     }
 
     public void setName(String name) {

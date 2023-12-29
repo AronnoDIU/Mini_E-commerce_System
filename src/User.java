@@ -177,15 +177,6 @@ public class User implements IUserActions {
         return orderManager.getAllOrders();
     }
 
-    public void addToCart(Product product) {
-        if (shoppingCart != null) {
-            shoppingCart.addToCart(product);
-            System.out.println("Product added to the shopping cart.");
-        } else {
-            System.out.println("Shopping cart is null. Cannot add to cart.");
-        }
-    }
-
     @Override
     public String toString() {
         return "User{" +

@@ -11,13 +11,6 @@ public class ShoppingCart {
         this.totalPrice = 0.0;
     }
 
-    // Add a product to the cart
-    public void addToCart(Product product) {
-        items.add(product);
-        totalPrice += product.getPrice();
-        System.out.println(product.getName() + " added to the cart.");
-    }
-
     // Remove a product from the cart
     public void removeFromCart(int productId) {
         for (Product product : items) {

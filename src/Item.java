@@ -3,9 +3,7 @@
  * Instances of this class are immutable.
  */
 public record Item(String itemId, String name, double price, String description) {
-    // Constructor
 
-    // Overriding toString method for easy display
     @Override
     public String toString() {
         return "Item{" +
