@@ -635,11 +635,10 @@ public class ECommerceSystem {
     }
 
     // Example: Writing orders to file
-    private void saveOrders() {
+    private void saveOrders(ArrayList<Order> ordersList) {
         StringBuilder content = new StringBuilder();
         for (Order order : ordersList) {
-            // Assuming you have a method in the Order class to convert it to a String
-            String orderString = order.toFileString(); // You need to implement this method
+            String orderString = order.toFileString();
             content.append(orderString).append("\n");
         }
 

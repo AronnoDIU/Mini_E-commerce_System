@@ -63,7 +63,7 @@ public class Admin extends User implements IAdminActions {
     @Override
     public void placeOrder(List<Product> products) {
         shoppingCart.clearCart();
-        Order newOrder = new Order(products, this);
+        Order newOrder = new Order(products, this, this.getShoppingCart());
         orderManager.createOrder(newOrder);
         System.out.println("Order placed successfully!");
     }

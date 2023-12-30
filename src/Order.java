@@ -5,74 +5,39 @@ import java.util.List;
 
 public class Order {
     private final String orderId;
-    private String username;
-    private List<Product> products;
-    private Date dateTime;
+    private final String username;
+    private final List<Product> products;
+    private final Date dateTime;
     private final String customerId;
     private final List<Product> orderDetails;
-    private OrderStatus orderStatus;
+    private final OrderStatus orderStatus;
     private final LocalDateTime orderDate;
 
-    public Order(String orderId, String customerId, List<Product> orderDetails,
-                 OrderStatus orderStatus, LocalDateTime orderDate) {
+    // Constructor for creating an order with specified parameters
+    public Order(String orderId, String username, List<Product> products, Date dateTime,
+                 String customerId, List<Product> orderDetails, OrderStatus orderStatus,
+                 LocalDateTime orderDate) {
         this.orderId = orderId;
+        this.username = username;
+        this.products = products;
+        this.dateTime = dateTime;
         this.customerId = customerId;
         this.orderDetails = orderDetails;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
     }
 
-    public Order(String orderId, String customerId,
-                 List<Product> orderDetails, OrderStatus orderStatus) {
-        this(orderId, customerId, orderDetails, orderStatus, LocalDateTime.now());
-    }
-
-    public Order(Integer orderId, Integer customerId, List<Product> orderDetails,
-                 OrderStatus orderStatus, LocalDateTime orderDate) {
-        this.orderId = orderId.toString();
-        this.customerId = customerId.toString();
-        this.orderDetails = orderDetails;
-        this.orderStatus = orderStatus;
-        this.orderDate = orderDate;
-    }
-
-    public Order(Integer orderId, Integer customerId,
-                 List<Product> orderDetails, OrderStatus orderStatus) {
-        this(orderId, customerId, orderDetails, orderStatus, LocalDateTime.now());
-    }
-
-    public Order(List<Product> products, Admin admin) {
-        this(null, admin.getUserId(), products, OrderStatus.PENDING);
-    }
-
-    public Order(String orderId, String username, List<Product> products, Date dateTime) {
-        this.orderId = orderId;
-        this.customerId = username;
-        this.orderDetails = products;
-        this.orderStatus = OrderStatus.PENDING;
-        this.orderDate = LocalDateTime.ofInstant(dateTime.toInstant(), FileHandler.DEFAULT_ZONE_ID);
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
     public String toFileString() {
-        StringBuilder orderString = new StringBuilder();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
         // Append order details
-        orderString.append(orderId).append(",");
-        orderString.append(username).append(",");
-        orderString.append(productsToString()).append(",");
-        orderString.append(dateFormat.format(dateTime)).append(",");
-        orderString.append(timeFormat.format(dateTime));
 
-        return orderString.toString();
+        return orderId + "," +
+                username + "," +
+                productsToString() + "," +
+                dateFormat.format(dateTime) + "," +
+                timeFormat.format(dateTime);
     }
 
     private String productsToString() {
@@ -89,6 +54,8 @@ public class Order {
 
         return productsString.toString();
     }
+
+    // Other methods...
 
     // toString method for easy display
     @Override
