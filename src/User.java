@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.Scanner;
 
-public class User implements IUserActions {
+public class User {
     private String name;
     private String userId;
     private String username;
@@ -9,7 +9,7 @@ public class User implements IUserActions {
     private String address;
     private String email;
     ShoppingCart shoppingCart;
-    private OrderManager orderManager;
+    private final OrderManager orderManager;
 
     // Constructors
     public User(String name, String userId, String username,
@@ -24,27 +24,13 @@ public class User implements IUserActions {
         this.orderManager = new OrderManager();
     }
 
+    // Constructor for Admin
     public User(String username, String password, String name) {
+        this.username = username;
+        this.password = password;
         this.name = name;
-        this.username = username;
-        this.password = password;
         this.shoppingCart = new ShoppingCart();
         this.orderManager = new OrderManager();
-    }
-
-    public User(String userId, String username,
-                String password, String address, String email) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.address = address;
-        this.email = email;
-        this.shoppingCart = new ShoppingCart();
-        this.orderManager = new OrderManager();
-    }
-
-    public User(String loggedInUser) {
-        this.username = loggedInUser;
     }
 
     // Getters
@@ -97,7 +83,6 @@ public class User implements IUserActions {
         this.email = email;
     }
 
-    @Override
     public void viewProfile() {
         System.out.println("Name: " + getName());
         System.out.println("Username: " + getUsername());
@@ -106,8 +91,6 @@ public class User implements IUserActions {
         System.out.println("Email: " + getEmail());
         System.out.println("Profile viewed successfully!");
     }
-
-    @Override
     public void updateProfile() {
         Scanner userInput = new Scanner(System.in);
 
@@ -150,29 +133,27 @@ public class User implements IUserActions {
         System.out.println("Profile updated successfully!");
     }
 
-    @Override
-    public void placeOrder(List<Product> products) {
-        if (shoppingCart != null) {
-            Order newOrder = new Order(products, (Admin) this);
-            orderManager.createOrder(newOrder);
-            shoppingCart.clearCart();
-            System.out.println("Order placed successfully!");
-        } else {
-            System.out.println("Shopping cart is null. Cannot place an order.");
-        }
-    }
-
-    @Override
     public List<Product> viewCart() {
-        if (shoppingCart != null) {
-            shoppingCart.displayCart();
-        } else {
-            System.out.println("Shopping cart is null. Cannot view cart.");
-        }
-        return shoppingCart.displayCart();
+        System.out.println("Shopping Cart Contents:");
+        shoppingCart.displayItems();
+        return null;
     }
 
-    @Override
+    public void addToCart(Product product, int quantity) {
+        shoppingCart.addItem(product, quantity);
+    }
+
+    public void removeCartItem(Product product, int quantity) {
+        shoppingCart.removeItem(product, quantity);
+    }
+
+    public void placeOrder() {
+        List<Product> cartItems = shoppingCart.getCartItems();
+        // Implement order placement logic, e.g., calling a method in the OrderHandler class
+        OrderHandler.placeOrder(this, cartItems);
+        shoppingCart.clearCart();
+    }
+
     public List<Order> viewOrderHistory() {
         return orderManager.getAllOrders();
     }
