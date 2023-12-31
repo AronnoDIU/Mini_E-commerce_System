@@ -32,9 +32,14 @@ public class ShoppingCart {
     }
 
     // Calculate the total price of items in the cart
-    public double calculateTotal() {
-        return totalPrice;
+    public double calculateTotalPrice() {
+        double total = 0.0;
+        for (CartItem item : cartItems) {
+            total += item.getProduct().getPrice() * item.getQuantity();
+        }
+        return total;
     }
+
 
     // Display the items in the cart
     public List<Product> displayCart() {
