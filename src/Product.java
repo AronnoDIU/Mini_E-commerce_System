@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Product {
@@ -20,7 +21,7 @@ public class Product {
     }
 
     public static Product createProductFromConsoleInput(Scanner scanner) {
-        try {
+        try (scanner){
             System.out.println("Enter product name:");
             String name = scanner.nextLine();
 
@@ -44,10 +45,18 @@ public class Product {
                 throw new IllegalArgumentException("Stock quantity must be non-negative.");
             }
 
+            validatePrice(price);
+            validateStockQuantity(stockQuantity);
+
             return new Product(null, name, description, price, category, stockQuantity);
-        } catch (Exception e) {
+        } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter valid product details.");
             return null; // Indicate failure with null
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return null;
+            /*catching InputMismatchException for issues with mismatched input types,
+            and catching IllegalArgumentException for the validation errors.*/
         }
     }
 
@@ -83,6 +92,18 @@ public class Product {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
+    private static void validatePrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price must be non-negative.");
+        }
+    }
+
+    private static void validateStockQuantity(int stockQuantity) {
+        if (stockQuantity < 0) {
+            throw new IllegalArgumentException("Stock quantity must be non-negative.");
+        }
+    }
+
 
     // toString method for easy representation
     @Override
