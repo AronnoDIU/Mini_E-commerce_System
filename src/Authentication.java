@@ -1,6 +1,7 @@
 import java.util.Map;
 
-public class Authentication {
+// A generic class. This way, it can work with different user types without duplicating code.
+public class Authentication<T extends User> {
     private final FileHandler fileHandler;
     private final Map<String, String> userCredentials;
     private String loggedInUser;

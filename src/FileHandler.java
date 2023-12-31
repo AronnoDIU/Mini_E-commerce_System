@@ -87,9 +87,9 @@ public class FileHandler {
                 String orderId = orderDetails[0];
                 String username = orderDetails[1];
                 String products = orderDetails[2];
-                Date date = dateFormat.parse(orderDetails[3]);
-                Date time = timeFormat.parse(orderDetails[4]);
-                Date dateTime = combineDateAndTime(date, time);
+                LocalDate date = LocalDate.parse(orderDetails[3], dateFormat);
+                LocalTime time = LocalTime.parse(orderDetails[4], timeFormat);
+                LocalDateTime dateTime = combineDateAndTime(date, time);
                 Order order = new Order(orderId, username, parseProducts(products), dateTime);
                 orders.add(order);
             }
