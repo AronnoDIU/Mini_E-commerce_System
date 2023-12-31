@@ -7,7 +7,7 @@
     <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Mini E-commerce System">
       <change beforePath="$PROJECT_DIR$/../Java-Fundamental-Exercise" beforeDir="false" afterPath="$PROJECT_DIR$/../Java-Fundamental-Exercise" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ECommerceSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECommerceSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,47 +84,7 @@
       <workItem from="1703854982131" duration="59000" />
       <workItem from="1703874402154" duration="3572000" />
       <workItem from="1703925548256" duration="4640000" />
-      <workItem from="1704025620844" duration="701000" />
-    </task>
-    <task id="LOCAL-00011" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703583793232</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1703583793232</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703597260015</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1703597260015</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703610767386</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1703610767386</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703611089615</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1703611089615</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703611193842</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1703611193842</updated>
+      <workItem from="1704025620844" duration="1772000" />
     </task>
     <task id="LOCAL-00016" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -478,7 +438,47 @@
       <option name="project" value="LOCAL" />
       <updated>1703927136297</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704026779759</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1704026779759</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704026818045</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1704026818045</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704026841402</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1704026841402</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704026864046</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1704026864046</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704026886595</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1704026886595</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
