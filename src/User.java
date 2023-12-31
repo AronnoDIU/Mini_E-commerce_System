@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class User {
     private String name;
@@ -133,10 +134,10 @@ public class User {
         System.out.println("Profile updated successfully!");
     }
 
-    public List<Product> viewCart() {
+    public void viewCart() {
         System.out.println("Shopping Cart Contents:");
         shoppingCart.displayItems();
-        return null;
+        System.out.println("Total Price: $" + shoppingCart.getTotalPrice());
     }
 
     public void addToCart(Product product, int quantity) {
@@ -155,7 +156,18 @@ public class User {
     }
 
     public List<Order> viewOrderHistory() {
-        return orderManager.getAllOrders();
+        List<Order> orders = orderManager.getAllOrders();
+
+        if (orders.isEmpty()) {
+            System.out.println("No orders found.");
+        } else {
+            System.out.println("Order History:");
+            for (Order order : orders) {
+                System.out.println(order); // Assuming you have a proper toString method in Order class
+            }
+        }
+
+        return orders;
     }
 
     @Override
@@ -174,8 +186,15 @@ public class User {
 
     public void applyDiscount(double discountPercentage) {
         if (shoppingCart != null) {
-            shoppingCart.applyDiscount(discountPercentage);
-            System.out.println("Discount applied successfully!");
+            double total = calculateTotal();
+            double discountedTotal = total - (total * discountPercentage / 100);
+
+            if (discountedTotal < 0) {
+                System.out.println("Discount cannot result in a negative total. No changes applied.");
+            } else {
+                shoppingCart.applyDiscount(discountPercentage);
+                System.out.println("Discount applied successfully!");
+            }
         } else {
             System.out.println("Shopping cart is null. Cannot apply discount.");
         }
