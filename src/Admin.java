@@ -38,11 +38,12 @@ public class Admin extends User {
             productCatalog.removeProduct(productId);
             System.out.println("Product removed successfully!");
         } catch (ProductNotFoundException e) {
-            System.out.println("Product with ID " + productId + " not found.");
+            System.out.println("Product not found: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Error removing product: " + e.getMessage());
         }
     }
+
 
     // Update an existing product
     public void updateProduct(Product product) {

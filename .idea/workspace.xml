@@ -83,23 +83,7 @@
       <workItem from="1703874402154" duration="3572000" />
       <workItem from="1703925548256" duration="4640000" />
       <workItem from="1704025620844" duration="3003000" />
-      <workItem from="1704063194338" duration="2691000" />
-    </task>
-    <task id="LOCAL-00027" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703719251826</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1703719251826</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703720356751</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1703720356751</updated>
+      <workItem from="1704063194338" duration="3011000" />
     </task>
     <task id="LOCAL-00029" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -477,7 +461,23 @@
       <option name="project" value="LOCAL" />
       <updated>1704065846825</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704066033213</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1704066033213</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704066126545</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1704066126545</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
