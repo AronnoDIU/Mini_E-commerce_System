@@ -585,7 +585,6 @@ public class ECommerceSystem {
 
 
     private void viewOrderHistory() {
-        // Example: Viewing the user's order history
         List<Order> orderHistory = currentUser.viewOrderHistory();
         for (Order order : orderHistory) {
             System.out.println(order);

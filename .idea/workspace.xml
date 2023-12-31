@@ -7,9 +7,7 @@
     <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Mini E-commerce System">
       <change beforePath="$PROJECT_DIR$/../Java-Fundamental-Exercise" beforeDir="false" afterPath="$PROJECT_DIR$/../Java-Fundamental-Exercise" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ECommerceSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECommerceSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,15 +83,8 @@
       <workItem from="1703805649215" duration="4027000" />
       <workItem from="1703854982131" duration="59000" />
       <workItem from="1703874402154" duration="3572000" />
-      <workItem from="1703925548256" duration="1577000" />
-    </task>
-    <task id="LOCAL-00010" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703528680781</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1703528680781</updated>
+      <workItem from="1703925548256" duration="4640000" />
+      <workItem from="1704025620844" duration="701000" />
     </task>
     <task id="LOCAL-00011" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -479,7 +470,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703881732218</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1703927136297</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1703927136297</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
