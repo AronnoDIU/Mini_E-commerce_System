@@ -12,7 +12,7 @@ public class ProductCatalog {
         products.put(product.getProductId(), product);
     }
 
-    public void removeProduct(int productId) throws ProductNotFoundException {
+    public void removeProduct(Integer productId) throws ProductNotFoundException {
         if (!products.containsKey(productId)) {
             throw new ProductNotFoundException("Product with ID " + productId + " not found.");
         }
