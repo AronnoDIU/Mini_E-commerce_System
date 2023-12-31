@@ -39,8 +39,13 @@ public class FileHandler {
     public void writeFile(String content) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(content);
+            System.out.println("Write to file successful.");
+        } catch (IOException e) {
+            System.out.println("Error writing to the file: " + e.getMessage());
+            throw e;
         }
     }
+
 
     // Read entities from a file using a generic method
     private <T> List<T> readEntities(Function<BufferedReader, T> entityReader) throws IOException {
