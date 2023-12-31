@@ -592,7 +592,6 @@ public class ECommerceSystem {
     }
 
     private void viewProfile() {
-        // Example: Viewing user profile
         currentUser.viewProfile();
     }
 
