@@ -92,41 +92,42 @@ public class User {
         System.out.println("Email: " + getEmail());
         System.out.println("Profile viewed successfully!");
     }
+
     public void updateProfile() {
         Scanner userInput = new Scanner(System.in);
 
         System.out.println("Enter new name (press Enter to keep current name): ");
-        String newName = userInput.nextLine();
+        String newName = userInput.nextLine().trim();
         if (!newName.isEmpty()) {
             this.setName(newName);
         }
 
         System.out.println("Enter new userId (press Enter to keep current userId): ");
-        String newUserId = userInput.nextLine();
+        String newUserId = userInput.nextLine().trim();
         if (!newUserId.isEmpty()) {
             this.setUserId(newUserId);
         }
 
         System.out.println("Enter new username (press Enter to keep current username): ");
-        String newUsername = userInput.nextLine();
+        String newUsername = userInput.nextLine().trim();
         if (!newUsername.isEmpty()) {
             this.setUsername(newUsername);
         }
 
         System.out.println("Enter new address (press Enter to keep current address): ");
-        String newAddress = userInput.nextLine();
+        String newAddress = userInput.nextLine().trim();
         if (!newAddress.isEmpty()) {
             this.setAddress(newAddress);
         }
 
         System.out.println("Enter new email (press Enter to keep current email): ");
-        String newEmail = userInput.nextLine();
+        String newEmail = userInput.nextLine().trim();
         if (!newEmail.isEmpty()) {
             this.setEmail(newEmail);
         }
 
         System.out.println("Enter new password (press Enter to keep current password): ");
-        String newPassword = userInput.nextLine();
+        String newPassword = userInput.nextLine().trim();
         if (!newPassword.isEmpty()) {
             this.setPassword(newPassword);
         }
