@@ -596,7 +596,6 @@ public class ECommerceSystem {
     }
 
     private void updateProfile() {
-        // Example: Updating user profile
         currentUser.updateProfile();
     }
 
