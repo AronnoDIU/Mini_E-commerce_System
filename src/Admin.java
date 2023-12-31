@@ -82,20 +82,20 @@ public class Admin extends User {
                 System.out.println(product); // Assuming you have a proper toString method in Product class
             }
         }
+    }
 
+    public void viewOrderHistory() {
+        List<Order> orders = orderManager.getAllOrders();
 
-        public void viewOrderHistory () {
-            List<Order> orders = orderManager.getAllOrders();
-
-            if (orders.isEmpty()) {
-                System.out.println("No orders found.");
-            } else {
-                System.out.println("Order History:");
-                for (Order order : orders) {
-                    System.out.println(order); // Assuming you have a proper toString method in Order class
-                }
+        if (orders.isEmpty()) {
+            System.out.println("No orders found.");
+        } else {
+            System.out.println("Order History:");
+            for (Order order : orders) {
+                System.out.println(order); // Assuming you have a proper toString method in Order class
             }
         }
+    }
 
         public void updateOrderStatus (Order order, OrderStatus newStatus){
             order.setStatus(newStatus);

@@ -88,11 +88,11 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "productId='" + productId + '\'' +
+                "productId=" + productId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", category='" + category + '\'' +
+                ", category=" + category +
                 ", stockQuantity=" + stockQuantity +
                 '}';
     }
