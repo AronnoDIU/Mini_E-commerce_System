@@ -600,7 +600,6 @@ public class ECommerceSystem {
     }
 
     private void createUserAccount() {
-        // Example: Creating a new user account
         System.out.print("Enter your username: ");
         String username = scanner.nextLine();
         System.out.print("Enter your password: ");
