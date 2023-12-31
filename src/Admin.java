@@ -39,6 +39,8 @@ public class Admin extends User {
             System.out.println("Product removed successfully!");
         } catch (ProductNotFoundException e) {
             System.out.println("Product with ID " + productId + " not found.");
+        } catch (Exception e) {
+            System.out.println("Error removing product: " + e.getMessage());
         }
     }
 
@@ -69,21 +71,35 @@ public class Admin extends User {
         System.out.println("Order placed successfully!");
     }
 
-    public List<Product> viewCart() {
-        // View cart
-        System.out.println("Cart viewed by admin.");
-        return shoppingCart.displayCart();
-    }
+    public void viewCart() {
+        List<Product> cartItems = shoppingCart.displayCart();
 
-    public List<Order> viewOrderHistory() {
-        // View order history
-        System.out.println("Order history viewed by admin.");
-        return orderManager.getAllOrders();
-    }
+        if (cartItems.isEmpty()) {
+            System.out.println("Cart is empty.");
+        } else {
+            System.out.println("Shopping Cart Contents:");
+            for (Product product : cartItems) {
+                System.out.println(product); // Assuming you have a proper toString method in Product class
+            }
+        }
 
-    public void updateOrderStatus(Order order, OrderStatus newStatus) {
-        order.setStatus(newStatus);
-        LOGGER.log(Level.INFO, "Order {0} status updated to {1} by admin {2}.",
-                new Object[]{order.getOrderId(), newStatus, getUsername()});
+
+        public void viewOrderHistory () {
+            List<Order> orders = orderManager.getAllOrders();
+
+            if (orders.isEmpty()) {
+                System.out.println("No orders found.");
+            } else {
+                System.out.println("Order History:");
+                for (Order order : orders) {
+                    System.out.println(order); // Assuming you have a proper toString method in Order class
+                }
+            }
+        }
+
+        public void updateOrderStatus (Order order, OrderStatus newStatus){
+            order.setStatus(newStatus);
+            LOGGER.log(Level.INFO, "Order {0} status updated to {1} by admin {2}.",
+                    new Object[]{order.getOrderId(), newStatus, getUsername()});
+        }
     }
-}
