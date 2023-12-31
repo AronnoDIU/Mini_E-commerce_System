@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Mini E-commerce System">
       <change beforePath="$PROJECT_DIR$/../Java-Fundamental-Exercise" beforeDir="false" afterPath="$PROJECT_DIR$/../Java-Fundamental-Exercise" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,39 +83,7 @@
       <workItem from="1703874402154" duration="3572000" />
       <workItem from="1703925548256" duration="4640000" />
       <workItem from="1704025620844" duration="3003000" />
-      <workItem from="1704063194338" duration="2346000" />
-    </task>
-    <task id="LOCAL-00023" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703672349333</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1703672349333</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703708863737</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1703708863737</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703715853012</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1703715853012</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703717921630</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1703717921630</updated>
+      <workItem from="1704063194338" duration="2691000" />
     </task>
     <task id="LOCAL-00027" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -478,7 +445,39 @@
       <option name="project" value="LOCAL" />
       <updated>1704065424811</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704065549876</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1704065549876</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704065645418</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1704065645418</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704065737981</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1704065737981</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Mini E-commerce System">
+      <option name="closed" value="true" />
+      <created>1704065846825</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1704065846825</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

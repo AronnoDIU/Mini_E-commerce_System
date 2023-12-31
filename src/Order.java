@@ -12,6 +12,7 @@ public class Order {
     private final List<Product> orderDetails;
     private final OrderStatus orderStatus;
     private final LocalDateTime orderDate;
+    private final LocalDateTime orderTime;
 
     // Constructor for creating an order with specified parameters
     public Order(String orderId, String username, List<Product> products, Date dateTime,
@@ -25,6 +26,11 @@ public class Order {
         this.orderDetails = orderDetails;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
+        this.orderTime = LocalDateTime.now();
+    }
+
+    public LocalDateTime getOrderTime() {
+        return orderTime;
     }
 
     public String toFileString() {
@@ -69,6 +75,7 @@ public class Order {
                 ", orderDetails=" + orderDetails +
                 ", orderStatus=" + orderStatus +
                 ", orderDate=" + orderDate +
+                ", orderTime=" + orderTime +
                 '}';
     }
 }
