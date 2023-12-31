@@ -619,7 +619,6 @@ public class ECommerceSystem {
     }
 
     private void exit() {
-        // Example: Exiting the system
         System.out.println("Exiting the ECommerce System. Goodbye!");
         scanner.close();
         System.exit(0);
