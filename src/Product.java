@@ -21,7 +21,7 @@ public class Product {
     }
 
     public static Product createProductFromConsoleInput(Scanner scanner) {
-        try (scanner){
+        try (scanner) {
             System.out.println("Enter product name:");
             String name = scanner.nextLine();
 
@@ -49,10 +49,7 @@ public class Product {
             validateStockQuantity(stockQuantity);
 
             return new Product(null, name, description, price, category, stockQuantity);
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter valid product details.");
-            return null; // Indicate failure with null
-        } catch (IllegalArgumentException e) {
+        } catch (InputMismatchException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return null;
             /*catching InputMismatchException for issues with mismatched input types,
@@ -92,6 +89,7 @@ public class Product {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
+
     private static void validatePrice(double price) {
         if (price < 0) {
             throw new IllegalArgumentException("Price must be non-negative.");
