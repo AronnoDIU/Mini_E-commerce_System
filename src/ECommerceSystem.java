@@ -514,7 +514,7 @@ public class ECommerceSystem {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the product ID to remove from the cart: ");
             int productId = scanner.nextInt();
-            ((Customer) currentUser).getShoppingCart().removeFromCart(productId);
+            ((Customer) currentUser).getShoppingCart().removeFromCart(product, productId);
         } else {
             System.out.println("Invalid user type for this operation.");
         }

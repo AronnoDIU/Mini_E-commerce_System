@@ -137,8 +137,8 @@ public class User {
 
     public void viewCart() {
         System.out.println("Shopping Cart Contents:");
-        shoppingCart.displayItems();
-        System.out.println("Total Price: $" + shoppingCart.getTotalPrice());
+        shoppingCart.displayCart();
+        System.out.println("Total Price: $" + shoppingCart.calculateTotalPrice());
     }
 
     public void addToCart(Product product, int quantity) {
@@ -146,13 +146,21 @@ public class User {
     }
 
     public void removeCartItem(Product product, int quantity) {
-        shoppingCart.removeItem(product, quantity);
+        shoppingCart.removeFromCart(product, quantity);
     }
 
     public void placeOrder() {
-        List<Product> cartItems = shoppingCart.getCartItems();
-        // Implement order placement logic, e.g., calling a method in the OrderHandler class
-        OrderHandler.placeOrder(this, cartItems);
+        List<Product> cartItems = shoppingCart.displayCart();
+
+        if (cartItems.isEmpty()) {
+            System.out.println("Cart is empty. Unable to place order.");
+            return;
+        }
+
+        System.out.println("Total Price: $" + shoppingCart.calculateTotalPrice());
+        System.out.println("Order Placed Successfully!");
+
+        Order order = new Order(cartItems, this);
         shoppingCart.clearCart();
     }
 

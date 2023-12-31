@@ -10,7 +10,7 @@ public class Order {
     private final Date dateTime;
     private final String customerId;
     private final List<Product> orderDetails;
-    private final OrderStatus orderStatus;
+    private OrderStatus orderStatus;
     private final LocalDateTime orderDate;
     private final LocalDateTime orderTime;
 
@@ -26,6 +26,18 @@ public class Order {
         this.orderDetails = orderDetails;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
+        this.orderTime = LocalDateTime.now();
+    }
+
+    public Order(List<Product> cartItems, User user) {
+        this.orderId = "ORD" + (OrderManager.getOrders().size() + 1);
+        this.username = user.getUsername();
+        this.products = cartItems;
+        this.dateTime = new Date();
+        this.customerId = user.getUserId();
+        this.orderDetails = cartItems;
+        this.orderStatus = OrderStatus.PENDING;
+        this.orderDate = LocalDateTime.now();
         this.orderTime = LocalDateTime.now();
     }
 
@@ -77,5 +89,9 @@ public class Order {
                 ", orderDate=" + orderDate +
                 ", orderTime=" + orderTime +
                 '}';
+    }
+
+    public void setOrderStatus(OrderStatus newStatus) {
+        this.orderStatus = newStatus;
     }
 }

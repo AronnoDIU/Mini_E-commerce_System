@@ -1,13 +1,15 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class OrderManager {
-    private final List<Order> orders;
+    private static final List<Order> orders;
 
     // Constructor
     public OrderManager() {
-        this.orders = new ArrayList<>();
+        orders = new ArrayList<>();
+    }
+
+    public static Collection<Object> getOrders() {
+        return Collections.singleton(orders);
     }
 
     // Create a new order

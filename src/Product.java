@@ -20,6 +20,28 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
+    // Constructor for ShoppingCart
+    public Product(Product product, int quantity) {
+        this.productId = product.getProductId();
+        this.name = product.getName();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
+        this.category = product.getCategory();
+        this.stockQuantity = product.getStockQuantity();
+    }
+
+    private int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    private Category getCategory() {
+        return category;
+    }
+
+    private String getDescription() {
+        return description;
+    }
+
     public static Product createProductFromConsoleInput(Scanner scanner) {
         try (scanner) {
             System.out.println("Enter product name:");
@@ -114,5 +136,13 @@ public class Product {
                 ", category=" + category +
                 ", stockQuantity=" + stockQuantity +
                 '}';
+    }
+
+    public Product getProduct() {
+        return this;
+    }
+
+    public double getQuantity() {
+        return 0;
     }
 }

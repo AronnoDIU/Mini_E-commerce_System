@@ -11,8 +11,14 @@ public class ShoppingCart {
         this.totalPrice = 0.0;
     }
 
+    public void addItem(Product product, int quantity) {
+        items.add(new Product(product, quantity));
+        totalPrice += product.getPrice() * quantity;
+        System.out.println(quantity + " " + product.getName() + " added to the cart.");
+    }
+
     // Remove a product from the cart
-    public void removeFromCart(int productId) {
+    public void removeFromCart(Product product, int productId) {
         for (Product product : items) {
             if (product.getProductId() == productId) {
                 items.remove(product);
@@ -34,7 +40,7 @@ public class ShoppingCart {
     // Calculate the total price of items in the cart
     public double calculateTotalPrice() {
         double total = 0.0;
-        for (CartItem item : cartItems) {
+        for (Product item : items) {
             total += item.getProduct().getPrice() * item.getQuantity();
         }
         return total;
@@ -47,16 +53,17 @@ public class ShoppingCart {
         for (Product product : items) {
             System.out.println(product.getName() + " - $" + product.getPrice());
         }
-        System.out.println("Total Price: $" + calculateTotal());
+        System.out.println("Total Price: $" + calculateTotalPrice());
         return new ArrayList<>(items);
     }
 
     // Apply a discount to the cart
     public void applyDiscount(double discountPercentage) {
         if (discountPercentage >= 0 && discountPercentage <= 100) {
-            double discountAmount = (discountPercentage / 100) * calculateTotal();
+            double discountAmount = (discountPercentage / 100) * totalPrice;
             totalPrice -= discountAmount;
-            System.out.println("Discount of $" + discountAmount + " applied. New total: $" + calculateTotal());
+            System.out.println("Discount of $" + discountAmount
+                    + " applied. New total: $" + calculateTotalPrice());
         } else {
             System.out.println("Invalid discount percentage. Please provide a percentage between 0 and 100.");
         }
