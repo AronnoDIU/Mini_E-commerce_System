@@ -1,5 +1,4 @@
 import java.io.*;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -98,7 +97,7 @@ public class FileHandler {
                 Order order = new Order(orderId, username, parseProducts(products), dateTime);
                 orders.add(order);
             }
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             System.out.println("Error reading from the file: " + e.getMessage());
         }
         return orders;
