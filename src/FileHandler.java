@@ -97,8 +97,11 @@ public class FileHandler {
                 Order order = new Order(orderId, username, parseProducts(products), dateTime);
                 orders.add(order);
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ArrayIndexOutOfBoundsException occurred.");
+            System.out.println("The file may be corrupted.");
         } catch (IOException e) {
-            System.out.println("Error reading from the file: " + e.getMessage());
+            throw new RuntimeException(e);
         }
         return orders;
     }
