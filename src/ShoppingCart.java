@@ -18,7 +18,7 @@ public class ShoppingCart {
     }
 
     // Remove a product from the cart
-    public void removeFromCart(Product product, int productId) {
+    public void removeFromCart(int productId) {
         for (Product product : items) {
             if (product.getProductId() == productId) {
                 items.remove(product);
@@ -67,5 +67,10 @@ public class ShoppingCart {
         } else {
             System.out.println("Invalid discount percentage. Please provide a percentage between 0 and 100.");
         }
+    }
+
+    public void addItem(Product product) {
+        items.add(product);
+        totalPrice += product.getPrice();
     }
 }

@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Admin extends User {
@@ -26,8 +27,8 @@ public class Admin extends User {
 
     // Add a product to the catalog
     public void addProduct(Product product) {
-        // Implement logic to add a new product, e.g., calling a method in the ProductHandler class
-        ProductHandler.addProduct(product);
+        productCatalog.addProduct(product);
+        logSuccess("Product added");
         LOGGER.log(Level.INFO, "New product added by admin {0}: {1}.",
                 new Object[]{getUsername(), product.getName()});
     }
@@ -67,12 +68,13 @@ public class Admin extends User {
 
     public void placeOrder(List<Product> products) {
         shoppingCart.clearCart();
-        Order newOrder = new Order(products, this, this.getShoppingCart());
+        products.forEach(shoppingCart::addItem);
+        Order newOrder = new Order(shoppingCart.displayCart(), this);
         orderManager.createOrder(newOrder);
         System.out.println("Order placed successfully!");
     }
 
-    public void viewCart() {
+    public List<Product> viewCart() {
         List<Product> cartItems = shoppingCart.displayCart();
 
         if (cartItems.isEmpty()) {
@@ -83,9 +85,10 @@ public class Admin extends User {
                 System.out.println(product); // Assuming you have a proper toString method in Product class
             }
         }
+        return cartItems;
     }
 
-    public void viewOrderHistory() {
+    public List<Order> viewOrderHistory() {
         List<Order> orders = orderManager.getAllOrders();
 
         if (orders.isEmpty()) {
@@ -96,11 +99,12 @@ public class Admin extends User {
                 System.out.println(order); // Assuming you have a proper toString method in Order class
             }
         }
+        return orders;
     }
 
-        public void updateOrderStatus (Order order, OrderStatus newStatus){
-            order.setStatus(newStatus);
-            LOGGER.log(Level.INFO, "Order {0} status updated to {1} by admin {2}.",
-                    new Object[]{order.getOrderId(), newStatus, getUsername()});
-        }
+    public void updateOrderStatus(Order order, OrderStatus newStatus) {
+        order.setStatus(newStatus);
+        LOGGER.log(Level.INFO, "Order {0} status updated to {1} by admin {2}.",
+                new Object[]{order.getOrderId(), newStatus, getUsername()});
     }
+}

@@ -41,6 +41,18 @@ public class Order {
         this.orderTime = LocalDateTime.now();
     }
 
+    public Order(String orderId, String username, List<Product> products, LocalDateTime dateTime) {
+        this.orderId = orderId;
+        this.username = username;
+        this.products = products;
+        this.dateTime = new Date();
+        this.customerId = "CUST" + (OrderManager.getOrders().size() + 1);
+        this.orderDetails = products;
+        this.orderStatus = OrderStatus.PENDING;
+        this.orderDate = LocalDateTime.now();
+        this.orderTime = LocalDateTime.now();
+    }
+
     public LocalDateTime getOrderTime() {
         return orderTime;
     }
@@ -92,6 +104,14 @@ public class Order {
     }
 
     public void setOrderStatus(OrderStatus newStatus) {
+        this.orderStatus = newStatus;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setStatus(OrderStatus newStatus) {
         this.orderStatus = newStatus;
     }
 }

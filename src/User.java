@@ -1,6 +1,5 @@
 import java.util.List;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 public class User {
     private String name;
@@ -30,6 +29,22 @@ public class User {
         this.username = username;
         this.password = password;
         this.name = name;
+        this.shoppingCart = new ShoppingCart();
+        this.orderManager = new OrderManager();
+    }
+
+    public User(String userId, String username, String password, String address, String email) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.email = email;
+        this.shoppingCart = new ShoppingCart();
+        this.orderManager = new OrderManager();
+    }
+
+    public User(String loggedInUser) {
+        this.username = loggedInUser;
         this.shoppingCart = new ShoppingCart();
         this.orderManager = new OrderManager();
     }
@@ -135,22 +150,23 @@ public class User {
         System.out.println("Profile updated successfully!");
     }
 
-    public void viewCart() {
+    public List<Product> viewCart() {
         System.out.println("Shopping Cart Contents:");
         shoppingCart.displayCart();
         System.out.println("Total Price: $" + shoppingCart.calculateTotalPrice());
+        return shoppingCart.displayCart();
     }
 
     public void addToCart(Product product, int quantity) {
         shoppingCart.addItem(product, quantity);
     }
 
-    public void removeCartItem(Product product, int quantity) {
-        shoppingCart.removeFromCart(product, quantity);
+    public void removeCartItem(int quantity) {
+        shoppingCart.removeFromCart(quantity);
     }
 
-    public void placeOrder() {
-        List<Product> cartItems = shoppingCart.displayCart();
+    public void placeOrder(List<Product> cartItems) {
+        cartItems = shoppingCart.displayCart();
 
         if (cartItems.isEmpty()) {
             System.out.println("Cart is empty. Unable to place order.");
