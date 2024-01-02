@@ -28,11 +28,6 @@ public class Admin extends User {
         System.out.println("Product updated" + " successfully!");
     }
 
-    public void manageUsers() {
-        // Manage users
-        System.out.println("Users managed by admin.");
-    }
-
     public void placeOrder(List<Product> products) {
         shoppingCart.clearCart();
         products.forEach(shoppingCart::addItem);
