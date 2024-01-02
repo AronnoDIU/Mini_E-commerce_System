@@ -17,10 +17,6 @@ public class Admin extends User {
         this.shoppingCart = new ShoppingCart();
     }
 
-    public ProductCatalog getProductCatalog() {
-        return productCatalog;
-    }
-
     public OrderManager getOrderManager() {
         return orderManager;
     }
