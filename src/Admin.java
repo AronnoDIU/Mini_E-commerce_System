@@ -17,14 +17,6 @@ public class Admin extends User {
         this.shoppingCart = new ShoppingCart();
     }
 
-    // Add a product to the catalog
-    public void addProduct(Product product) {
-        productCatalog.addProduct(product);
-        logSuccess("Product added");
-        LOGGER.log(Level.INFO, "New product added by admin {0}: {1}.",
-                new Object[]{getUsername(), product.getName()});
-    }
-
     // Remove a product from the catalog
     public void removeProduct(Integer productId) {
         try {
