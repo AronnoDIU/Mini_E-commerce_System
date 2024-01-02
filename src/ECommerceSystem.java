@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ECommerceSystem {
     private final FileHandler fileHandler;
-    private final Authentication authentication;
+    private final Authentication<User> authentication;
     private final Inventory inventory;
     private final OrderManager orderManager;
     private final ProductManager productManager;
@@ -17,7 +17,7 @@ public class ECommerceSystem {
 
     public ECommerceSystem() {
         this.fileHandler = new FileHandler("users.txt");
-        this.authentication = new Authentication(new FileHandler("users.txt"));
+        this.authentication = new Authentication<>(fileHandler);
         this.inventory = new Inventory();
         this.orderManager = new OrderManager();
         this.productManager = new ProductManager();
