@@ -28,11 +28,6 @@ public class Admin extends User {
         System.out.println("Product updated" + " successfully!");
     }
 
-    public void viewProductStats() {
-        // View product statistics
-        productCatalog.viewProductStatistics();
-    }
-
     public void manageUsers() {
         // Manage users
         System.out.println("Users managed by admin.");
