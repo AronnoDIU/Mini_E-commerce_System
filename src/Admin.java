@@ -17,18 +17,6 @@ public class Admin extends User {
         this.shoppingCart = new ShoppingCart();
     }
 
-    // Remove a product from the catalog
-    public void removeProduct(Integer productId) {
-        try {
-            productCatalog.removeProduct(productId);
-            System.out.println("Product removed successfully!");
-        } catch (ProductNotFoundException e) {
-            System.out.println("Product not found: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error removing product: " + e.getMessage());
-        }
-    }
-
 
     // Update an existing product
     public void updateProduct(Product product) {
