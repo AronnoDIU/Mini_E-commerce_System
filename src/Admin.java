@@ -21,11 +21,11 @@ public class Admin extends User {
     // Update an existing product
     public void updateProduct(Product product) {
         productCatalog.updateProduct(product);
-        logSuccess("Product updated");
+        logSuccess();
     }
 
-    private void logSuccess(String action) {
-        System.out.println(action + " successfully!");
+    private void logSuccess() {
+        System.out.println("Product updated" + " successfully!");
     }
 
     public void viewProductStats() {
