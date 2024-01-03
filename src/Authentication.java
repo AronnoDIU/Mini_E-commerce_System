@@ -31,7 +31,6 @@ public class Authentication<T extends User> {
     // Login
     public User login(String username, String password) {
         if (userCredentials.containsKey(username)) {
-//            String hashedPassword = userCredentials.get(username);
             if (userCredentials.get(username).equals(password)) {
                 loggedInUser = username;
                 System.out.println("Login successful. Welcome, " + username + "!");
