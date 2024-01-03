@@ -61,7 +61,7 @@ public class FileHandler {
         return entities;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // Write entities to a file using a generic method
     public Map<String, String> readUserCredentials() {
         try (ObjectInputStream ois = new ObjectInputStream
                 (new FileInputStream("user_credentials.txt"))) {
