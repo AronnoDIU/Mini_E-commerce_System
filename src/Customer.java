@@ -47,9 +47,7 @@ public class Customer extends User {
     @Override
     public String toString() {
         return "Customer{" +
-                "userId='" + getUserId() + '\'' +
-                ", username='" + getUsername() + '\'' +
-                ", cart=" + cart +
+                "cart=" + cart +
                 ", orderHistory=" + orderHistory +
                 '}';
     }
