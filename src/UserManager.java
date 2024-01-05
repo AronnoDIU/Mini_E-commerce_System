@@ -47,17 +47,17 @@ public class UserManager {
                 scanner.nextLine(); // Consume the newline character
 
                 switch (choice) {
-                    case 1:
+                    case 1: // For Add User
                         addUser();
                         break;
-                    case 2:
+                    case 2: // For Remove User
                         removeUser();
                         break;
-                    case 3:
+                    case 3: // For Update User
                         updateUser();
                         break;
-                    case 4:
-                        return; // Exit User Management
+                    case 4: // For Exit User Management
+                        return;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
