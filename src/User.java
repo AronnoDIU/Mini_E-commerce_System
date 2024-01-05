@@ -188,7 +188,7 @@ public class User {
         } else {
             System.out.println("Order History:");
             for (Order order : orders) {
-                System.out.println(order); // Assuming you have a proper toString method in Order class
+                System.out.println(order);
             }
         }
 
