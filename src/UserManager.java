@@ -96,6 +96,7 @@ public class UserManager {
         System.out.print("Enter username to remove: ");
         String usernameToRemove = scanner.nextLine();
 
+        // Remove the user if it exists
         if (users.containsKey(usernameToRemove)) {
             users.remove(usernameToRemove);
             System.out.println("User removed successfully.");
