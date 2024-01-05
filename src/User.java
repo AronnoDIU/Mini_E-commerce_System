@@ -231,10 +231,10 @@ public class User {
     public double calculateTotal() {
         double total = 0.0;
 
+        // Calculate the total price of items in the cart and return it
         for (Product product : shoppingCart.displayCart()) {
             total += product.getPrice();
         }
-
         return total;
     }
 }
