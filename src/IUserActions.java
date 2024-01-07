@@ -5,7 +5,7 @@ import java.util.List;
  */
 public interface IUserActions {
     /**
-     * View the user's profile.
+     * View the user's 
      */
     void viewProfile();
 
