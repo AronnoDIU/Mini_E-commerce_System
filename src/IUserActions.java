@@ -4,8 +4,7 @@ import java.util.List;
  * The {@code IUserActions} interface defines actions that can be performed by a user in the system.
  */
 public interface IUserActions {
-    /**
-     * 
+    
     void viewProfile();
 
     /**
