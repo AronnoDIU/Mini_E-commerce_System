@@ -12,7 +12,7 @@ public class UserManager {
     }
 
     private void initializeUsers() {
-        // Example
+        // 
         Admin admin = new Admin("admin", "admin123", "Admin User",
                 new ProductCatalog(), new OrderManager());
         users.put(admin.getUsername(), admin);
