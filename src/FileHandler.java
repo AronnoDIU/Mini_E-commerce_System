@@ -13,7 +13,7 @@ public class FileHandler {
     private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private final String filePath;
-    static final String delimiter = ",";  // Add
+    static final String delimiter = ",";
 
     // Constructor
     public FileHandler(String filePath) {
