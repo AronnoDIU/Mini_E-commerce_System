@@ -23,7 +23,7 @@ public class ECommerceSystem {
         this.productManager = new ProductManager();
         this.userManager = new UserManager();
         this.productCatalog = new ProductCatalog();
-        ordersList = new ArrayList<>(); // Initialize the list of
+        ordersList = new ArrayList<>(); // Initialize the
         currentUser = null; // No user is logged in initially
         this.scanner = new Scanner(System.in);
         loadInitialProducts();
