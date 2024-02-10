@@ -3,7 +3,7 @@ import java.util.*;
 public class OrderManager {
     private static List<Order> orders = new ArrayList<>();
 
-    // Const
+    //
     public OrderManager() {
         orders = new ArrayList<>();
     }
