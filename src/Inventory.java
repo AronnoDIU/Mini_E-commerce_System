@@ -9,7 +9,7 @@ public class Inventory {
     private Map<Product, Integer> stockLevels;
     private Map<Product, String> suppliers;
 
-    // Constructors
+    // Construct
     public Inventory() {
         this.stockLevels = new HashMap<>();
         this.suppliers = new HashMap<>();
