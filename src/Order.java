@@ -14,7 +14,7 @@ public class Order {
     private final LocalDateTime orderDate;
     private final LocalDateTime orderTime;
 
-    // Constructor for creating an order with specified parameters
+    // Constructor Creating an order with specified parameters
     public Order(String orderId, String username, List<Product> products, Date dateTime,
                  String customerId, List<Product> orderDetails, OrderStatus orderStatus,
                  LocalDateTime orderDate) {
