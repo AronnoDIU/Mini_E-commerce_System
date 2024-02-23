@@ -5,7 +5,7 @@ public class ShoppingCart {
     private final List<Product> items;
     private double totalPrice;
 
-    // Construct
+    // Const
     public ShoppingCart() {
         this.items = new ArrayList<>();
         this.totalPrice = 0.0;
