@@ -6,7 +6,6 @@ public class Authentication<T extends User> {
     private final Map<String, String> userCredentials;
     private String loggedInUser;
 
-    // Co
     public Authentication(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
 
