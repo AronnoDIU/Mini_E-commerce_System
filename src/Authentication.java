@@ -19,7 +19,6 @@ public class Authentication<T extends User> {
         if (userCredentials.containsKey(username)) {
             System.out.println("Username already exists. Please choose another username.");
         } else {
-//            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt())
             userCredentials.put(username, password);
             fileHandler.writeUserCredentials(userCredentials.toString()); // Save updated credentials to file
             System.out.println("Registration successful. Welcome, " + username + "!");
