@@ -8,7 +8,6 @@ public class Admin extends User {
     private final OrderManager orderManager;
     private final ShoppingCart shoppingCart;
 
-    // C
     public Admin(String username, String password, String name,
                  ProductCatalog productCatalog, OrderManager orderManager) {
         super(username, password, name);
