@@ -17,7 +17,7 @@ public class Admin extends User {
     }
 
 
-    // Update an existing product
+    // Update an existing
     public void updateProduct(Product product) {
         productCatalog.updateProduct(product);
         logSuccess();
