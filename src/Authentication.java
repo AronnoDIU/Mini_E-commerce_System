@@ -14,7 +14,7 @@ public class Authentication<T extends User> {
         this.loggedInUser = null;
     }
 
-    // Register a new use
+    // Register a new us
     public User register(String username, String password) {
         if (userCredentials.containsKey(username)) {
             System.out.println("Username already exists. Please choose another username.");
