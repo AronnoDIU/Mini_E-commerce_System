@@ -9,7 +9,7 @@ public class Authentication<T extends User> {
     public Authentication(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
 
-        // Load ex
+        // Load e
         this.userCredentials = fileHandler.readUserCredentials();
         this.loggedInUser = null;
     }
