@@ -24,7 +24,7 @@ public class Authentication<T extends User> {
         return new User(username, password, username);
     }
 
-    // Login
+    // U Login
     public User login(String username, String password) {
         if (userCredentials.containsKey(username)) {
             if (userCredentials.get(username).equals(password)) {
