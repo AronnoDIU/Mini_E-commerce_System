@@ -18,7 +18,7 @@ public class Authentication<T extends User> {
             System.out.println("Username already exists. Please choose another username.");
         } else {
             userCredentials.put(username, password);
-            fileHandler.writeUserCredentials(userCredentials.toString()); // Save updated credential
+            fileHandler.writeUserCredentials(userCredentials.toString()); // Save updated credentia
             System.out.println("Registration successful. Welcome, " + username + "!");
         }
         return new User(username, password, username);
