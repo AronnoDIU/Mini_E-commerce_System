@@ -38,7 +38,7 @@ public class Authentication<T extends User> {
         return loggedInUser != null ? new User(loggedInUser) : null;
     }
 
-    // User Lo
+    // User L
     public void logout() {
         if (loggedInUser != null) {
             System.out.println("Logout successful. Goodbye, " + loggedInUser + "!");
