@@ -38,7 +38,6 @@ public class Customer extends User {
         return this.shoppingCart;
     }
 
-
     // Getter for order history
     public List<Order> getOrderHistory() {
         return orderHistory;
