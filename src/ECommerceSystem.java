@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ECommerceSystem {
     private final FileHandler fileHandler; // Add fileHandler declaration
     private final Authentication<User> authentication; // Add authentication declaration
-    private final Inventory inventory; // Add invento
+    private final Inventory inventory; // Add invent
     private final OrderManager orderManager;
     private final ProductManager productManager;
     private final UserManager userManager;
