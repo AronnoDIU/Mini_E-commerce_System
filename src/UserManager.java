@@ -46,7 +46,7 @@ public class UserManager {
                 scanner.nextLine(); // Consume the newline character
 
                 switch (choice) {
-                    case 1: // For Add User
+                    case 1: // For Add Use
                         addUser();
                         break;
                     case 2: // For Remove User
