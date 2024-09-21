@@ -66,7 +66,7 @@ public class ECommerceSystem {
             displayAuthenticationMenu(); // Display the authentication menu
 
             int authChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
+            scanner.nextLine(); // Consume the newline characte
 
             switch (authChoice) {
                 case 1: // For Log in
