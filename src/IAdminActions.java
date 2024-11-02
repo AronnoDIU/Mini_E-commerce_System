@@ -12,7 +12,7 @@ public interface IAdminActions {
     void viewProductStats();
 
     /**
-     * Manage users, including tasks such as creati
+     * Manage users, including tasks such as creat
      */
     void manageUsers();
 }
