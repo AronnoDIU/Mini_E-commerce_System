@@ -12,7 +12,7 @@ public interface IAdminActions {
     void viewProductStats();
 
     /**
-     * Ma
+     * M
      */
     void manageUsers();
 }
