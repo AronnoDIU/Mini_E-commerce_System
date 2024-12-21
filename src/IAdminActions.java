@@ -13,6 +13,5 @@ public interface IAdminActions {
 
     /**
      * 
-
     void manageUsers();
 }
