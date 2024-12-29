@@ -11,6 +11,6 @@ public interface IAdminActions {
      */
     void viewProductStats();
 
-    /**
+    /*
     void manageUsers();
 }
