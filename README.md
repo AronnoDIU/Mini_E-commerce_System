@@ -19,6 +19,7 @@ This is a Mini E-commerce System that allows users to browse and purchase produc
 - Product browsing: Users can browse through a catalog of products.
 - Shopping cart: Users can add products to their shopping carts and proceed to checkout.
 - Order management: Users can view their order history and track the status of their orders.
+- Wishlist management: Users can add products to their wishlist, view their wishlist, and move items from the wishlist to the cart.
 
 ## Installation
 

@@ -54,8 +54,11 @@ public class ECommerceSystem {
         System.out.println("14. Manage Users (Admin only)");
         System.out.println("15. Update Order Status (Admin only)");
         System.out.println("16. Manage Inventory (Admin only)");
-        System.out.println("17. Logout");
-        System.out.println("18. Exit the system");
+        System.out.println("17. Add to Wishlist");
+        System.out.println("18. View Wishlist");
+        System.out.println("19. Move Item from Wishlist to Cart");
+        System.out.println("20. Logout");
+        System.out.println("21. Exit the system");
         System.out.print("Enter your choice: ");
     }
 
@@ -66,7 +69,7 @@ public class ECommerceSystem {
             displayAuthenticationMenu(); // Display the authentication menu
 
             int authChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline characte
+            scanner.nextLine(); // Consume the newline character
 
             switch (authChoice) {
                 case 1: // For Log in
@@ -153,10 +156,19 @@ public class ECommerceSystem {
                     case 16: // For Manage Inventory (Admin only)
                         manageInventory();
                         break;
-                    case 17: // For Logout
+                    case 17: // For Add to Wishlist
+                        addToWishlist();
+                        break;
+                    case 18: // For View Wishlist
+                        viewWishlist();
+                        break;
+                    case 19: // For Move Item from Wishlist to Cart
+                        moveItemFromWishlistToCart();
+                        break;
+                    case 20: // For Logout
                         logout();
                         break;
-                    case 18: // For Exit
+                    case 21: // For Exit
                         exit();
                         break;
                     default:
@@ -641,6 +653,36 @@ public class ECommerceSystem {
             fileHandler.writeFile(content.toString());
         } catch (IOException e) {
             System.out.println("Error writing orders to the file: " + e.getMessage());
+        }
+    }
+
+    private void addToWishlist() {
+        System.out.print("Enter Product ID to add to wishlist: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = getProductById(productId);
+        if (product != null) {
+            currentUser.addToWishlist(product);
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    private void viewWishlist() {
+        currentUser.viewWishlist();
+    }
+
+    private void moveItemFromWishlistToCart() {
+        System.out.print("Enter Product ID to move from wishlist to cart: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = getProductById(productId);
+        if (product != null) {
+            currentUser.moveToCartFromWishlist(product);
+        } else {
+            System.out.println("Product not found.");
         }
     }
 }

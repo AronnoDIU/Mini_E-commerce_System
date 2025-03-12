@@ -10,6 +10,7 @@ public class User {
     private String email;
     ShoppingCart shoppingCart;
     private final OrderManager orderManager;
+    private final Wishlist wishlist;
 
     // Constructors
     public User(String name, String userId, String username,
@@ -22,6 +23,7 @@ public class User {
         this.email = email;
         this.shoppingCart = new ShoppingCart();
         this.orderManager = new OrderManager();
+        this.wishlist = new Wishlist();
     }
 
     // Constructor for Admin
@@ -31,6 +33,7 @@ public class User {
         this.name = name;
         this.shoppingCart = new ShoppingCart();
         this.orderManager = new OrderManager();
+        this.wishlist = new Wishlist();
     }
 
     public User(String userId, String username, String password, String address, String email) {
@@ -41,12 +44,14 @@ public class User {
         this.email = email;
         this.shoppingCart = new ShoppingCart();
         this.orderManager = new OrderManager();
+        this.wishlist = new Wishlist();
     }
 
     public User(String loggedInUser) {
         this.username = loggedInUser;
         this.shoppingCart = new ShoppingCart();
         this.orderManager = new OrderManager();
+        this.wishlist = new Wishlist();
     }
 
     // Getters
@@ -72,6 +77,10 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public Wishlist getWishlist() {
+        return wishlist;
     }
 
     // Setters
@@ -205,22 +214,19 @@ public class User {
                 ", email='" + email + '\'' +
                 ", shoppingCart=" + shoppingCart +
                 ", orderManager=" + orderManager +
+                ", wishlist=" + wishlist +
                 '}';
     }
 
     public void applyDiscount(double discountPercentage) {
-        if (shoppingCart != null) {
-            double total = calculateTotal();
-            double discountedTotal = total - (total * discountPercentage / 100);
+        double total = calculateTotal();
+        double discountedTotal = total - (total * discountPercentage / 100);
 
-            if (discountedTotal < 0) {
-                System.out.println("Discount cannot result in a negative total. No changes applied.");
-            } else {
-                shoppingCart.applyDiscount(discountPercentage);
-                System.out.println("Discount applied successfully!");
-            }
+        if (discountedTotal < 0) {
+            System.out.println("Discount cannot result in a negative total. No changes applied.");
         } else {
-            System.out.println("Shopping cart is null. Cannot apply discount.");
+            shoppingCart.applyDiscount(discountPercentage);
+            System.out.println("Discount applied successfully!");
         }
     }
 
@@ -236,5 +242,31 @@ public class User {
             total += product.getPrice();
         }
         return total;
+    }
+
+    public void addToWishlist(Product product) {
+        wishlist.addItem(product);
+    }
+
+    public void viewWishlist() {
+        List<Product> wishlistItems = wishlist.viewWishlist();
+        if (wishlistItems.isEmpty()) {
+            System.out.println("Wishlist is empty.");
+        } else {
+            System.out.println("Wishlist Contents:");
+            for (Product product : wishlistItems) {
+                System.out.println(product);
+            }
+        }
+    }
+
+    public void moveToCartFromWishlist(Product product) {
+        if (wishlist.viewWishlist().contains(product)) {
+            addToCart(product, 1);
+            wishlist.removeItem(product);
+            System.out.println("Product moved from wishlist to cart: " + product.getName());
+        } else {
+            System.out.println("Product not found in wishlist.");
+        }
     }
 }
