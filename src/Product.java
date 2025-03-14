@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Product {
@@ -8,6 +10,7 @@ public class Product {
     private double price;
     private Category category;
     private int stockQuantity;
+    private final List<Review> reviews;
 
     // Constructor
     public Product(Integer productId, String name,
@@ -18,16 +21,29 @@ public class Product {
         this.price = price;
         this.category = category;
         this.stockQuantity = stockQuantity;
+        this.reviews = new ArrayList<>();
     }
 
     // Constructor for ShoppingCart
-    public Product(Product product, int quantity) {
+    public Product(Product product, int quantity, List<Review> reviews) {
         this.productId = product.getProductId();
         this.name = product.getName();
         this.description = product.getDescription();
         this.price = product.getPrice();
         this.category = product.getCategory();
         this.stockQuantity = product.getStockQuantity();
+        this.reviews = reviews;
+    }
+
+    // Constructor for ShoppingCart with quantity
+    public Product(Product product, int quantity) {
+        this.productId = product.getProductId();
+        this.name = product.getName();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
+        this.category = product.getCategory();
+        this.stockQuantity = quantity; // Set the stock quantity to the provided quantity
+        this.reviews = new ArrayList<>(product.getReviews());
     }
 
     private int getStockQuantity() {
@@ -144,5 +160,13 @@ public class Product {
 
     public double getQuantity() {
         return 0;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
+
+    public List<Review> getReviews() {
+        return new ArrayList<>(reviews);
     }
 }
