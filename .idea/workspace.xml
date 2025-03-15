@@ -4,45 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Mini E-commerce System">
-      <change afterPath="$PROJECT_DIR$/src/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/jpa-buddy.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mini_E-commerce_System.iml" beforeDir="false" />
+    <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Add product review feature and update .gitignore&#10;&#10;- Implement `Review` class to represent product reviews.&#10;- Update `Product` class to include a list of reviews and methods to add/view reviews.&#10;- Add methods in `ECommerceSystem` to handle adding and viewing reviews.&#10;- Update `.gitignore` to ignore `.idea/workspace.xml` and `users.txt`.">
+      <change afterPath="$PROJECT_DIR$/src/Rating.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ECommerceSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECommerceSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../products.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Admin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Authentication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Category.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Customer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/ECommerceSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/FileHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/IAdminActions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/IUserActions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Inventory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Item.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/OrderManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/OrderStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/PaymentProcessor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/ProductCatalog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/ProductManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/ProductNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/ShoppingCart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/UserManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_credentials.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../users.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,15 +102,8 @@
       <workItem from="1704295985125" duration="1233000" />
       <workItem from="1704454605668" duration="630000" />
       <workItem from="1741789129668" duration="2241000" />
-      <workItem from="1741944090807" duration="1734000" />
-    </task>
-    <task id="LOCAL-00046" summary="Mini E-commerce System">
-      <option name="closed" value="true" />
-      <created>1703801417065</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1703801417065</updated>
+      <workItem from="1741944090807" duration="1803000" />
+      <workItem from="1742037677827" duration="391000" />
     </task>
     <task id="LOCAL-00047" summary="Mini E-commerce System">
       <option name="closed" value="true" />
@@ -530,7 +489,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704296214153</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="Add product review feature and update .gitignore&#10;&#10;- Implement `Review` class to represent product reviews.&#10;- Update `Product` class to include a list of reviews and methods to add/view reviews.&#10;- Add methods in `ECommerceSystem` to handle adding and viewing reviews.&#10;- Update `.gitignore` to ignore `.idea/workspace.xml` and `users.txt`.">
+      <option name="closed" value="true" />
+      <created>1741946180350</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1741946180351</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,6 +506,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Mini E-commerce System" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mini E-commerce System" />
+    <MESSAGE value="Add product review feature and update .gitignore&#10;&#10;- Implement `Review` class to represent product reviews.&#10;- Update `Product` class to include a list of reviews and methods to add/view reviews.&#10;- Add methods in `ECommerceSystem` to handle adding and viewing reviews.&#10;- Update `.gitignore` to ignore `.idea/workspace.xml` and `users.txt`." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add product review feature and update .gitignore&#10;&#10;- Implement `Review` class to represent product reviews.&#10;- Update `Product` class to include a list of reviews and methods to add/view reviews.&#10;- Add methods in `ECommerceSystem` to handle adding and viewing reviews.&#10;- Update `.gitignore` to ignore `.idea/workspace.xml` and `users.txt`." />
   </component>
 </project>

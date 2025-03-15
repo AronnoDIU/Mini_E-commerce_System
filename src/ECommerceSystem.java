@@ -59,8 +59,10 @@ public class ECommerceSystem {
         System.out.println("19. Move Item from Wishlist to Cart");
         System.out.println("20. Add Review");
         System.out.println("21. View Reviews");
-        System.out.println("22. Logout");
-        System.out.println("23. Exit the system");
+        System.out.println("22. Add Rating");
+        System.out.println("23. View Ratings");
+        System.out.println("24. Logout");
+        System.out.println("25. Exit the system");
         System.out.print("Enter your choice: ");
     }
 
@@ -173,10 +175,16 @@ public class ECommerceSystem {
                     case 21: // For View Reviews
                         viewReviews();
                         break;
-                    case 22: // For Logout
+                    case 22: // For Add Rating
+                        addRating();
+                        break;
+                    case 23: // For View Ratings
+                        viewRatings();
+                        break;
+                    case 24: // For Logout
                         logout();
                         break;
-                    case 23: // For Exit
+                    case 25: // For Exit
                         exit();
                         return;
                     default:
@@ -730,6 +738,46 @@ public class ECommerceSystem {
                 System.out.println("Reviews for " + product.getName() + ":");
                 for (Review review : reviews) {
                     System.out.println(review);
+                }
+            }
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    private void addRating() {
+        System.out.print("Enter Product ID to rate: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = getProductById(productId);
+        if (product != null) {
+            System.out.print("Enter your rating (1-5): ");
+            int ratingValue = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            Rating rating = new Rating(currentUser.getUsername(), ratingValue);
+            product.addRating(rating);
+            System.out.println("Rating added successfully.");
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    private void viewRatings() {
+        System.out.print("Enter Product ID to view ratings: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = getProductById(productId);
+        if (product != null) {
+            List<Rating> ratings = product.getRatings();
+            if (ratings.isEmpty()) {
+                System.out.println("No ratings for this product.");
+            } else {
+                System.out.println("Ratings for " + product.getName() + ":");
+                for (Rating rating : ratings) {
+                    System.out.println(rating);
                 }
             }
         } else {

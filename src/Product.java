@@ -11,6 +11,7 @@ public class Product {
     private Category category;
     private int stockQuantity;
     private final List<Review> reviews;
+    private final List<Rating> ratings;
 
     // Constructor
     public Product(Integer productId, String name,
@@ -22,10 +23,11 @@ public class Product {
         this.category = category;
         this.stockQuantity = stockQuantity;
         this.reviews = new ArrayList<>();
+        this.ratings = new ArrayList<>();
     }
 
     // Constructor for ShoppingCart
-    public Product(Product product, int quantity, List<Review> reviews) {
+    public Product(Product product, int quantity, List<Review> reviews, List<Rating> ratings) {
         this.productId = product.getProductId();
         this.name = product.getName();
         this.description = product.getDescription();
@@ -33,9 +35,21 @@ public class Product {
         this.category = product.getCategory();
         this.stockQuantity = product.getStockQuantity();
         this.reviews = reviews;
+        this.ratings = ratings;
     }
 
     // Constructor for ShoppingCart with quantity
+    public Product(Product product, int quantity, List<Rating> ratings) {
+        this.productId = product.getProductId();
+        this.name = product.getName();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
+        this.category = product.getCategory();
+        this.stockQuantity = quantity; // Set the stock quantity to the provided quantity
+        this.reviews = new ArrayList<>(product.getReviews());
+        this.ratings = ratings;
+    }
+
     public Product(Product product, int quantity) {
         this.productId = product.getProductId();
         this.name = product.getName();
@@ -44,6 +58,7 @@ public class Product {
         this.category = product.getCategory();
         this.stockQuantity = quantity; // Set the stock quantity to the provided quantity
         this.reviews = new ArrayList<>(product.getReviews());
+        this.ratings = new ArrayList<>(product.getRatings());
     }
 
     private int getStockQuantity() {
@@ -168,5 +183,13 @@ public class Product {
 
     public List<Review> getReviews() {
         return new ArrayList<>(reviews);
+    }
+
+    public void addRating(Rating rating) {
+        ratings.add(rating);
+    }
+
+    public List<Rating> getRatings() {
+        return new ArrayList<>(ratings);
     }
 }
