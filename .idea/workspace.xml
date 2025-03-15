@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Add product review feature and update .gitignore&#10;&#10;- Implement `Review` class to represent product reviews.&#10;- Update `Product` class to include a list of reviews and methods to add/view reviews.&#10;- Add methods in `ECommerceSystem` to handle adding and viewing reviews.&#10;- Update `.gitignore` to ignore `.idea/workspace.xml` and `users.txt`.">
-      <change afterPath="$PROJECT_DIR$/src/Rating.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ECommerceSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECommerceSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
-    </list>
+    <list default="true" id="ffb2068c-d58e-4233-af4f-0556f4fc6a7d" name="Changes" comment="Add product review feature and update .gitignore&#10;&#10;- Implement `Review` class to represent product reviews.&#10;- Update `Product` class to include a list of reviews and methods to add/view reviews.&#10;- Add methods in `ECommerceSystem` to handle adding and viewing reviews.&#10;- Update `.gitignore` to ignore `.idea/workspace.xml` and `users.txt`." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +98,7 @@
       <workItem from="1704454605668" duration="630000" />
       <workItem from="1741789129668" duration="2241000" />
       <workItem from="1741944090807" duration="1803000" />
-      <workItem from="1742037677827" duration="391000" />
+      <workItem from="1742037677827" duration="571000" />
     </task>
     <task id="LOCAL-00047" summary="Mini E-commerce System">
       <option name="closed" value="true" />
