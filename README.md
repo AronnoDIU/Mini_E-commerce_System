@@ -22,6 +22,7 @@ This is a Mini E-commerce System that allows users to browse and purchase produc
 - **Wishlist Management**: Users can add products to their wishlist, view their wishlist, and move items from the wishlist to the cart.
 - **Product Reviews**: Users can add and view reviews for products.
 - **Product Ratings**: Users can add and view ratings for products.
+- **Product Discounts**: Users can add and view discounts for products.
 - **Admin Features**: Admins can manage products, view product statistics, manage users, and update order statuses.
 - **Inventory Management**: Admins can manage product stock levels and suppliers.
 

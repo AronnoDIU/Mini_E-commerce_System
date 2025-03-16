@@ -12,6 +12,7 @@ public class Product {
     private int stockQuantity;
     private final List<Review> reviews;
     private final List<Rating> ratings;
+    private Discount discount;
 
     // Constructor
     public Product(Integer productId, String name,
@@ -24,6 +25,7 @@ public class Product {
         this.stockQuantity = stockQuantity;
         this.reviews = new ArrayList<>();
         this.ratings = new ArrayList<>();
+        this.discount = null;
     }
 
     // Constructor for ShoppingCart
@@ -143,6 +145,14 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
     private static void validatePrice(double price) {
         if (price < 0) {
             throw new IllegalArgumentException("Price must be non-negative.");
@@ -191,5 +201,12 @@ public class Product {
 
     public List<Rating> getRatings() {
         return new ArrayList<>(ratings);
+    }
+
+    public double getPriceAfterDiscount() {
+        if (discount != null) {
+            return price - (price * discount.getPercentage() / 100);
+        }
+        return price;
     }
 }

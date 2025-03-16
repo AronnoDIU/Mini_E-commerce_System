@@ -61,8 +61,10 @@ public class ECommerceSystem {
         System.out.println("21. View Reviews");
         System.out.println("22. Add Rating");
         System.out.println("23. View Ratings");
-        System.out.println("24. Logout");
-        System.out.println("25. Exit the system");
+        System.out.println("24. Add Discount");
+        System.out.println("25. View Discounts");
+        System.out.println("26. Logout");
+        System.out.println("27. Exit the system");
         System.out.print("Enter your choice: ");
     }
 
@@ -181,10 +183,16 @@ public class ECommerceSystem {
                     case 23: // For View Ratings
                         viewRatings();
                         break;
-                    case 24: // For Logout
+                    case 24: // For Add Discount
+                        addDiscount();
+                        break;
+                    case 25: // For View Discounts
+                        viewDiscounts();
+                        break;
+                    case 26: // For Logout
                         logout();
                         break;
-                    case 25: // For Exit
+                    case 27: // For Exit the system
                         exit();
                         return;
                     default:
@@ -779,6 +787,46 @@ public class ECommerceSystem {
                 for (Rating rating : ratings) {
                     System.out.println(rating);
                 }
+            }
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    private void addDiscount() {
+        System.out.print("Enter Product ID to add discount: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = getProductById(productId);
+        if (product != null) {
+            System.out.print("Enter discount percentage: ");
+            double percentage = scanner.nextDouble();
+            scanner.nextLine(); // Consume the newline character
+
+            System.out.print("Enter discount description: ");
+            String description = scanner.nextLine();
+
+            Discount discount = new Discount(percentage, description);
+            product.setDiscount(discount);
+            System.out.println("Discount added successfully.");
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    private void viewDiscounts() {
+        System.out.print("Enter Product ID to view discounts: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Product product = getProductById(productId);
+        if (product != null) {
+            Discount discount = product.getDiscount();
+            if (discount != null) {
+                System.out.println("Discount for " + product.getName() + ": " + discount);
+            } else {
+                System.out.println("No discount for this product.");
             }
         } else {
             System.out.println("Product not found.");
